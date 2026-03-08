@@ -5,10 +5,8 @@
     Wordmark: "VectorScaleDB" as single continuous word
   -->
 
-  <!-- Icon (64x64 design scaled to 44x44, centered vertically in 48px height) -->
-  <g transform="translate(2, 2) scale(0.6875)">
-    <rect width="64" height="64" rx="14" fill="#09090b"/>
-
+  <!-- Icon (64x64 design scaled to 48x48, filling full height) -->
+  <g transform="translate(0, 0) scale(0.75)">
     <!-- Temporal planes -->
     <polygon points="30,8 44,22 30,36 16,22" fill="#7c3aed" opacity="0.35"/>
     <polygon points="32,16 46,30 32,44 18,30" fill="#4f46e5" opacity="0.45"/>
@@ -34,5 +32,5 @@
   </g>
 
   <!-- Wordmark: "VectorScaleDB" as one continuous word -->
-  <text x="58" y="33" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="23" font-weight="700" letter-spacing="-0.5"><tspan fill="#e4e4e7">Vector</tspan><tspan fill="#2563eb">Scale</tspan><tspan fill="#e4e4e7">DB</tspan></text>
+  <text x="60" y="33" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="23" font-weight="700" letter-spacing="-0.5"><tspan fill="#e4e4e7">Vector</tspan><tspan fill="#2563eb">Scale</tspan><tspan fill="#e4e4e7">DB</tspan></text>
 </svg>
