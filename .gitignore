@@ -1,0 +1,23 @@
+# Project files (not part of the site deployment)
+crates/
+src/
+docs/
+benchmarks/
+migrations/
+proto/
+sdks/
+scripts/
+docker/
+target/
+Cargo.lock
+Cargo.toml
+.claude/
+.architect/
+*.rs
+*.toml
+!wrangler.toml
+CLAUDE.md
+CHANGELOG.md
+NOTICE
+LICENSE
+README.md
