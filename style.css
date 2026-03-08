@@ -74,12 +74,13 @@ nav .container {
 }
 
 nav .logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+}
+
+nav .logo img {
+  height: 36px;
+  width: auto;
 }
 
 nav .nav-links {
