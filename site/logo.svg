@@ -1,36 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 48">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64">
   <!--
     VectorScaleDB — Full Logo (Icon + Wordmark)
     Icon: Temporal Planes mark (three diamonds + convergence node)
     Wordmark: "VectorScaleDB" as single continuous word
   -->
 
-  <!-- Icon (64x64 design scaled to 48x48, filling full height) -->
-  <g transform="translate(0, 0) scale(0.75)">
+  <!-- Icon at native 64x64 size -->
+  <g transform="translate(-6, -4) scale(1.2)">
     <!-- Temporal planes -->
-    <polygon points="30,8 44,22 30,36 16,22" fill="#7c3aed" opacity="0.35"/>
-    <polygon points="32,16 46,30 32,44 18,30" fill="#4f46e5" opacity="0.45"/>
-    <polygon points="34,24 48,38 34,52 20,38" fill="#2563eb" opacity="0.6"/>
+    <polygon points="30,8 44,22 30,36 16,22" fill="#8b5cf6" opacity="0.75"/>
+    <polygon points="32,16 46,30 32,44 18,30" fill="#6366f1" opacity="0.8"/>
+    <polygon points="34,24 48,38 34,52 20,38" fill="#3b82f6" opacity="0.9"/>
 
     <!-- Data nodes -->
-    <circle cx="23" cy="22" r="1.5" fill="#a78bfa" opacity="0.6"/>
-    <circle cx="37" cy="22" r="1.5" fill="#a78bfa" opacity="0.5"/>
-    <circle cx="39" cy="30" r="1.5" fill="#818cf8" opacity="0.65"/>
-    <circle cx="25" cy="30" r="1.5" fill="#818cf8" opacity="0.55"/>
-    <circle cx="27" cy="38" r="1.5" fill="#60a5fa" opacity="0.7"/>
-    <circle cx="41" cy="38" r="1.5" fill="#60a5fa" opacity="0.6"/>
+    <circle cx="23" cy="22" r="1.8" fill="#c4b5fd" opacity="0.85"/>
+    <circle cx="37" cy="22" r="1.8" fill="#c4b5fd" opacity="0.75"/>
+    <circle cx="39" cy="30" r="1.8" fill="#a5b4fc" opacity="0.85"/>
+    <circle cx="25" cy="30" r="1.8" fill="#a5b4fc" opacity="0.75"/>
+    <circle cx="27" cy="38" r="1.8" fill="#93c5fd" opacity="0.9"/>
+    <circle cx="41" cy="38" r="1.8" fill="#93c5fd" opacity="0.8"/>
 
     <!-- Temporal edges -->
-    <line x1="23" y1="22" x2="25" y2="30" stroke="#c4b5fd" stroke-width="0.6" opacity="0.25"/>
-    <line x1="37" y1="22" x2="39" y2="30" stroke="#a5b4fc" stroke-width="0.6" opacity="0.25"/>
-    <line x1="25" y1="30" x2="27" y2="38" stroke="#93c5fd" stroke-width="0.6" opacity="0.25"/>
-    <line x1="39" y1="30" x2="41" y2="38" stroke="#93c5fd" stroke-width="0.6" opacity="0.25"/>
+    <line x1="23" y1="22" x2="25" y2="30" stroke="#e0e7ff" stroke-width="0.7" opacity="0.6"/>
+    <line x1="37" y1="22" x2="39" y2="30" stroke="#e0e7ff" stroke-width="0.7" opacity="0.6"/>
+    <line x1="25" y1="30" x2="27" y2="38" stroke="#bfdbfe" stroke-width="0.7" opacity="0.6"/>
+    <line x1="39" y1="30" x2="41" y2="38" stroke="#bfdbfe" stroke-width="0.7" opacity="0.6"/>
 
     <!-- Convergence -->
-    <circle cx="32" cy="30" r="8" fill="#3b82f6" opacity="0.1"/>
-    <circle cx="32" cy="30" r="3.5" fill="#fff" opacity="0.95"/>
+    <circle cx="32" cy="30" r="8" fill="#3b82f6" opacity="0.2"/>
+    <circle cx="32" cy="30" r="3.5" fill="#fff"/>
   </g>
 
   <!-- Wordmark: "VectorScaleDB" as one continuous word -->
-  <text x="60" y="33" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="23" font-weight="700" letter-spacing="-0.5"><tspan fill="#e4e4e7">Vector</tspan><tspan fill="#2563eb">Scale</tspan><tspan fill="#e4e4e7">DB</tspan></text>
+  <text x="57" y="42" font-family="Inter, system-ui, -apple-system, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.5"><tspan fill="#e4e4e7">Vector</tspan><tspan fill="#2563eb">Scale</tspan><tspan fill="#e4e4e7">DB</tspan></text>
 </svg>
