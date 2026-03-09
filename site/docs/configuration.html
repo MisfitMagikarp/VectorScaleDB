@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuration | VectorScaleDB Docs</title>
+  <meta name="description" content="Complete configuration reference for VectorScaleDB — environment variables, authentication, encryption, enterprise features, and deployment examples.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content">
+
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li>Docs</li>
+        <li>Configuration</li>
+      </ul>
+
+      <h1>Configuration Reference</h1>
+
+      <p>VectorScaleDB is configured entirely via environment variables. All variables use the <code>VSDB_</code> prefix.</p>
+
+      <!-- Core Settings -->
+      <h2 id="core-settings">Core Settings</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_HOST</code></td>
+            <td>string</td>
+            <td><code>0.0.0.0</code></td>
+            <td>Listen address</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_PORT</code></td>
+            <td>integer</td>
+            <td><code>8080</code></td>
+            <td>Listen port</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_MONGODB_URI</code></td>
+            <td>string</td>
+            <td><code>mongodb://localhost:27017</code></td>
+            <td>MongoDB connection string</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_DATABASE_NAME</code></td>
+            <td>string</td>
+            <td><code>vectorscaledb</code></td>
+            <td>MongoDB database name</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_LOG_LEVEL</code></td>
+            <td>string</td>
+            <td><code>info</code></td>
+            <td>Logging level (trace, debug, info, warn, error)</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_MAX_VECTOR_DIM</code></td>
+            <td>integer</td>
+            <td><code>2048</code></td>
+            <td>Maximum vector dimensionality</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_MAX_BATCH_SIZE</code></td>
+            <td>integer</td>
+            <td><code>100000</code></td>
+            <td>Maximum vectors per batch ingest</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_COMPRESSION_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>true</code></td>
+            <td>Enable vector-aware compression</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_METRICS_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>true</code></td>
+            <td>Enable Prometheus metrics endpoint</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Authentication & Security -->
+      <h2 id="authentication-security">Authentication &amp; Security</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_AUTH_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable API key authentication</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_AUTH_SECRET</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>JWT signing secret (required if auth enabled)</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_TLS_CERT</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>Path to TLS certificate file</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_TLS_KEY</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>Path to TLS private key file</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_RATE_LIMIT_RPS</code></td>
+            <td>integer</td>
+            <td><code>1000</code></td>
+            <td>Requests per second rate limit</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_AUDIT_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable SHA-256 audit chain</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Enterprise Features -->
+      <h2 id="enterprise-features">Enterprise Features</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_MULTI_TENANT</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable multi-tenant isolation</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_RBAC_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable role-based access control</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_GDPR_MODE</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable GDPR deletion compliance</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_SLA_MONITORING</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable SLA monitoring</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_METERING_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable usage metering</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_SHARDING_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable consistent-hash sharding</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Encryption at Rest -->
+      <h2 id="encryption-at-rest">Encryption at Rest</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_ENCRYPTION_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable field-level encryption</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_ENCRYPTION_KEY_PROVIDER</code></td>
+            <td>string</td>
+            <td><code>local</code></td>
+            <td>Key provider (local, env, aws-kms, azure-kv, hashicorp-vault)</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_ENCRYPTION_KEY_PATH</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>Path to encryption key file (for local provider)</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_ENCRYPTION_KEY_ENV</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>Environment variable containing key (for env provider)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- GraphQL -->
+      <h2 id="graphql">GraphQL</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_GRAPHQL_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable GraphQL API</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_GRAPHQL_COMPLEXITY_LIMIT</code></td>
+            <td>integer</td>
+            <td><code>100</code></td>
+            <td>Maximum query complexity</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_GRAPHQL_DEPTH_LIMIT</code></td>
+            <td>integer</td>
+            <td><code>10</code></td>
+            <td>Maximum query depth</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Webhooks & Streaming -->
+      <h2 id="webhooks-streaming">Webhooks &amp; Streaming</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_WEBHOOKS_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable webhook event notifications</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_STREAM_BUFFER_SIZE</code></td>
+            <td>integer</td>
+            <td><code>1000</code></td>
+            <td>Change stream buffer size</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Docker Compose Example -->
+      <h2 id="docker-compose-example">Docker Compose Example</h2>
+      <p>A production-ready Docker Compose configuration with authentication and encryption enabled:</p>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">YAML</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">version</span>: <span class="s">"3.8"</span>
+<span class="k">services</span>:
+  <span class="k">vectorscaledb</span>:
+    <span class="k">image</span>: vectorscaledb/vectorscaledb:latest
+    <span class="k">ports</span>:
+      - <span class="s">"8080:8080"</span>
+    <span class="k">environment</span>:
+      <span class="k">VSDB_MONGODB_URI</span>: mongodb://mongo:27017
+      <span class="k">VSDB_DATABASE_NAME</span>: vectorscaledb
+      <span class="k">VSDB_COMPRESSION_ENABLED</span>: <span class="s">"true"</span>
+      <span class="k">VSDB_AUTH_ENABLED</span>: <span class="s">"true"</span>
+      <span class="k">VSDB_AUTH_SECRET</span>: <span class="s">"${VSDB_AUTH_SECRET}"</span>
+      <span class="k">VSDB_ENCRYPTION_ENABLED</span>: <span class="s">"true"</span>
+      <span class="k">VSDB_ENCRYPTION_KEY_PROVIDER</span>: env
+      <span class="k">VSDB_ENCRYPTION_KEY_ENV</span>: VSDB_MASTER_KEY
+    <span class="k">depends_on</span>:
+      - mongo
+  <span class="k">mongo</span>:
+    <span class="k">image</span>: mongo:7
+    <span class="k">volumes</span>:
+      - mongo-data:/data/db
+<span class="k">volumes</span>:
+  <span class="k">mongo-data</span>:</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--tip">
+        <div class="docs-callout-title">Tip</div>
+        <p>Store secrets like <code>VSDB_AUTH_SECRET</code> and <code>VSDB_MASTER_KEY</code> in a <code>.env</code> file or a secrets manager -- never commit them to version control.</p>
+      </div>
+
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('configuration'));
+  </script>
+</body>
+</html>

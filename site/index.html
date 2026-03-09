@@ -37,7 +37,7 @@
       <li><a href="#comparison">Compare</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
     </ul>
-    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta">Request Demo</a>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -88,7 +88,7 @@
         <div class="stat-label">Entity Types</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value" data-target="5" data-suffix="">0</div>
+        <div class="stat-value" data-target="8" data-suffix="">0</div>
         <div class="stat-label">Patents Pending</div>
       </div>
     </div>
@@ -331,34 +331,56 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
   <div class="container">
     <h2 class="section-title fade-in">Architecture</h2>
     <p class="section-subtitle fade-in">Purpose-built Rust engine. Zero-copy, zero-GC, sub-millisecond.</p>
-    <div class="arch-diagram fade-in">
-      <div class="arch-row">
-        <div class="arch-node arch-source">Sensors</div>
-        <div class="arch-node arch-source">Cameras</div>
-        <div class="arch-node arch-source">3D Scenes</div>
-        <div class="arch-node arch-source">Market Feeds</div>
-        <div class="arch-node arch-source">Network Telemetry</div>
+    <div class="arch-stack fade-in">
+      <div class="arch-layer arch-layer--api">
+        <div class="arch-layer-label">API Layer</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">REST</span>
+          <span class="arch-chip">gRPC</span>
+          <span class="arch-chip">GraphQL</span>
+          <span class="arch-chip">Streaming</span>
+          <span class="arch-chip">Webhooks</span>
+        </div>
       </div>
-      <div class="arch-arrow">&darr;</div>
-      <div class="arch-row">
-        <div class="arch-node arch-engine">Ingestion Adapters</div>
+      <div class="arch-layer arch-layer--middleware">
+        <div class="arch-layer-label">Middleware</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">Auth / RBAC</span>
+          <span class="arch-chip">Rate Limiting</span>
+          <span class="arch-chip">Audit Chain</span>
+          <span class="arch-chip">Multi-Tenant</span>
+          <span class="arch-chip">Encryption</span>
+        </div>
       </div>
-      <div class="arch-arrow">&darr;</div>
-      <div class="arch-row">
-        <div class="arch-node arch-engine">Compression Engine</div>
-        <div class="arch-connector">&harr;</div>
-        <div class="arch-node arch-engine">Temporal-Semantic Index</div>
+      <div class="arch-layer arch-layer--engine">
+        <div class="arch-layer-label">Core Engine</div>
+        <div class="arch-layer-inner">
+          <div class="arch-block">
+            <div class="arch-block-title">Ingestion</div>
+            <div class="arch-block-detail">15 adapters &middot; MCAP, FIX, NetFlow, NWB, SPZ/glTF, Prometheus</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Compression</div>
+            <div class="arch-block-detail">Drift-based regime detection &middot; 100-1,000x &middot; Per-entity thresholds</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">TST Index</div>
+            <div class="arch-block-detail">Temporal-semantic tree &middot; Sub-ms KNN &middot; Trajectory similarity</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Query Engine</div>
+            <div class="arch-block-detail">11 operations &middot; Anomaly scoring &middot; Pattern matching &middot; Forecasting</div>
+          </div>
+        </div>
       </div>
-      <div class="arch-arrow">&darr;</div>
-      <div class="arch-row">
-        <div class="arch-node arch-engine">Query Engine</div>
-      </div>
-      <div class="arch-arrow">&darr;</div>
-      <div class="arch-row">
-        <div class="arch-node arch-api">REST API</div>
-        <div class="arch-node arch-api">gRPC</div>
-        <div class="arch-node arch-api">GraphQL</div>
-        <div class="arch-node arch-api">SDKs</div>
+      <div class="arch-layer arch-layer--storage">
+        <div class="arch-layer-label">Storage</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">Time Series Collections</span>
+          <span class="arch-chip">Atlas Vector Search</span>
+          <span class="arch-chip">Change Streams</span>
+          <span class="arch-chip">Sharding</span>
+        </div>
       </div>
     </div>
   </div>
@@ -385,7 +407,7 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
       </table>
     </div>
     <div style="margin-top: 1.5rem;">
-      <a href="api.html" class="btn-ghost">View Full API Reference &rarr;</a>
+      <a href="docs/api.html" class="btn-ghost">View Full API Reference &rarr;</a>
     </div>
   </div>
 </section>
@@ -528,13 +550,13 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
         <div class="card-title">4DGS Storage</div>
         <div class="card-description">Scene differencing, LOD streaming, spatial anchor clustering, temporal compression of 3D Gaussian scenes.</div>
       </div>
-      <div class="card roadmap-card next">
-        <div class="roadmap-status next">Next</div>
+      <div class="card roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
         <div class="card-title">GraphQL API</div>
         <div class="card-description">Full GraphQL schema with queries, mutations, and subscriptions alongside existing REST and gRPC.</div>
       </div>
-      <div class="card roadmap-card next">
-        <div class="roadmap-status next">Next</div>
+      <div class="card roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
         <div class="card-title">Encryption at Rest</div>
         <div class="card-description">AES-256-GCM field-level encryption with envelope key management and pluggable key providers.</div>
       </div>
@@ -560,17 +582,6 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
     <div class="fade-in">
       <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
     </div>
-    <div class="cta-industries fade-in">
-      <span class="industry-badge">Autonomous Vehicles</span>
-      <span class="industry-badge">Film &amp; VFX</span>
-      <span class="industry-badge">Financial Markets</span>
-      <span class="industry-badge">Defense &amp; Intelligence</span>
-      <span class="industry-badge">Networking &amp; CDN</span>
-      <span class="industry-badge">Robotics &amp; IoT</span>
-      <span class="industry-badge">Spatial Computing</span>
-      <span class="industry-badge">Gaming</span>
-      <span class="industry-badge">Biological Computing &amp; Neural Interfaces</span>
-    </div>
   </div>
 </section>
 
@@ -586,7 +597,7 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
         <div class="footer-heading">Product</div>
         <ul class="footer-links">
           <li><a href="#capabilities">Capabilities</a></li>
-          <li><a href="api.html">API Reference</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
           <li><a href="#comparison">Compare</a></li>
           <li><a href="#roadmap">Roadmap</a></li>
         </ul>
@@ -594,9 +605,10 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
       <div>
         <div class="footer-heading">Resources</div>
         <ul class="footer-links">
-          <li><a href="#">Documentation (Coming Soon)</a></li>
-          <li><a href="api.html">API Reference</a></li>
-          <li><a href="mailto:enterprise@vectorscaledb.com">Enterprise Inquiries</a></li>
+          <li><a href="docs/">Documentation</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
         </ul>
       </div>
       <div>

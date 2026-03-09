@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started | VectorScaleDB Docs</title>
+  <meta name="description" content="Get started with VectorScaleDB — the temporal-semantic database. Learn to connect, ingest data, and run your first queries in minutes.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content">
+
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li>Docs</li>
+        <li>Getting Started</li>
+      </ul>
+
+      <h1>Getting Started</h1>
+
+      <!-- What is VectorScaleDB? -->
+      <h2 id="what-is-vectorscaledb">What is VectorScaleDB?</h2>
+      <p>VectorScaleDB is the first database where time-series data and vector embeddings share a unified index -- the Temporal-Semantic Tree. This architecture enables queries that are impossible in any existing database: trajectory similarity search, vector-aware temporal compression, behavioral regime detection, and scene differencing across time.</p>
+      <p>Instead of forcing you to stitch together a time-series database, a vector store, and a streaming engine, VectorScaleDB provides a single system purpose-built for temporal-semantic workloads.</p>
+
+      <div class="docs-callout docs-callout--info">
+        <div class="docs-callout-title">Info</div>
+        <p>VectorScaleDB is designed for real-time entity tracking, anomaly detection, pattern matching, and behavioral intelligence across any domain with temporal-spatial data.</p>
+      </div>
+
+      <!-- Key Capabilities -->
+      <h2 id="key-capabilities">Key Capabilities</h2>
+      <ul>
+        <li><strong>Temporal-Semantic Index</strong> -- Sub-millisecond KNN across any time range, combining temporal and vector similarity in a single query</li>
+        <li><strong>Vector-Aware Compression</strong> -- 100-1,000x compression via behavioral regime detection, storing patterns rather than individual data points</li>
+        <li><strong>4D Scene Intelligence</strong> -- Native 4D Gaussian Splatting storage and querying for volumetric scene data</li>
+        <li><strong>Trajectory Analysis</strong> -- DTW-based trajectory similarity, anomaly scoring, and forecasting across entity histories</li>
+        <li><strong>Enterprise Security</strong> -- Multi-tenant isolation, RBAC, audit chains, GDPR-compliant deletion, and encryption at rest</li>
+        <li><strong>Fleet-Scale Pattern Matching</strong> -- Behavioral pattern detection across millions of entities simultaneously</li>
+      </ul>
+
+      <!-- Quick Start -->
+      <h2 id="quick-start">Quick Start</h2>
+
+      <h3 id="connect">1. Connect</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">from</span> vectorscaledb <span class="k">import</span> Client
+
+client = Client(<span class="s">"https://your-instance.vectorscaledb.com"</span>)</code></pre>
+      </div>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">curl</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c"># Verify connectivity</span>
+curl <span class="s">https://your-instance.vectorscaledb.com</span>/api/v1/health</code></pre>
+      </div>
+
+      <h3 id="ingest-data">2. Ingest Data</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>client.ingest(
+    entity_id=<span class="s">"sensor-42"</span>,
+    vector=[<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>],
+    entity_type=<span class="s">"LINK_METRIC"</span>
+)</code></pre>
+      </div>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">curl</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST <span class="s">https://your-instance.vectorscaledb.com</span>/api/v1/ingest \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -d <span class="s">'{
+    "entity_id": "sensor-42",
+    "vector": [0.1, 0.8, 0.3, 0.9],
+    "entity_type": "LINK_METRIC"
+  }'</span></code></pre>
+      </div>
+
+      <h3 id="query">3. Query</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>results = client.temporal_knn(
+    query_vector=[<span class="n">0.1</span>, <span class="n">0.7</span>, <span class="n">0.4</span>, <span class="n">0.8</span>],
+    start_time=<span class="s">"2025-01-01T00:00:00Z"</span>,
+    end_time=<span class="s">"2025-12-31T23:59:59Z"</span>,
+    k=<span class="n">5</span>
+)</code></pre>
+      </div>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">curl</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>curl -X POST <span class="s">https://your-instance.vectorscaledb.com</span>/api/v1/query/temporal-knn \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -d <span class="s">'{
+    "query_vector": [0.1, 0.7, 0.4, 0.8],
+    "start_time": "2025-01-01T00:00:00Z",
+    "end_time": "2025-12-31T23:59:59Z",
+    "k": 5
+  }'</span></code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--tip">
+        <div class="docs-callout-title">Tip</div>
+        <p>Temporal KNN combines vector similarity with time-range filtering in a single index traversal -- no post-filtering required. This is what makes it faster than chaining a vector search with a time-series query.</p>
+      </div>
+
+      <!-- Supported Protocols -->
+      <h2 id="supported-protocols">Supported Protocols</h2>
+      <ul>
+        <li><strong>REST API</strong> -- 80+ endpoints covering ingestion, querying, administration, and streaming</li>
+        <li><strong>gRPC</strong> -- Protocol Buffer definitions for high-throughput, low-latency communication</li>
+        <li><strong>GraphQL</strong> -- Queries, mutations, and subscriptions for flexible data access</li>
+        <li><strong>SDKs</strong> -- Native clients for Python, Rust, and Node.js with full type safety</li>
+      </ul>
+
+      <!-- Industry Adapters -->
+      <h2 id="industry-adapters">Industry Adapters</h2>
+      <p>VectorScaleDB includes adapters that translate domain-specific formats into temporal-semantic vectors on ingest:</p>
+
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Formats</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Autonomous Vehicles</td>
+            <td>MCAP, LAS/PCD, SPZ, glTF</td>
+          </tr>
+          <tr>
+            <td>Financial Markets</td>
+            <td>FIX 4.4/5.0, CSV tick data, ITCH/OUCH</td>
+          </tr>
+          <tr>
+            <td>Networking &amp; CDN</td>
+            <td>NetFlow/sFlow/IPFIX, SNMP, gNMI, Prometheus</td>
+          </tr>
+          <tr>
+            <td>Bio-Computing</td>
+            <td>NWB, HDF5, NEV/NSx, SpikeInterface, MEA streams</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="docs-callout docs-callout--info">
+        <div class="docs-callout-title">Info</div>
+        <p>Adapters handle format parsing, vector extraction, and entity type mapping automatically. You send raw domain data; VectorScaleDB indexes it as temporal-semantic vectors.</p>
+      </div>
+
+      <!-- Next Steps -->
+      <h2 id="next-steps">Next Steps</h2>
+      <ul>
+        <li><a href="../api.html">API Reference</a> -- Full endpoint documentation for REST, gRPC, and GraphQL</li>
+        <li><a href="sdks.html">SDKs</a> -- Installation, configuration, and usage for Python, Rust, and Node.js</li>
+        <li><a href="entity-types.html">Entity Types</a> -- All 23 supported entity types and their schemas</li>
+        <li><a href="configuration.html">Configuration</a> -- Deployment options, tuning parameters, and environment setup</li>
+        <li><a href="faq.html">FAQ</a> -- Common questions and troubleshooting</li>
+      </ul>
+
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('getting-started'));
+  </script>
+</body>
+</html>

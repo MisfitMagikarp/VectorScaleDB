@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ | VectorScaleDB Docs</title>
+  <meta name="description" content="Frequently asked questions about VectorScaleDB — architecture, data ingestion, queries, enterprise features, and deployment.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content">
+
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li>Docs</li>
+        <li>FAQ</li>
+      </ul>
+
+      <h1>Frequently Asked Questions</h1>
+
+      <!-- General -->
+      <h2 id="general">General</h2>
+
+      <details class="docs-faq-item">
+        <summary>What is VectorScaleDB?</summary>
+        <p>VectorScaleDB is the first database that unifies time-series data and vector embeddings in a single index. It enables queries that no combination of existing databases can replicate -- like "find entities that behaved like this one did yesterday" or "detect which entities changed behavior in the last hour."</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>How is it different from using TimescaleDB + Milvus?</summary>
+        <p>Those are separate systems that require custom ETL, application-level joins, and duplicated data. VectorScaleDB provides temporal-semantic queries as native database operations with a unified index, so temporal KNN, trajectory similarity, and behavioral compression all happen in one engine with sub-millisecond latency.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>What languages/protocols are supported?</summary>
+        <p>REST API (80+ endpoints), gRPC, and GraphQL. SDKs for Python, Rust, and Node.js.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>What compression ratios can I expect?</summary>
+        <p>100-1,000x on typical temporal-spatial data, with some workloads (like neural recordings) achieving up to 5,000x. Compression is per-entity-type optimized.</p>
+      </details>
+
+      <!-- Data & Ingestion -->
+      <h2 id="data-ingestion">Data &amp; Ingestion</h2>
+
+      <details class="docs-faq-item">
+        <summary>What's the maximum vector dimensionality?</summary>
+        <p>Configurable up to 2,048 dimensions by default.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>How many vectors can I ingest per second?</summary>
+        <p>Depends on deployment size, but a single instance handles 100K+ vectors/second via the batch ingestion endpoint with configurable parallelism.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>What data formats do you support?</summary>
+        <p>Native adapters for MCAP, LAS/PCD, SPZ, glTF, NetFlow/sFlow, SNMP, gNMI, Prometheus, FIX protocol, NWB, HDF5, NEV/NSx, SpikeInterface, and real-time MEA streams. Any other data can be ingested via the standard vector ingest endpoint.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>Can I ingest data without specifying an entity type?</summary>
+        <p>Yes, the default entity type is <code>GENERIC</code>. However, specifying the correct entity type enables optimized compression for your data characteristics.</p>
+      </details>
+
+      <!-- Queries -->
+      <h2 id="queries">Queries</h2>
+
+      <details class="docs-faq-item">
+        <summary>What is temporal KNN?</summary>
+        <p>K-nearest neighbors search bounded by a time range. Find the K most similar vectors to a query vector, but only within a specific time window. This is a native operation -- not a filter-then-search workaround.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>What is trajectory similarity?</summary>
+        <p>Compares the behavioral path of one entity over time to find other entities with similar patterns, using Dynamic Time Warping (DTW). Useful for finding vehicles that followed similar routes, sensors with similar degradation patterns, etc.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>How does anomaly detection work?</summary>
+        <p>VectorScaleDB compares an entity's current behavioral trajectory against its historical patterns and fleet baselines to compute an anomaly score. Higher scores indicate more unusual behavior.</p>
+      </details>
+
+      <!-- Enterprise & Security -->
+      <h2 id="enterprise-security">Enterprise &amp; Security</h2>
+
+      <details class="docs-faq-item">
+        <summary>Is multi-tenant isolation supported?</summary>
+        <p>Yes. Each tenant gets fully isolated data with separate access controls, audit trails, and usage metering.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>What encryption is available?</summary>
+        <p>AES-256-GCM field-level encryption with envelope key management. Supports local file keys, environment variable keys, and pluggable providers for AWS KMS, Azure Key Vault, and HashiCorp Vault.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>Is there an audit trail?</summary>
+        <p>Yes. SHA-256 chained audit records for all data operations, queryable via the admin API.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>Do you support GDPR deletion?</summary>
+        <p>Yes. The GDPR delete endpoint removes all data for a specified entity across all segments, collections, and indexes.</p>
+      </details>
+
+      <!-- Deployment -->
+      <h2 id="deployment">Deployment</h2>
+
+      <details class="docs-faq-item">
+        <summary>What are the system requirements?</summary>
+        <p>VectorScaleDB requires MongoDB 6+ as a storage backend. The Rust engine has minimal resource requirements -- 512MB RAM minimum for small deployments, 4GB+ recommended for production.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>Can I run it on-premises?</summary>
+        <p>Yes. VectorScaleDB deploys as a standard container with your own MongoDB instance. No cloud dependency required.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>Is a managed cloud version available?</summary>
+        <p>VectorScaleDB Cloud is on our roadmap. Contact <a href="mailto:sales@vectorscaledb.com">sales@vectorscaledb.com</a> for early access.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>How do I get support?</summary>
+        <p>Enterprise support is available via <a href="mailto:sales@vectorscaledb.com">sales@vectorscaledb.com</a>. This includes dedicated SLA, priority issues, and direct engineering support.</p>
+      </details>
+
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('faq'));
+  </script>
+</body>
+</html>

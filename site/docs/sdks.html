@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDK Reference | VectorScaleDB Docs</title>
+  <meta name="description" content="VectorScaleDB SDK reference for Python, Rust, and Node.js. Installation, connection, ingestion, querying, streaming, and error handling.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content">
+
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="./">Docs</a></li>
+        <li>SDKs</li>
+      </ul>
+
+      <h1>SDK Reference</h1>
+      <p>VectorScaleDB provides native SDKs for Python, Rust, and Node.js. All three offer full type safety, async support, and feature parity with the REST API.</p>
+
+      <!-- Installation -->
+      <h2 id="installation">Installation</h2>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>pip install vectorscaledb</code></pre>
+      </div>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Rust (Cargo.toml)</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>[dependencies]
+vectorscale-client = <span class="s">"0.1"</span></code></pre>
+      </div>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Node.js</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>npm install @vectorscaledb/client</code></pre>
+      </div>
+
+      <!-- Python SDK -->
+      <h2 id="python-sdk">Python SDK</h2>
+
+      <h3 id="python-connecting">Connecting</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">from</span> vectorscaledb <span class="k">import</span> Client
+
+<span class="c"># Basic connection</span>
+client = Client(<span class="s">"https://your-instance.vectorscaledb.com"</span>)
+
+<span class="c"># With authentication</span>
+client = Client(
+    <span class="s">"https://your-instance.vectorscaledb.com"</span>,
+    api_key=<span class="s">"your-api-key"</span>,
+    tenant_id=<span class="s">"your-tenant"</span>
+)</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--tip">
+        <div class="docs-callout-title">Tip</div>
+        <p>Store your API key in an environment variable and pass it via <code>os.environ["VSDB_API_KEY"]</code> rather than hardcoding it in source files.</p>
+      </div>
+
+      <h3 id="python-ingesting">Ingesting Data</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c"># Single vector</span>
+client.ingest(
+    entity_id=<span class="s">"vehicle-001"</span>,
+    vector=[<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>, <span class="n">0.2</span>, <span class="n">0.7</span>],
+    entity_type=<span class="s">"AUTONOMOUS_VEHICLE"</span>
+)
+
+<span class="c"># Batch ingestion</span>
+vectors = [
+    {<span class="s">"entity_id"</span>: <span class="s">f"sensor-<span class="k">{</span>i<span class="k">}</span>"</span>, <span class="s">"vector"</span>: [...], <span class="s">"entity_type"</span>: <span class="s">"LINK_METRIC"</span>}
+    <span class="k">for</span> i <span class="k">in</span> range(<span class="n">10000</span>)
+]
+result = client.ingest_batch(vectors, parallelism=<span class="n">4</span>)
+print(<span class="s">f"Ingested: <span class="k">{</span>result.ingested<span class="k">}</span>, Compressed: <span class="k">{</span>result.compressed<span class="k">}</span>"</span>)</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--info">
+        <div class="docs-callout-title">Info</div>
+        <p>Batch ingestion automatically partitions data across parallel writers. The <code>parallelism</code> parameter controls the number of concurrent connections used.</p>
+      </div>
+
+      <h3 id="python-querying">Querying</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c"># Temporal KNN</span>
+results = client.temporal_knn(
+    query_vector=[<span class="n">0.1</span>, <span class="n">0.7</span>, <span class="n">0.4</span>, <span class="n">0.8</span>],
+    start_time=<span class="s">"2025-01-01T00:00:00Z"</span>,
+    end_time=<span class="s">"2025-12-31T23:59:59Z"</span>,
+    k=<span class="n">10</span>
+)
+
+<span class="c"># Trajectory similarity</span>
+similar = client.trajectory_similarity(
+    entity_id=<span class="s">"vehicle-001"</span>,
+    time_range=(<span class="s">"2025-06-01T00:00:00Z"</span>, <span class="s">"2025-06-01T01:00:00Z"</span>),
+    k=<span class="n">5</span>
+)
+
+<span class="c"># Anomaly detection</span>
+anomalies = client.anomaly_score(
+    entity_id=<span class="s">"sensor-42"</span>,
+    lookback_hours=<span class="n">24</span>
+)</code></pre>
+      </div>
+
+      <h3 id="python-streaming">Streaming</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c"># Subscribe to changes</span>
+<span class="k">for</span> event <span class="k">in</span> client.stream_changes(entity_types=[<span class="s">"AUTONOMOUS_VEHICLE"</span>]):
+    print(<span class="s">f"Entity <span class="k">{</span>event.entity_id<span class="k">}</span> updated: <span class="k">{</span>event.change_type<span class="k">}</span>"</span>)</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--tip">
+        <div class="docs-callout-title">Tip</div>
+        <p>The streaming API uses server-sent events under the hood. The iterator blocks until a new event arrives, so run it in a background thread or async task for non-blocking consumption.</p>
+      </div>
+
+      <!-- Rust SDK -->
+      <h2 id="rust-sdk">Rust SDK</h2>
+
+      <h3 id="rust-connecting">Connecting</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Rust</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">use</span> vectorscale_client::Client;
+
+<span class="c">// Basic connection</span>
+<span class="k">let</span> client = Client::builder()
+    .url(<span class="s">"https://your-instance.vectorscaledb.com"</span>)
+    .build()?;
+
+<span class="c">// With authentication</span>
+<span class="k">let</span> client = Client::builder()
+    .url(<span class="s">"https://your-instance.vectorscaledb.com"</span>)
+    .api_key(<span class="s">"your-api-key"</span>)
+    .tenant_id(<span class="s">"your-tenant"</span>)
+    .build()?;</code></pre>
+      </div>
+
+      <h3 id="rust-ingesting">Ingesting Data</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Rust</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c">// Single vector</span>
+client.ingest(<span class="s">"vehicle-001"</span>, &amp;[<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>])
+    .entity_type(<span class="s">"AUTONOMOUS_VEHICLE"</span>)
+    .send().<span class="k">await</span>?;
+
+<span class="c">// Batch ingestion</span>
+<span class="k">let</span> batch: Vec&lt;IngestRequest&gt; = (<span class="n">0</span>..<span class="n">10000</span>)
+    .map(|i| IngestRequest {
+        entity_id: format!(<span class="s">"sensor-{}"</span>, i),
+        vector: vec![<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>],
+        entity_type: <span class="s">"LINK_METRIC"</span>.into(),
+    })
+    .collect();
+
+<span class="k">let</span> result = client.ingest_batch(batch)
+    .parallelism(<span class="n">4</span>)
+    .send().<span class="k">await</span>?;</code></pre>
+      </div>
+
+      <h3 id="rust-querying">Querying</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Rust</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">use</span> chrono::{Utc, TimeZone};
+
+<span class="k">let</span> start = Utc.with_ymd_and_hms(<span class="n">2025</span>, <span class="n">1</span>, <span class="n">1</span>, <span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>).unwrap();
+<span class="k">let</span> end = Utc.with_ymd_and_hms(<span class="n">2025</span>, <span class="n">12</span>, <span class="n">31</span>, <span class="n">23</span>, <span class="n">59</span>, <span class="n">59</span>).unwrap();
+
+<span class="c">// Temporal KNN</span>
+<span class="k">let</span> results = client.temporal_knn(&amp;[<span class="n">0.1</span>, <span class="n">0.7</span>, <span class="n">0.4</span>, <span class="n">0.8</span>])
+    .time_range(start, end)
+    .k(<span class="n">10</span>)
+    .send().<span class="k">await</span>?;
+
+<span class="c">// Trajectory similarity</span>
+<span class="k">let</span> similar = client.trajectory_similarity(<span class="s">"vehicle-001"</span>)
+    .time_range(start, end)
+    .k(<span class="n">5</span>)
+    .send().<span class="k">await</span>?;
+
+<span class="c">// Anomaly detection</span>
+<span class="k">let</span> anomalies = client.anomaly_score(<span class="s">"sensor-42"</span>)
+    .lookback_hours(<span class="n">24</span>)
+    .send().<span class="k">await</span>?;</code></pre>
+      </div>
+
+      <h3 id="rust-streaming">Streaming</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Rust</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">use</span> futures::StreamExt;
+
+<span class="k">let mut</span> stream = client.stream_changes()
+    .entity_types(&amp;[<span class="s">"AUTONOMOUS_VEHICLE"</span>])
+    .subscribe().<span class="k">await</span>?;
+
+<span class="k">while let</span> Some(event) = stream.next().<span class="k">await</span> {
+    <span class="k">let</span> event = event?;
+    println!(<span class="s">"Entity {} updated: {:?}"</span>, event.entity_id, event.change_type);
+}</code></pre>
+      </div>
+
+      <!-- Node.js SDK -->
+      <h2 id="nodejs-sdk">Node.js SDK</h2>
+
+      <h3 id="nodejs-connecting">Connecting</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JavaScript</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">import</span> { VectorScaleClient } <span class="k">from</span> <span class="s">'@vectorscaledb/client'</span>;
+
+<span class="c">// Basic connection</span>
+<span class="k">const</span> client = <span class="k">new</span> VectorScaleClient({
+  url: <span class="s">'https://your-instance.vectorscaledb.com'</span>
+});
+
+<span class="c">// With authentication</span>
+<span class="k">const</span> client = <span class="k">new</span> VectorScaleClient({
+  url: <span class="s">'https://your-instance.vectorscaledb.com'</span>,
+  apiKey: <span class="s">'your-api-key'</span>,
+  tenantId: <span class="s">'your-tenant'</span>
+});</code></pre>
+      </div>
+
+      <h3 id="nodejs-ingesting">Ingesting Data</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JavaScript</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c">// Single vector</span>
+<span class="k">await</span> client.ingest({
+  entityId: <span class="s">'sensor-42'</span>,
+  vector: [<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>],
+  entityType: <span class="s">'LINK_METRIC'</span>
+});
+
+<span class="c">// Batch ingestion</span>
+<span class="k">const</span> vectors = Array.from({ length: <span class="n">10000</span> }, (_, i) =&gt; ({
+  entityId: <span class="s">`sensor-${i}`</span>,
+  vector: [<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>],
+  entityType: <span class="s">'LINK_METRIC'</span>
+}));
+
+<span class="k">const</span> result = <span class="k">await</span> client.ingestBatch(vectors, { parallelism: <span class="n">4</span> });
+console.log(<span class="s">`Ingested: ${result.ingested}, Compressed: ${result.compressed}`</span>);</code></pre>
+      </div>
+
+      <h3 id="nodejs-querying">Querying</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JavaScript</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c">// Temporal KNN</span>
+<span class="k">const</span> results = <span class="k">await</span> client.temporalKnn({
+  queryVector: [<span class="n">0.1</span>, <span class="n">0.7</span>, <span class="n">0.4</span>, <span class="n">0.8</span>],
+  startTime: <span class="s">'2025-01-01T00:00:00Z'</span>,
+  endTime: <span class="s">'2025-12-31T23:59:59Z'</span>,
+  k: <span class="n">5</span>
+});
+
+<span class="c">// Trajectory similarity</span>
+<span class="k">const</span> similar = <span class="k">await</span> client.trajectorySimilarity({
+  entityId: <span class="s">'vehicle-001'</span>,
+  timeRange: [<span class="s">'2025-06-01T00:00:00Z'</span>, <span class="s">'2025-06-01T01:00:00Z'</span>],
+  k: <span class="n">5</span>
+});
+
+<span class="c">// Anomaly detection</span>
+<span class="k">const</span> anomalies = <span class="k">await</span> client.anomalyScore({
+  entityId: <span class="s">'sensor-42'</span>,
+  lookbackHours: <span class="n">24</span>
+});</code></pre>
+      </div>
+
+      <h3 id="nodejs-streaming">Streaming</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JavaScript</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="c">// Subscribe to changes</span>
+<span class="k">const</span> stream = client.streamChanges({
+  entityTypes: [<span class="s">'AUTONOMOUS_VEHICLE'</span>]
+});
+
+stream.on(<span class="s">'data'</span>, (event) =&gt; {
+  console.log(<span class="s">`Entity ${event.entityId} updated: ${event.changeType}`</span>);
+});
+
+stream.on(<span class="s">'error'</span>, (err) =&gt; {
+  console.error(<span class="s">'Stream error:'</span>, err);
+});</code></pre>
+      </div>
+
+      <!-- Error Handling -->
+      <h2 id="error-handling">Error Handling</h2>
+      <p>All SDKs use structured error types that map directly to API error responses. Errors include a machine-readable code, a human-readable message, and the originating request ID for tracing.</p>
+
+      <h3 id="error-python">Python</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Python</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">from</span> vectorscaledb.exceptions <span class="k">import</span> (
+    VsdbError,
+    AuthenticationError,
+    RateLimitError,
+    EntityNotFoundError
+)
+
+<span class="k">try</span>:
+    result = client.temporal_knn(
+        query_vector=[<span class="n">0.1</span>, <span class="n">0.7</span>, <span class="n">0.4</span>, <span class="n">0.8</span>],
+        start_time=<span class="s">"2025-01-01T00:00:00Z"</span>,
+        end_time=<span class="s">"2025-12-31T23:59:59Z"</span>,
+        k=<span class="n">5</span>
+    )
+<span class="k">except</span> AuthenticationError:
+    print(<span class="s">"Invalid or expired API key"</span>)
+<span class="k">except</span> RateLimitError <span class="k">as</span> e:
+    print(<span class="s">f"Rate limited. Retry after <span class="k">{</span>e.retry_after<span class="k">}</span>s"</span>)
+<span class="k">except</span> VsdbError <span class="k">as</span> e:
+    print(<span class="s">f"Error <span class="k">{</span>e.code<span class="k">}</span>: <span class="k">{</span>e.message<span class="k">}</span> (request: <span class="k">{</span>e.request_id<span class="k">}</span>)"</span>)</code></pre>
+      </div>
+
+      <h3 id="error-rust">Rust</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">Rust</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">use</span> vectorscale_client::Error;
+
+<span class="k">match</span> client.temporal_knn(&amp;query).k(<span class="n">10</span>).send().<span class="k">await</span> {
+    Ok(results) =&gt; { <span class="c">/* process results */</span> }
+    Err(Error::Authentication) =&gt; {
+        eprintln!(<span class="s">"Invalid or expired API key"</span>);
+    }
+    Err(Error::RateLimit { retry_after }) =&gt; {
+        eprintln!(<span class="s">"Rate limited. Retry after {}s"</span>, retry_after);
+    }
+    Err(e) =&gt; {
+        eprintln!(<span class="s">"Error: {} (request: {})"</span>, e.message(), e.request_id());
+    }
+}</code></pre>
+      </div>
+
+      <h3 id="error-nodejs">Node.js</h3>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JavaScript</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="k">import</span> { VsdbError, AuthenticationError, RateLimitError } <span class="k">from</span> <span class="s">'@vectorscaledb/client'</span>;
+
+<span class="k">try</span> {
+  <span class="k">const</span> results = <span class="k">await</span> client.temporalKnn({
+    queryVector: [<span class="n">0.1</span>, <span class="n">0.7</span>, <span class="n">0.4</span>, <span class="n">0.8</span>],
+    startTime: <span class="s">'2025-01-01T00:00:00Z'</span>,
+    endTime: <span class="s">'2025-12-31T23:59:59Z'</span>,
+    k: <span class="n">5</span>
+  });
+} <span class="k">catch</span> (err) {
+  <span class="k">if</span> (err <span class="k">instanceof</span> AuthenticationError) {
+    console.error(<span class="s">'Invalid or expired API key'</span>);
+  } <span class="k">else if</span> (err <span class="k">instanceof</span> RateLimitError) {
+    console.error(<span class="s">`Rate limited. Retry after ${err.retryAfter}s`</span>);
+  } <span class="k">else if</span> (err <span class="k">instanceof</span> VsdbError) {
+    console.error(<span class="s">`Error ${err.code}: ${err.message} (request: ${err.requestId})`</span>);
+  }
+}</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--info">
+        <div class="docs-callout-title">Info</div>
+        <p>All error responses include a <code>request_id</code> field. Include this ID when contacting support to help with diagnosis.</p>
+      </div>
+
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('sdks'));
+  </script>
+</body>
+</html>

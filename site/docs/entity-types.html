@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entity Types | VectorScaleDB Docs</title>
+  <meta name="description" content="Complete reference for all 38 VectorScaleDB entity types organized by industry vertical — autonomous vehicles, finance, networking, bio-computing, and more.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content">
+
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li>Docs</li>
+        <li>Entity Types</li>
+      </ul>
+
+      <h1>Entity Types Reference</h1>
+
+      <div class="docs-callout docs-callout--info">
+        <div class="docs-callout-title">Info</div>
+        <p>Entity types determine how VectorScaleDB compresses and indexes your data. Each type has optimized compression sensitivity for its data characteristics. Use the type that best matches your data source.</p>
+      </div>
+
+      <!-- Core Types -->
+      <h2 id="core-types">Core Types</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>GENERIC</code></td>
+            <td>Default type for unclassified temporal vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Autonomous Vehicles & Mobility -->
+      <h2 id="autonomous-vehicles">Autonomous Vehicles &amp; Mobility</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>AUTONOMOUS_VEHICLE</code></td>
+            <td>Full vehicle state -- position, heading, velocity, sensor status</td>
+          </tr>
+          <tr>
+            <td><code>PEDESTRIAN</code></td>
+            <td>Tracked pedestrian movement vectors</td>
+          </tr>
+          <tr>
+            <td><code>TRAFFIC_SIGNAL</code></td>
+            <td>Traffic light state and timing vectors</td>
+          </tr>
+          <tr>
+            <td><code>LIDAR_VOXEL</code></td>
+            <td>3D LiDAR voxel occupancy grid vectors</td>
+          </tr>
+          <tr>
+            <td><code>HD_MAP_FEATURE</code></td>
+            <td>High-definition map feature state vectors</td>
+          </tr>
+          <tr>
+            <td><code>CAMERA_FRAME</code></td>
+            <td>Camera image embedding vectors</td>
+          </tr>
+          <tr>
+            <td><code>RADAR_TRACK</code></td>
+            <td>Radar-tracked object state vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Film & VFX -->
+      <h2 id="film-vfx">Film &amp; VFX</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>MOTION_CAPTURE</code></td>
+            <td>Motion capture marker position vectors (120-240Hz)</td>
+          </tr>
+          <tr>
+            <td><code>VIRTUAL_CAMERA</code></td>
+            <td>Virtual camera position and orientation state</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Geospatial & Defense -->
+      <h2 id="geospatial-defense">Geospatial &amp; Defense</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>DRONE</code></td>
+            <td>Unmanned aerial vehicle state vectors</td>
+          </tr>
+          <tr>
+            <td><code>VESSEL</code></td>
+            <td>Maritime vessel tracking vectors</td>
+          </tr>
+          <tr>
+            <td><code>SATELLITE</code></td>
+            <td>Satellite position and telemetry vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3D Scenes -->
+      <h2 id="3d-scenes">3D Scenes</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>GAUSSIAN_SPLAT</code></td>
+            <td>4D Gaussian Splatting primitive state</td>
+          </tr>
+          <tr>
+            <td><code>POINT_CLOUD</code></td>
+            <td>3D point cloud segment vectors</td>
+          </tr>
+          <tr>
+            <td><code>SCENE_ANCHOR</code></td>
+            <td>Spatial anchor reference point for scene alignment</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Industrial & IoT -->
+      <h2 id="industrial-iot">Industrial &amp; IoT</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>IOT_SENSOR</code></td>
+            <td>Generic IoT sensor telemetry vectors</td>
+          </tr>
+          <tr>
+            <td><code>ROBOT_ARM</code></td>
+            <td>Robotic arm joint state and end-effector vectors</td>
+          </tr>
+          <tr>
+            <td><code>WAREHOUSE_ROBOT</code></td>
+            <td>Autonomous warehouse robot state</td>
+          </tr>
+          <tr>
+            <td><code>WEARABLE</code></td>
+            <td>Wearable device biometric and motion vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Networking & CDN -->
+      <h2 id="networking-cdn">Networking &amp; CDN</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>NETWORK_FLOW</code></td>
+            <td>Network traffic flow vectors (NetFlow/sFlow/IPFIX)</td>
+          </tr>
+          <tr>
+            <td><code>ROUTE_STATE</code></td>
+            <td>Network routing table state vectors</td>
+          </tr>
+          <tr>
+            <td><code>LINK_METRIC</code></td>
+            <td>Network link performance metrics (latency, throughput, loss)</td>
+          </tr>
+          <tr>
+            <td><code>CDN_EDGE</code></td>
+            <td>CDN edge node behavioral state vectors</td>
+          </tr>
+          <tr>
+            <td><code>DNS_QUERY</code></td>
+            <td>DNS query pattern and resolution vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Financial Markets -->
+      <h2 id="financial-markets">Financial Markets</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>MARKET_TICK</code></td>
+            <td>Market tick data vectors (price, volume, spread)</td>
+          </tr>
+          <tr>
+            <td><code>ORDER_FLOW</code></td>
+            <td>Order flow imbalance and execution vectors</td>
+          </tr>
+          <tr>
+            <td><code>PORTFOLIO_STATE</code></td>
+            <td>Portfolio composition and risk state vectors</td>
+          </tr>
+          <tr>
+            <td><code>MARKET_REGIME</code></td>
+            <td>Market regime classification state vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Bio-Computing & Neural Interfaces -->
+      <h2 id="bio-computing">Bio-Computing &amp; Neural Interfaces</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>NEURAL_UNIT</code></td>
+            <td>Individual neuron or neural unit firing pattern vectors</td>
+          </tr>
+          <tr>
+            <td><code>POPULATION_STATE</code></td>
+            <td>Neural population ensemble state vectors</td>
+          </tr>
+          <tr>
+            <td><code>STIMULATION_EVENT</code></td>
+            <td>Electrical/optical stimulation parameter vectors</td>
+          </tr>
+          <tr>
+            <td><code>ORGANOID_STATE</code></td>
+            <td>Brain organoid developmental state vectors</td>
+          </tr>
+          <tr>
+            <td><code>GAME_STATE</code></td>
+            <td>Behavioral game/task performance state vectors</td>
+          </tr>
+          <tr>
+            <td><code>CLOSED_LOOP_CYCLE</code></td>
+            <td>Closed-loop stimulation-response cycle vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Gaming -->
+      <h2 id="gaming">Gaming</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>PLAYER_TELEMETRY</code></td>
+            <td>Player input and state telemetry vectors</td>
+          </tr>
+          <tr>
+            <td><code>NPC_BEHAVIOR</code></td>
+            <td>NPC behavioral state and decision vectors</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Usage Example -->
+      <h2 id="usage-example">Usage Example</h2>
+      <p>Specify the entity type when ingesting data to enable optimized compression and indexing:</p>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JSON</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>{
+  <span class="s">"entity_id"</span>: <span class="s">"sensor-42"</span>,
+  <span class="s">"entity_type"</span>: <span class="s">"LINK_METRIC"</span>,
+  <span class="s">"vector"</span>: [<span class="n">0.1</span>, <span class="n">0.8</span>, <span class="n">0.3</span>, <span class="n">0.9</span>],
+  <span class="s">"timestamp"</span>: <span class="s">"2025-06-01T12:00:00Z"</span>
+}</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--tip">
+        <div class="docs-callout-title">Tip</div>
+        <p>If you don't specify an entity type, VectorScaleDB defaults to <code>GENERIC</code>. For best compression and query performance, always use the most specific type that matches your data source.</p>
+      </div>
+
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('entity-types'));
+  </script>
+</body>
+</html>

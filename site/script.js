@@ -335,7 +335,8 @@ function initKnnViz() {
     frame++;
 
     // Slide window
-    const windowX = ((frame * 0.3) % (w + windowW)) - windowW * 0.5;
+    const cycle = w + windowW * 0.5;
+    const windowX = ((frame * 0.4) % cycle) - windowW * 0.25;
     queryPoint.x = windowX + windowW / 2;
 
     // Time axis
