@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous Vehicles & Fleet Intelligence | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB for autonomous vehicles: MCAP recording ingestion, LiDAR voxelization, multi-modal sensor alignment, fleet-scale compression, and HD map maintenance.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Autonomous Vehicles & Fleet Intelligence | VectorScaleDB">
+  <meta property="og:description" content="Ingest MCAP recordings, voxelize LiDAR point clouds, align multi-modal sensors, and query similar trajectories across your entire fleet.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/industries/autonomous-vehicles.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Autonomous Vehicles & Fleet Intelligence | VectorScaleDB">
+  <meta name="twitter:description" content="Ingest MCAP recordings, voxelize LiDAR point clouds, align multi-modal sensors, and query similar trajectories across your entire fleet.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Mobility</div>
+      <h1 class="hero-title">Autonomous Vehicles &amp; Fleet Intelligence</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Ingest entire MCAP recordings, voxelize LiDAR sweeps, align multi-modal sensors via DTW, and query similar driving trajectories across thousands of vehicles in a single temporal-semantic query.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MCAP Recording Ingestion -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">MCAP Recording Ingestion</h2>
+    <p class="section-subtitle fade-in">Native ingestion of ROS bag recordings in MCAP format. Every sensor channel becomes a temporal vector stream, automatically indexed by the Temporal-Semantic Tree.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Ingestion</div>
+        <div class="card-title">Topic-Level Decomposition</div>
+        <div class="card-description">MCAP files are decomposed by ROS topic. Each topic (/lidar_points, /camera/image_raw, /imu/data, /gps/fix) becomes an independent temporal vector stream with its own compression regime and index entry. No pre-processing pipelines required.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Metadata</div>
+        <div class="card-title">Drive-Level Provenance</div>
+        <div class="card-description">Every ingested recording retains full provenance: vehicle ID, drive session, route hash, weather conditions, firmware version. Query by any metadata dimension alongside temporal-semantic filters for precise scenario retrieval.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Scale</div>
+        <div class="card-title">Fleet-Scale Batch Ingestion</div>
+        <div class="card-description">Bulk-ingest terabytes of MCAP recordings from overnight fleet uploads. VectorScaleDB's WAL ensures crash-safe writes, and adaptive compression kicks in as each stream stabilizes, achieving 1000x ratios on steady-state sensor telemetry.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LiDAR Point Cloud Voxelization -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">LiDAR Point Cloud Voxelization</h2>
+    <p class="section-subtitle fade-in">Raw point clouds become compact voxel occupancy vectors. Each LiDAR sweep is spatially discretized, compressed, and indexed for temporal-semantic queries.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Processing</div>
+        <div class="card-title">Spatial Discretization</div>
+        <div class="card-description">LAS and PCD point clouds are voxelized into configurable grid resolutions (0.1m - 1.0m cells). Each voxel grid becomes a VoxelOccupancy entity with an occupancy vector suitable for similarity search. Compare scene structures across time, locations, and vehicles without point-by-point alignment.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Efficiency</div>
+        <div class="card-title">Occupancy Compression</div>
+        <div class="card-description">Voxel occupancy vectors compress dramatically through drift-based regime detection. Static environment regions (buildings, road surfaces) compress at 1000x+, while dynamic regions (intersections, construction zones) maintain finer temporal resolution. Storage costs drop from petabytes to terabytes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Multi-Modal Sensor Alignment -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Multi-Modal Sensor Alignment via DTW</h2>
+    <p class="section-subtitle fade-in">Align LiDAR, camera, IMU, GPS, and radar streams that arrive at different rates and with different latencies using FastDTW temporal warping.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Alignment</div>
+        <div class="card-title">Cross-Sensor Temporal Warping</div>
+        <div class="card-description">LiDAR at 10Hz, cameras at 30Hz, IMU at 200Hz, GPS at 1Hz. FastDTW aligns these heterogeneous streams into a unified temporal reference frame. Query "what did all sensors observe at the moment the anomaly occurred" without manual timestamp interpolation.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Sensor Drift Detection</div>
+        <div class="card-description">VectorScaleDB's change-point detection identifies when sensors fall out of calibration. A camera's embedding drift relative to LiDAR ground truth surfaces calibration degradation days before it manifests as a safety-critical perception failure.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Fusion</div>
+        <div class="card-title">Fused Scene Representation</div>
+        <div class="card-description">After alignment, sensor modalities merge into a fused SensorFrame entity. Each frame captures the full environmental state at a given instant: 3D geometry from LiDAR, texture from cameras, motion from IMU, position from GPS. One query, one fused answer.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fleet-Scale Compression -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Fleet-Scale Compression</h2>
+    <p class="section-subtitle fade-in">1000x compression on sensor telemetry across thousands of vehicles. Store years of fleet data at the cost of days.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Behavioral Regimes</div>
+        <div class="card-title">Drive State Compression</div>
+        <div class="card-description">Highway cruising, urban stop-and-go, parking maneuvers, highway merging: each driving regime compresses into a single segment descriptor. A 2-hour highway drive that generates 720,000 sensor frames compresses to under 50 regime segments while preserving every behavioral transition.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Economics</div>
+        <div class="card-title">Storage Cost Reduction</div>
+        <div class="card-description">A fleet of 10,000 vehicles generating 50GB/day each produces 500TB of raw data daily. VectorScaleDB's vector-aware compression reduces this to under 500GB without losing the ability to query trajectory similarity, detect anomalies, or replay historical scenarios.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HD Map Maintenance -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">HD Map Maintenance via Scene Differencing</h2>
+    <p class="section-subtitle fade-in">Every vehicle becomes a map sensor. Detect real-world changes by comparing current observations against the HD map baseline.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Change Detection Pipeline</div>
+        <div class="card-description">VectorScaleDB's scene differencing compares voxelized LiDAR observations against stored MapElement baselines. New construction, lane reconfigurations, missing signage, and temporary obstacles are detected as semantic drifts in the spatial embedding space. Changes are localized to specific map tiles and timestamped.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Consensus</div>
+        <div class="card-title">Fleet-Consensus Updates</div>
+        <div class="card-description">A single vehicle's observation is noise. When 15 vehicles report the same spatial anomaly at the same location within 4 hours, VectorScaleDB's trajectory clustering (DBSCAN) confirms the change. Map updates propagate to the fleet with confidence scores derived from observation density and sensor agreement.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Supported Formats -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Supported Formats &amp; Protocols</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Recording</div>
+        <div class="card-title">MCAP</div>
+        <div class="card-description">Native MCAP ingestion with topic-level decomposition. Full support for ROS 1 and ROS 2 message types, including PointCloud2, Image, Imu, NavSatFix, and custom message definitions.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Point Clouds</div>
+        <div class="card-title">LAS / PCD</div>
+        <div class="card-description">ASPRS LAS 1.4 and PCL PCD formats for LiDAR point clouds. Automatic coordinate system detection, intensity normalization, and voxelization at configurable grid resolutions.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">3D Scenes</div>
+        <div class="card-title">SPZ / glTF</div>
+        <div class="card-description">SPZ for Gaussian Splatting scene storage and glTF 2.0 for mesh-based scene representations. Scene differencing works natively across both formats for HD map and digital twin applications.</div>
+      </div>
+    </div>
+    <div class="card fade-in" style="margin-top: 1.5rem;">
+      <div class="card-label">Entity Types</div>
+      <div class="card-title">Native AV Entity Types</div>
+      <div class="card-description" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">VoxelOccupancy</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">TrackedObject</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">MapElement</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">SensorFrame</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Example Workflow</h2>
+    <p class="section-subtitle fade-in">Ingest an MCAP recording, then query for similar driving trajectories across the fleet.</p>
+    <div class="fade-in">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="code-tabs">
+          <button class="code-tab active" onclick="document.querySelectorAll('.av-panel').forEach(p=>p.classList.remove('active'));document.getElementById('av-ingest').classList.add('active');document.querySelectorAll('.av-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">1. Ingest MCAP</button>
+          <button class="code-tab av-tab" onclick="document.querySelectorAll('.av-panel').forEach(p=>p.classList.remove('active'));document.getElementById('av-query').classList.add('active');document.querySelectorAll('.av-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">2. Query Similar Trajectories</button>
+          <button class="code-tab av-tab" onclick="document.querySelectorAll('.av-panel').forEach(p=>p.classList.remove('active'));document.getElementById('av-response').classList.add('active');document.querySelectorAll('.av-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">3. Response</button>
+        </div>
+        <div id="av-ingest" class="code-panel av-panel active"><pre>
+# Ingest an MCAP recording from vehicle VH-0042
+curl -X POST http://localhost:8080/v1/ingest/mcap \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source": "/recordings/2026-03-09/VH-0042-drive-session-14.mcap",
+    "vehicle_id": "VH-0042",
+    "session_id": "drive-session-14",
+    "topics": [
+      "/lidar/points",
+      "/camera/front/image_raw",
+      "/imu/data",
+      "/gps/fix"
+    ],
+    "voxel_resolution": 0.25,
+    "compression": {
+      "enabled": true,
+      "drift_threshold": 0.05,
+      "min_segment_duration": "2s"
+    },
+    "metadata": {
+      "route": "HQ-to-TestTrack-A",
+      "weather": "clear",
+      "firmware": "v4.2.1"
+    }
+  }'
+
+# Response:
+# {
+#   "recording_id": "rec_a7f3b2c1",
+#   "vehicle_id": "VH-0042",
+#   "topics_ingested": 4,
+#   "frames_processed": 342819,
+#   "segments_created": 127,
+#   "compression_ratio": 892.3,
+#   "duration_seconds": 7234,
+#   "entity_ids": {
+#     "voxel_occupancy": "ent_vox_042_014",
+#     "tracked_objects": ["ent_obj_042_014_001", "..."],
+#     "sensor_frame": "ent_sf_042_014"
+#   },
+#   "ingestion_time_ms": 4521
+# }</pre></div>
+        <div id="av-query" class="code-panel av-panel"><pre>
+# Find fleet drives with similar trajectories to a specific segment
+# "Show me every drive that looked like VH-0042's highway merge at 14:32"
+curl -X POST http://localhost:8080/v1/query/trajectory-similarity \
+  -H "Content-Type: application/json" \
+  -d '{
+    "reference": {
+      "entity_id": "ent_sf_042_014",
+      "time_range": {
+        "start": "2026-03-09T14:32:00Z",
+        "end": "2026-03-09T14:33:30Z"
+      }
+    },
+    "search_scope": {
+      "entity_type": "SensorFrame",
+      "fleet_filter": {
+        "route_pattern": "highway-merge*"
+      },
+      "time_range": {
+        "start": "2026-01-01T00:00:00Z",
+        "end": "2026-03-09T23:59:59Z"
+      }
+    },
+    "algorithm": "fastdtw",
+    "top_k": 10,
+    "include_anomaly_scores": true
+  }'</pre></div>
+        <div id="av-response" class="code-panel av-panel"><pre>
+{
+  "reference_entity": "ent_sf_042_014",
+  "reference_window": {
+    "start": "2026-03-09T14:32:00Z",
+    "end": "2026-03-09T14:33:30Z"
+  },
+  "matches": [
+    {
+      "entity_id": "ent_sf_017_089",
+      "vehicle_id": "VH-0017",
+      "session": "drive-session-89",
+      "time_range": {
+        "start": "2026-02-22T09:14:12Z",
+        "end": "2026-02-22T09:15:38Z"
+      },
+      "similarity": 0.967,
+      "anomaly_score": 0.02,
+      "metadata": {
+        "route": "I-280-merge-northbound",
+        "weather": "clear"
+      }
+    },
+    {
+      "entity_id": "ent_sf_091_034",
+      "vehicle_id": "VH-0091",
+      "session": "drive-session-34",
+      "time_range": {
+        "start": "2026-03-01T16:41:55Z",
+        "end": "2026-03-01T16:43:30Z"
+      },
+      "similarity": 0.941,
+      "anomaly_score": 0.78,
+      "metadata": {
+        "route": "I-280-merge-northbound",
+        "weather": "rain"
+      }
+    }
+  ],
+  "total_candidates_scanned": 14382,
+  "latency_ms": 127.4
+}</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Capabilities -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related Capabilities</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">100-1000x compression on sensor telemetry through drift-based regime detection. Store behavioral patterns, not raw data points.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Trajectory Analysis</div>
+        <div class="card-description">FastDTW similarity matching, DBSCAN clustering for fleet-scale pattern discovery, and change-point detection for calibration monitoring.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Spatial</div>
+        <div class="card-title">4D Scene Intelligence</div>
+        <div class="card-description">Scene differencing for HD map maintenance, LOD streaming for bandwidth-efficient fleet updates, and spatial anchor clustering.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to unify your fleet's sensor data?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB process MCAP recordings, compress LiDAR streams, and query trajectories across your fleet.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20AV%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request AV Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

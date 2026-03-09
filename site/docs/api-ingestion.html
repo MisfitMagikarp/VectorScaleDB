@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingestion API | VectorScaleDB Docs</title>
+  <meta name="description" content="Data ingestion endpoints for VectorScaleDB. Supports vectors, 3D scenes, MCAP, point clouds, network telemetry, financial data, and neural recordings.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Ingestion</li>
+      </ul>
+      <h1>Ingestion</h1>
+      <p class="docs-intro">Ingest temporal vectors, 3D scenes, sensor data, financial feeds, and neural recordings. Supports batch, streaming, and multi-modal ingestion.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Ingestion',
+        id: 'ingestion',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/ingest',
+            desc: 'Ingest temporal vectors. Accepts up to 10,000 vectors per request.',
+            request: '{\n  "vectors": [\n    {\n      "entity_id": "vehicle-0042",\n      "timestamp": "2026-03-08T12:00:00Z",\n      "embedding": [0.12, -0.34, 0.56, ...],\n      "metadata": { "source": "gps" }\n    }\n  ]\n}',
+            response: '{\n  "accepted": 1,\n  "rejected": 0,\n  "latency_ms": 2.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest \\\n  -H "Content-Type: application/json" \\\n  -d \'{"vectors": [{"entity_id": "vehicle-0042", "timestamp": "2026-03-08T12:00:00Z", "embedding": [0.12, -0.34, 0.56]}]}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/batch',
+            desc: 'High-throughput batch ingestion up to 100,000 vectors.',
+            request: '{\n  "vectors": [/* up to 100,000 */],\n  "parallelism": 8,\n  "on_conflict": "upsert"\n}',
+            response: '{\n  "accepted": 100000,\n  "rejected": 0,\n  "latency_ms": 1842,\n  "throughput_vec_sec": 54289\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/batch \\\n  -H "Content-Type: application/json" \\\n  -d @batch_payload.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/spz',
+            desc: 'Ingest SPZ compressed 3D Gaussian Splatting files.',
+            request: '/* multipart/form-data */\n"file": &lt;scene.spz&gt;\n"scene_id": "warehouse-scan-01"\n"timestamp": "2026-03-08T14:00:00Z"',
+            response: '{\n  "scene_id": "warehouse-scan-01",\n  "gaussians_ingested": 248731,\n  "latency_ms": 3412\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/spz \\\n  -F "file=@scene.spz" \\\n  -F "scene_id=warehouse-scan-01" \\\n  -F "timestamp=2026-03-08T14:00:00Z"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/gltf',
+            desc: 'Ingest glTF/GLB 3D scene files.',
+            request: '/* multipart/form-data */\n"file": &lt;scene.glb&gt;\n"scene_id": "factory-floor"\n"timestamp": "2026-03-08T14:30:00Z"',
+            response: '{\n  "scene_id": "factory-floor",\n  "meshes_processed": 142,\n  "nodes_indexed": 389,\n  "latency_ms": 1876\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/gltf \\\n  -F "file=@scene.glb" \\\n  -F "scene_id=factory-floor"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/mcap',
+            desc: 'Ingest MCAP robotics/autonomy recording files.',
+            request: '/* multipart/form-data */\n"file": &lt;recording.mcap&gt;\n"robot_id": "agv-117"\n"channels": "lidar,imu,odom"',
+            response: '{\n  "entity_id": "agv-117",\n  "messages_ingested": 1847293,\n  "channels_parsed": 3,\n  "time_range": { "start": "2026-03-08T09:00:00Z", "end": "2026-03-08T09:47:12Z" },\n  "latency_ms": 8921\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/mcap \\\n  -F "file=@recording.mcap" \\\n  -F "robot_id=agv-117" \\\n  -F "channels=lidar,imu,odom"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/multi-modal',
+            desc: 'Multi-modal sensor fusion ingestion.',
+            request: '{\n  "entity_id": "av-fleet-03",\n  "timestamp": "2026-03-08T16:20:00Z",\n  "modalities": {\n    "camera": { "embedding": [0.1, ...], "resolution": "1920x1080" },\n    "lidar": { "embedding": [0.3, ...], "points": 128000 },\n    "radar": { "embedding": [0.2, ...], "range_m": 200 }\n  }\n}',
+            response: '{\n  "accepted": 3,\n  "fused_embedding_dim": 512,\n  "latency_ms": 18.7\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/multi-modal \\\n  -H "Content-Type: application/json" \\\n  -d @multimodal_payload.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/pointcloud',
+            desc: 'Ingest LAS/PCD point cloud files.',
+            request: '/* multipart/form-data */\n"file": &lt;scan.las&gt;\n"scene_id": "site-survey-07"\n"timestamp": "2026-03-08T10:00:00Z"',
+            response: '{\n  "scene_id": "site-survey-07",\n  "points_ingested": 4200000,\n  "bounding_box": { "min": [-50.0, -50.0, 0.0], "max": [50.0, 50.0, 25.0] },\n  "latency_ms": 5230\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/pointcloud \\\n  -F "file=@scan.las" \\\n  -F "scene_id=site-survey-07"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/gaussian/ndjson',
+            desc: 'Newline-delimited JSON Gaussian data.',
+            request: '/* Content-Type: application/x-ndjson */\n{"scene_id":"room-1","position":[1.0,2.0,3.0],"color":[255,128,0]}\n{"scene_id":"room-1","position":[1.1,2.1,3.1],"color":[254,130,2]}',
+            response: '{\n  "scene_id": "room-1",\n  "gaussians_ingested": 2,\n  "latency_ms": 0.8\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/gaussian/ndjson \\\n  -H "Content-Type: application/x-ndjson" \\\n  --data-binary @gaussians.ndjson'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/gaussian/stream',
+            desc: 'Continuous streaming Gaussian ingestion.',
+            request: '/* chunked transfer encoding, application/x-ndjson */\n{"scene_id":"live-scan","position":[0.5,1.2,3.8],"timestamp":"2026-03-08T16:00:01Z"}\n/* ...continuous stream... */',
+            response: '/* Server responds with periodic acks */\n{"ack":100,"buffered":0,"elapsed_ms":1024}\n{"ack":200,"buffered":3,"elapsed_ms":2051}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/gaussian/stream \\\n  -H "Content-Type: application/x-ndjson" \\\n  -H "Transfer-Encoding: chunked" \\\n  --data-binary @stream.ndjson'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/snmp',
+            desc: 'Ingest SNMP trap and poll data.',
+            request: '{\n  "entity_id": "switch-core-01",\n  "timestamp": "2026-03-08T12:00:00Z",\n  "oids": {\n    "1.3.6.1.2.1.2.2.1.10.1": 9842718,\n    "1.3.6.1.2.1.2.2.1.16.1": 7291034,\n    "1.3.6.1.2.1.1.3.0": 482910\n  }\n}',
+            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 1.1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/snmp \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id":"switch-core-01","timestamp":"2026-03-08T12:00:00Z","oids":{"1.3.6.1.2.1.2.2.1.10.1":9842718}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/gnmi',
+            desc: 'Ingest gNMI telemetry streams.',
+            request: '{\n  "entity_id": "router-edge-05",\n  "path": "/interfaces/interface[name=eth0]/state/counters",\n  "timestamp": "2026-03-08T12:05:00Z",\n  "values": {\n    "in-octets": 1294817482,\n    "out-octets": 982471023,\n    "in-errors": 0\n  }\n}',
+            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 0.9\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/gnmi \\\n  -H "Content-Type: application/json" \\\n  -d @gnmi_sample.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/netflow',
+            desc: 'Ingest NetFlow v5/v9 and IPFIX flow records.',
+            request: '{\n  "entity_id": "border-fw-01",\n  "format": "netflow_v9",\n  "flows": [\n    {\n      "src_addr": "10.0.1.50",\n      "dst_addr": "203.0.113.10",\n      "bytes": 148290,\n      "packets": 124,\n      "protocol": 6\n    }\n  ]\n}',
+            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 1.3\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/netflow \\\n  -H "Content-Type: application/json" \\\n  -d @netflow_records.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/sflow',
+            desc: 'Ingest sFlow samples.',
+            request: '{\n  "entity_id": "spine-sw-02",\n  "samples": [\n    {\n      "sample_type": "flow",\n      "input_if": 3,\n      "output_if": 7,\n      "frame_length": 1518,\n      "protocol": 6\n    }\n  ]\n}',
+            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 0.7\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/sflow \\\n  -H "Content-Type: application/json" \\\n  -d @sflow_samples.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/prometheus',
+            desc: 'Ingest Prometheus text format or remote_write payloads.',
+            request: '# Prometheus text exposition format\nhttp_requests_total{method="GET",handler="/api"} 1027\nhttp_request_duration_seconds_bucket{le="0.1"} 2489',
+            response: '{\n  "metrics_accepted": 2,\n  "entity_type": "PROMETHEUS_METRIC",\n  "latency_ms": 1.5\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/prometheus \\\n  -H "Content-Type: text/plain" \\\n  --data-binary @metrics.txt'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/fix',
+            desc: 'Ingest FIX 4.4/5.0 protocol messages.',
+            request: '{\n  "entity_id": "venue-nyse-01",\n  "messages": [\n    "8=FIX.4.4|35=D|49=CLIENT1|56=EXCHANGE|55=AAPL|54=1|44=182.50|38=100|"\n  ]\n}',
+            response: '{\n  "accepted": 1,\n  "entity_type": "MARKET_TICK",\n  "latency_ms": 0.6\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/fix \\\n  -H "Content-Type: application/json" \\\n  -d @fix_messages.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/market-data',
+            desc: 'Ingest CSV tick data, ITCH/OUCH binary market data.',
+            request: '{\n  "entity_id": "AAPL",\n  "format": "csv_tick",\n  "ticks": [\n    { "timestamp": "2026-03-08T14:30:00.123Z", "price": 182.47, "volume": 500, "side": "buy" }\n  ]\n}',
+            response: '{\n  "accepted": 1,\n  "entity_type": "MARKET_TICK",\n  "latency_ms": 0.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/market-data \\\n  -H "Content-Type: application/json" \\\n  -d @tick_data.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/nwb',
+            desc: 'Ingest NWB files.',
+            request: '/* multipart/form-data */\n"file": &lt;recording.nwb&gt;\n"entity_id": "organoid-alpha-07"\n"session_id": "session-2026-03-08"',
+            response: '{\n  "entity_id": "organoid-alpha-07",\n  "channels_extracted": 64,\n  "time_range_seconds": 3600,\n  "vectors_generated": 36000,\n  "latency_ms": 12400\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/nwb \\\n  -F "file=@recording.nwb" \\\n  -F "entity_id=organoid-alpha-07"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/hdf5',
+            desc: 'Ingest HDF5 neural recording files.',
+            request: '/* multipart/form-data */\n"file": &lt;data.h5&gt;\n"entity_id": "organoid-beta-03"\n"dataset_path": "/acquisition/ElectricalSeries/data"',
+            response: '{\n  "entity_id": "organoid-beta-03",\n  "samples_read": 1920000,\n  "vectors_generated": 19200,\n  "latency_ms": 8340\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/hdf5 \\\n  -F "file=@data.h5" \\\n  -F "entity_id=organoid-beta-03" \\\n  -F "dataset_path=/acquisition/ElectricalSeries/data"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/nev',
+            desc: 'Ingest Blackrock NEV neural event files.',
+            request: '/* multipart/form-data */\n"file": &lt;recording.nev&gt;\n"entity_id": "mea-array-12"',
+            response: '{\n  "entity_id": "mea-array-12",\n  "spikes_extracted": 284710,\n  "channels": 96,\n  "latency_ms": 4210\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/nev \\\n  -F "file=@recording.nev" \\\n  -F "entity_id=mea-array-12"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/nsx',
+            desc: 'Ingest Blackrock NSx continuous neural data files.',
+            request: '/* multipart/form-data */\n"file": &lt;recording.ns5&gt;\n"entity_id": "mea-array-12"\n"sample_rate": "30000"',
+            response: '{\n  "entity_id": "mea-array-12",\n  "samples_ingested": 54000000,\n  "channels": 96,\n  "duration_seconds": 1800,\n  "latency_ms": 15200\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/nsx \\\n  -F "file=@recording.ns5" \\\n  -F "entity_id=mea-array-12"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/spikeinterface',
+            desc: 'Ingest SpikeInterface sorted spike trains.',
+            request: '{\n  "entity_id": "organoid-gamma-01",\n  "sorting_id": "kilosort4-run-22",\n  "units": [\n    { "unit_id": 0, "spike_times_ms": [102.3, 204.7, 310.1] },\n    { "unit_id": 1, "spike_times_ms": [150.0, 298.4] }\n  ]\n}',
+            response: '{\n  "entity_id": "organoid-gamma-01",\n  "units_ingested": 2,\n  "total_spikes": 5,\n  "latency_ms": 2.1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/spikeinterface \\\n  -H "Content-Type: application/json" \\\n  -d @sorted_spikes.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/mea-stream',
+            desc: 'Real-time multi-electrode array streaming ingestion.',
+            request: '/* chunked transfer, application/x-ndjson */\n{"entity_id":"mea-live-04","channel":0,"voltage_uv":-42.7,"ts_ms":0.033}\n{"entity_id":"mea-live-04","channel":1,"voltage_uv":18.2,"ts_ms":0.033}',
+            response: '/* Periodic ack stream */\n{"ack":1000,"buffered":0,"elapsed_ms":33}\n{"ack":2000,"buffered":12,"elapsed_ms":66}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/mea-stream \\\n  -H "Content-Type: application/x-ndjson" \\\n  -H "Transfer-Encoding: chunked" \\\n  --data-binary @live_mea.ndjson'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-ingestion');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

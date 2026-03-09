@@ -6,17 +6,6 @@
   <title>API Reference | VectorScaleDB Docs</title>
   <meta name="description" content="Complete REST, gRPC, and GraphQL API reference for VectorScaleDB. 80+ endpoints for temporal-semantic queries, compression, streaming, and enterprise administration.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <link rel="apple-touch-icon" href="../favicon.svg">
-  <meta property="og:title" content="API Reference | VectorScaleDB Docs">
-  <meta property="og:description" content="Complete REST, gRPC, and GraphQL API reference for VectorScaleDB. 80+ endpoints for temporal-semantic queries, compression, streaming, and enterprise administration.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://vectorscaledb.com/docs/api.html">
-  <meta property="og:site_name" content="VectorScaleDB">
-  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="API Reference | VectorScaleDB Docs">
-  <meta name="twitter:description" content="Complete REST, gRPC, and GraphQL API reference for VectorScaleDB. 80+ endpoints.">
-  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
   <meta name="theme-color" content="#09090b">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../docs.css">
@@ -28,651 +17,120 @@
   <div id="docs-nav"></div>
   <div class="docs-layout">
     <div id="docs-sidebar"></div>
-    <main class="docs-content" id="docs-content">
-      <div class="docs-breadcrumb">Docs / API Reference</div>
-      <h1>API Reference</h1>
-      <p class="docs-intro">Complete REST, gRPC, and GraphQL API for VectorScaleDB. 80+ endpoints for temporal-semantic queries, compression, streaming, and enterprise administration.</p>
-      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+    <main class="docs-content">
 
-      <div id="api-endpoints"></div>
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li>Docs</li>
+        <li>API Reference</li>
+      </ul>
+
+      <h1>API Reference</h1>
+      <p>Complete REST, gRPC, and GraphQL API for VectorScaleDB. 80+ endpoints for temporal-semantic queries, compression, streaming, and enterprise administration.</p>
+
+      <div class="docs-callout docs-callout--info">
+        <div class="docs-callout-title">Base URL</div>
+        <p><code>https://your-instance.vectorscaledb.com</code></p>
+      </div>
+
+      <h2 id="overview">Endpoint Categories</h2>
+
+      <div class="api-overview-grid">
+        <a href="api-core.html" class="api-overview-card">
+          <div class="api-overview-card-title">Core</div>
+          <div class="api-overview-card-desc">Health checks and Prometheus metrics.</div>
+          <div class="api-overview-card-count">2 endpoints</div>
+        </a>
+        <a href="api-ingestion.html" class="api-overview-card">
+          <div class="api-overview-card-title">Ingestion</div>
+          <div class="api-overview-card-desc">Vectors, 3D scenes, MCAP, point clouds, network telemetry, financial feeds, neural recordings.</div>
+          <div class="api-overview-card-count">21 endpoints</div>
+        </a>
+        <a href="api-queries.html" class="api-overview-card">
+          <div class="api-overview-card-title">Temporal-Semantic Queries</div>
+          <div class="api-overview-card-desc">KNN, trajectory similarity, anomaly scoring, forecasting.</div>
+          <div class="api-overview-card-count">4 endpoints</div>
+        </a>
+        <a href="api-networking.html" class="api-overview-card">
+          <div class="api-overview-card-title">Networking</div>
+          <div class="api-overview-card-desc">Route optimization, traffic anomaly detection, CDN profiling, topology tracing.</div>
+          <div class="api-overview-card-count">4 endpoints</div>
+        </a>
+        <a href="api-finance.html" class="api-overview-card">
+          <div class="api-overview-card-title">Financial Markets</div>
+          <div class="api-overview-card-desc">Market regime detection, correlation analysis, historical pattern replay.</div>
+          <div class="api-overview-card-count">3 endpoints</div>
+        </a>
+        <a href="api-biocomputing.html" class="api-overview-card">
+          <div class="api-overview-card-title">Bio-Computing</div>
+          <div class="api-overview-card-desc">Learning onset, stimulus-response, cross-organoid comparison, synchrony, fleet ranking.</div>
+          <div class="api-overview-card-count">5 endpoints</div>
+        </a>
+        <a href="api-patterns.html" class="api-overview-card">
+          <div class="api-overview-card-title">Patterns &amp; Intelligence</div>
+          <div class="api-overview-card-desc">Behavioral pattern CRUD: create, list, retrieve, and delete stored patterns for fleet-scale matching.</div>
+          <div class="api-overview-card-count">4 endpoints</div>
+        </a>
+        <a href="api-gaussian.html" class="api-overview-card">
+          <div class="api-overview-card-title">Gaussian / Scene</div>
+          <div class="api-overview-card-desc">Scene differencing and LOD streaming for 4D Gaussian Splatting.</div>
+          <div class="api-overview-card-count">2 endpoints</div>
+        </a>
+        <a href="api-streaming.html" class="api-overview-card">
+          <div class="api-overview-card-title">Streaming</div>
+          <div class="api-overview-card-desc">Server-Sent Events, webhook registration, real-time notifications.</div>
+          <div class="api-overview-card-count">3 endpoints</div>
+        </a>
+        <a href="api-enterprise.html" class="api-overview-card">
+          <div class="api-overview-card-title">Enterprise &amp; Admin</div>
+          <div class="api-overview-card-desc">Audit trail, GDPR deletion, SLA monitoring, usage metering.</div>
+          <div class="api-overview-card-count">4 endpoints</div>
+        </a>
+        <a href="api-graphql.html" class="api-overview-card">
+          <div class="api-overview-card-title">GraphQL</div>
+          <div class="api-overview-card-desc">Queries, mutations, subscriptions, and interactive Playground.</div>
+          <div class="api-overview-card-count">3 endpoints</div>
+        </a>
+      </div>
+
+      <h2 id="authentication">Authentication</h2>
+      <p>All enterprise and admin endpoints require a Bearer token passed via the <code>Authorization</code> header:</p>
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">HTTP</span>
+        </div>
+        <pre><code>Authorization: Bearer &lt;your-api-key&gt;</code></pre>
+      </div>
+
+      <h2 id="protocols">Supported Protocols</h2>
+      <table class="docs-table">
+        <thead>
+          <tr><th>Protocol</th><th>Endpoint</th><th>Use Case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>REST</td><td><code>/v1/*</code></td><td>Standard API access, 80+ endpoints</td></tr>
+          <tr><td>gRPC</td><td>Port 50051</td><td>High-throughput, low-latency streaming</td></tr>
+          <tr><td>GraphQL</td><td><code>/graphql</code></td><td>Flexible queries with field selection</td></tr>
+          <tr><td>WebSocket</td><td><code>/graphql/ws</code></td><td>Real-time subscriptions</td></tr>
+          <tr><td>SSE</td><td><code>/v1/stream/*</code></td><td>Server-pushed event streams</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="sdks">Client SDKs</h2>
+      <p>Native clients with full type safety:</p>
+      <ul>
+        <li><a href="sdks.html#python-sdk">Python SDK</a> &mdash; <code>pip install vectorscaledb</code></li>
+        <li><a href="sdks.html#rust-sdk">Rust SDK</a> &mdash; <code>cargo add vectorscale-client</code></li>
+        <li><a href="sdks.html#nodejs-sdk">Node.js SDK</a> &mdash; <code>npm install @vectorscaledb/client</code></li>
+      </ul>
+
     </main>
   </div>
   <div id="docs-footer"></div>
   <script src="../components.js"></script>
   <script src="../docs.js"></script>
   <script>
-    /* =========================================================
-       VectorScaleDB API Reference — Endpoint Data
-       ========================================================= */
-    const API_DATA = [
-      /* -------------------------------------------------------
-         Core
-         ------------------------------------------------------- */
-      {
-        title: 'Core',
-        id: 'core',
-        open: true,
-        endpoints: [
-          {
-            method: 'GET',
-            path: '/health',
-            desc: 'Health check. Returns service status and uptime.',
-            request: null,
-            response: '{\n  "status": "healthy",\n  "uptime_seconds": 86401,\n  "version": "0.1.0"\n}',
-            curl: 'curl http://localhost:8080/health'
-          },
-          {
-            method: 'GET',
-            path: '/v1/info',
-            desc: 'System information including version, supported entity types, storage backend, and enabled features.',
-            request: null,
-            response: '{\n  "version": "0.1.0",\n  "entity_types": 38,\n  "storage_backend": "mongodb",\n  "features": ["compression", "streaming", "grpc", "graphql"],\n  "cluster_id": "vsdb-prod-01"\n}',
-            curl: 'curl http://localhost:8080/v1/info'
-          },
-          {
-            method: 'GET',
-            path: '/metrics',
-            desc: 'Prometheus-compatible metrics endpoint. Returns counters, gauges, and histograms for ingestion rate, query latency, compression ratio, and memory usage.',
-            request: null,
-            response: '# HELP vsdb_ingest_total Total vectors ingested\n# TYPE vsdb_ingest_total counter\nvsdb_ingest_total 4.8291e+07\n# HELP vsdb_query_latency_ms Query latency in milliseconds\n# TYPE vsdb_query_latency_ms histogram\nvsdb_query_latency_ms_bucket{le="1"} 91247',
-            curl: 'curl http://localhost:8080/metrics'
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Ingestion
-         ------------------------------------------------------- */
-      {
-        title: 'Ingestion',
-        id: 'ingestion',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/ingest',
-            desc: 'Ingest temporal vectors. Accepts up to 10,000 vectors per request. Each vector is tagged with an entity ID, timestamp, and embedding.',
-            request: '{\n  "vectors": [\n    {\n      "entity_id": "vehicle-0042",\n      "timestamp": "2026-03-08T12:00:00Z",\n      "embedding": [0.12, -0.34, 0.56, ...],\n      "metadata": { "source": "gps" }\n    }\n  ]\n}',
-            response: '{\n  "accepted": 1,\n  "rejected": 0,\n  "latency_ms": 2.4\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest \\\n  -H "Content-Type: application/json" \\\n  -d \'{"vectors": [{"entity_id": "vehicle-0042", "timestamp": "2026-03-08T12:00:00Z", "embedding": [0.12, -0.34, 0.56]}]}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/batch',
-            desc: 'High-throughput batch ingestion. Accepts up to 100,000 vectors with configurable parallelism. Ideal for backfill and migration workloads.',
-            request: '{\n  "vectors": [/* up to 100,000 */],\n  "parallelism": 8,\n  "on_conflict": "upsert"\n}',
-            response: '{\n  "accepted": 100000,\n  "rejected": 0,\n  "latency_ms": 1842,\n  "throughput_vec_sec": 54289\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/batch \\\n  -H "Content-Type: application/json" \\\n  -d @batch_payload.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/spz',
-            desc: 'Ingest SPZ compressed 3D Gaussian Splatting files. Parses Gaussian primitives and indexes them as temporal-spatial entities.',
-            request: '/* multipart/form-data */\n"file": &lt;scene.spz&gt;\n"scene_id": "warehouse-scan-01"\n"timestamp": "2026-03-08T14:00:00Z"',
-            response: '{\n  "scene_id": "warehouse-scan-01",\n  "gaussians_ingested": 248731,\n  "latency_ms": 3412\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/spz \\\n  -F "file=@scene.spz" \\\n  -F "scene_id=warehouse-scan-01" \\\n  -F "timestamp=2026-03-08T14:00:00Z"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/gltf',
-            desc: 'Ingest glTF/GLB 3D scene files. Extracts meshes, materials, and spatial layout for temporal scene tracking.',
-            request: '/* multipart/form-data */\n"file": &lt;scene.glb&gt;\n"scene_id": "factory-floor"\n"timestamp": "2026-03-08T14:30:00Z"',
-            response: '{\n  "scene_id": "factory-floor",\n  "meshes_processed": 142,\n  "nodes_indexed": 389,\n  "latency_ms": 1876\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/gltf \\\n  -F "file=@scene.glb" \\\n  -F "scene_id=factory-floor"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/mcap',
-            desc: 'Ingest MCAP robotics/autonomy recording files. Supports ROS 2, Foxglove, and custom schemas. Extracts sensor channels and indexes temporally.',
-            request: '/* multipart/form-data */\n"file": &lt;recording.mcap&gt;\n"robot_id": "agv-117"\n"channels": "lidar,imu,odom"',
-            response: '{\n  "entity_id": "agv-117",\n  "messages_ingested": 1847293,\n  "channels_parsed": 3,\n  "time_range": { "start": "2026-03-08T09:00:00Z", "end": "2026-03-08T09:47:12Z" },\n  "latency_ms": 8921\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/mcap \\\n  -F "file=@recording.mcap" \\\n  -F "robot_id=agv-117" \\\n  -F "channels=lidar,imu,odom"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/multi-modal',
-            desc: 'Multi-modal sensor fusion ingestion. Accepts synchronized camera, LiDAR, and radar data in a single request for unified temporal indexing.',
-            request: '{\n  "entity_id": "av-fleet-03",\n  "timestamp": "2026-03-08T16:20:00Z",\n  "modalities": {\n    "camera": { "embedding": [0.1, ...], "resolution": "1920x1080" },\n    "lidar": { "embedding": [0.3, ...], "points": 128000 },\n    "radar": { "embedding": [0.2, ...], "range_m": 200 }\n  }\n}',
-            response: '{\n  "accepted": 3,\n  "fused_embedding_dim": 512,\n  "latency_ms": 18.7\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/multi-modal \\\n  -H "Content-Type: application/json" \\\n  -d @multimodal_payload.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/pointcloud',
-            desc: 'Ingest LAS/PCD point cloud files. Extracts spatial structure for temporal scene comparison.',
-            request: '/* multipart/form-data */\n"file": &lt;scan.las&gt;\n"scene_id": "site-survey-07"\n"timestamp": "2026-03-08T10:00:00Z"',
-            response: '{\n  "scene_id": "site-survey-07",\n  "points_ingested": 4200000,\n  "bounding_box": { "min": [-50.0, -50.0, 0.0], "max": [50.0, 50.0, 25.0] },\n  "latency_ms": 5230\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/pointcloud \\\n  -F "file=@scan.las" \\\n  -F "scene_id=site-survey-07"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/gaussian/ndjson',
-            desc: 'Newline-delimited JSON Gaussian data ingestion. Each line represents a Gaussian primitive with position, covariance, and color attributes.',
-            request: '/* Content-Type: application/x-ndjson */\n{"scene_id":"room-1","position":[1.0,2.0,3.0],"color":[255,128,0]}\n{"scene_id":"room-1","position":[1.1,2.1,3.1],"color":[254,130,2]}',
-            response: '{\n  "scene_id": "room-1",\n  "gaussians_ingested": 2,\n  "latency_ms": 0.8\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/gaussian/ndjson \\\n  -H "Content-Type: application/x-ndjson" \\\n  --data-binary @gaussians.ndjson'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/gaussian/stream',
-            desc: 'Continuous streaming Gaussian ingestion. Keeps a persistent connection open for real-time scene updates as new Gaussians arrive.',
-            request: '/* chunked transfer encoding, application/x-ndjson */\n{"scene_id":"live-scan","position":[0.5,1.2,3.8],"timestamp":"2026-03-08T16:00:01Z"}\n/* ...continuous stream... */',
-            response: '/* Server responds with periodic acks */\n{"ack":100,"buffered":0,"elapsed_ms":1024}\n{"ack":200,"buffered":3,"elapsed_ms":2051}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/gaussian/stream \\\n  -H "Content-Type: application/x-ndjson" \\\n  -H "Transfer-Encoding: chunked" \\\n  --data-binary @stream.ndjson'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/snmp',
-            desc: 'Ingest SNMP trap and poll data. Converts OID-value pairs into temporal vectors for network device behavioral tracking.',
-            request: '{\n  "entity_id": "switch-core-01",\n  "timestamp": "2026-03-08T12:00:00Z",\n  "oids": {\n    "1.3.6.1.2.1.2.2.1.10.1": 9842718,\n    "1.3.6.1.2.1.2.2.1.16.1": 7291034,\n    "1.3.6.1.2.1.1.3.0": 482910\n  }\n}',
-            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 1.1\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/snmp \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id":"switch-core-01","timestamp":"2026-03-08T12:00:00Z","oids":{"1.3.6.1.2.1.2.2.1.10.1":9842718}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/gnmi',
-            desc: 'Ingest gNMI telemetry streams. Parses subscribe responses from network devices into temporal-semantic vectors.',
-            request: '{\n  "entity_id": "router-edge-05",\n  "path": "/interfaces/interface[name=eth0]/state/counters",\n  "timestamp": "2026-03-08T12:05:00Z",\n  "values": {\n    "in-octets": 1294817482,\n    "out-octets": 982471023,\n    "in-errors": 0\n  }\n}',
-            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 0.9\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/gnmi \\\n  -H "Content-Type: application/json" \\\n  -d @gnmi_sample.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/netflow',
-            desc: 'Ingest NetFlow v5/v9 and IPFIX flow records. Converts network flow data into behavioral embeddings for traffic analysis.',
-            request: '{\n  "entity_id": "border-fw-01",\n  "format": "netflow_v9",\n  "flows": [\n    {\n      "src_addr": "10.0.1.50",\n      "dst_addr": "203.0.113.10",\n      "bytes": 148290,\n      "packets": 124,\n      "protocol": 6\n    }\n  ]\n}',
-            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 1.3\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/netflow \\\n  -H "Content-Type: application/json" \\\n  -d @netflow_records.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/sflow',
-            desc: 'Ingest sFlow samples. Converts sampled packet and counter data into temporal vectors for network observability.',
-            request: '{\n  "entity_id": "spine-sw-02",\n  "samples": [\n    {\n      "sample_type": "flow",\n      "input_if": 3,\n      "output_if": 7,\n      "frame_length": 1518,\n      "protocol": 6\n    }\n  ]\n}',
-            response: '{\n  "accepted": 1,\n  "entity_type": "LINK_METRIC",\n  "latency_ms": 0.7\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/sflow \\\n  -H "Content-Type: application/json" \\\n  -d @sflow_samples.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/prometheus',
-            desc: 'Ingest Prometheus text format or remote_write payloads. Converts metric time-series into temporal-semantic embeddings.',
-            request: '# Prometheus text exposition format\nhttp_requests_total{method="GET",handler="/api"} 1027\nhttp_request_duration_seconds_bucket{le="0.1"} 2489',
-            response: '{\n  "metrics_accepted": 2,\n  "entity_type": "PROMETHEUS_METRIC",\n  "latency_ms": 1.5\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/prometheus \\\n  -H "Content-Type: text/plain" \\\n  --data-binary @metrics.txt'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/fix',
-            desc: 'Ingest FIX 4.4/5.0 protocol messages. Parses execution reports, order submissions, and market data into temporal vectors.',
-            request: '{\n  "entity_id": "venue-nyse-01",\n  "messages": [\n    "8=FIX.4.4|35=D|49=CLIENT1|56=EXCHANGE|55=AAPL|54=1|44=182.50|38=100|"\n  ]\n}',
-            response: '{\n  "accepted": 1,\n  "entity_type": "MARKET_TICK",\n  "latency_ms": 0.6\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/fix \\\n  -H "Content-Type: application/json" \\\n  -d @fix_messages.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/market-data',
-            desc: 'Ingest CSV tick data, ITCH/OUCH binary market data. Supports multiple exchange formats for financial time-series.',
-            request: '{\n  "entity_id": "AAPL",\n  "format": "csv_tick",\n  "ticks": [\n    { "timestamp": "2026-03-08T14:30:00.123Z", "price": 182.47, "volume": 500, "side": "buy" }\n  ]\n}',
-            response: '{\n  "accepted": 1,\n  "entity_type": "MARKET_TICK",\n  "latency_ms": 0.4\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/market-data \\\n  -H "Content-Type: application/json" \\\n  -d @tick_data.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/nwb',
-            desc: 'Ingest Neurodata Without Borders (NWB) files. Extracts electrophysiology, calcium imaging, and behavioral data for neural analysis.',
-            request: '/* multipart/form-data */\n"file": &lt;recording.nwb&gt;\n"entity_id": "organoid-alpha-07"\n"session_id": "session-2026-03-08"',
-            response: '{\n  "entity_id": "organoid-alpha-07",\n  "channels_extracted": 64,\n  "time_range_seconds": 3600,\n  "vectors_generated": 36000,\n  "latency_ms": 12400\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/nwb \\\n  -F "file=@recording.nwb" \\\n  -F "entity_id=organoid-alpha-07"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/hdf5',
-            desc: 'Ingest HDF5 neural recording files. Supports arbitrary dataset hierarchies commonly used in neuroscience research.',
-            request: '/* multipart/form-data */\n"file": &lt;data.h5&gt;\n"entity_id": "organoid-beta-03"\n"dataset_path": "/acquisition/ElectricalSeries/data"',
-            response: '{\n  "entity_id": "organoid-beta-03",\n  "samples_read": 1920000,\n  "vectors_generated": 19200,\n  "latency_ms": 8340\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/hdf5 \\\n  -F "file=@data.h5" \\\n  -F "entity_id=organoid-beta-03" \\\n  -F "dataset_path=/acquisition/ElectricalSeries/data"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/nev',
-            desc: 'Ingest Blackrock NEV neural event files. Extracts spike timestamps and waveform features for temporal-semantic indexing.',
-            request: '/* multipart/form-data */\n"file": &lt;recording.nev&gt;\n"entity_id": "mea-array-12"',
-            response: '{\n  "entity_id": "mea-array-12",\n  "spikes_extracted": 284710,\n  "channels": 96,\n  "latency_ms": 4210\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/nev \\\n  -F "file=@recording.nev" \\\n  -F "entity_id=mea-array-12"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/nsx',
-            desc: 'Ingest Blackrock NSx continuous neural data files. Extracts continuous voltage traces across electrode arrays.',
-            request: '/* multipart/form-data */\n"file": &lt;recording.ns5&gt;\n"entity_id": "mea-array-12"\n"sample_rate": "30000"',
-            response: '{\n  "entity_id": "mea-array-12",\n  "samples_ingested": 54000000,\n  "channels": 96,\n  "duration_seconds": 1800,\n  "latency_ms": 15200\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/nsx \\\n  -F "file=@recording.ns5" \\\n  -F "entity_id=mea-array-12"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/spikeinterface',
-            desc: 'Ingest SpikeInterface sorted spike trains. Accepts pre-sorted neural spike data with unit assignments for behavioral analysis.',
-            request: '{\n  "entity_id": "organoid-gamma-01",\n  "sorting_id": "kilosort4-run-22",\n  "units": [\n    { "unit_id": 0, "spike_times_ms": [102.3, 204.7, 310.1] },\n    { "unit_id": 1, "spike_times_ms": [150.0, 298.4] }\n  ]\n}',
-            response: '{\n  "entity_id": "organoid-gamma-01",\n  "units_ingested": 2,\n  "total_spikes": 5,\n  "latency_ms": 2.1\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/spikeinterface \\\n  -H "Content-Type: application/json" \\\n  -d @sorted_spikes.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/ingest/mea-stream',
-            desc: 'Real-time multi-electrode array streaming ingestion. Maintains a persistent connection for live neural recording data.',
-            request: '/* chunked transfer, application/x-ndjson */\n{"entity_id":"mea-live-04","channel":0,"voltage_uv":-42.7,"ts_ms":0.033}\n{"entity_id":"mea-live-04","channel":1,"voltage_uv":18.2,"ts_ms":0.033}',
-            response: '/* Periodic ack stream */\n{"ack":1000,"buffered":0,"elapsed_ms":33}\n{"ack":2000,"buffered":12,"elapsed_ms":66}',
-            curl: 'curl -X POST http://localhost:8080/v1/ingest/mea-stream \\\n  -H "Content-Type: application/x-ndjson" \\\n  -H "Transfer-Encoding: chunked" \\\n  --data-binary @live_mea.ndjson'
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Temporal-Semantic Queries
-         ------------------------------------------------------- */
-      {
-        title: 'Temporal-Semantic Queries',
-        id: 'temporal-semantic-queries',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/query/temporal-knn',
-            desc: 'Time-bounded K-nearest neighbors search. Finds the K most similar vectors within a specified time window, combining temporal proximity with semantic similarity.',
-            request: '{\n  "embedding": [0.12, -0.34, 0.56, ...],\n  "k": 10,\n  "time_range": {\n    "start": "2026-03-07T00:00:00Z",\n    "end": "2026-03-08T00:00:00Z"\n  },\n  "entity_type": "VEHICLE"\n}',
-            response: '{\n  "results": [\n    {\n      "entity_id": "vehicle-0042",\n      "timestamp": "2026-03-07T14:22:01Z",\n      "similarity": 0.971,\n      "metadata": { "source": "gps" }\n    }\n  ],\n  "total": 10,\n  "latency_ms": 0.82\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/temporal-knn \\\n  -H "Content-Type: application/json" \\\n  -d \'{"embedding": [0.12, -0.34, 0.56], "k": 10, "time_range": {"start": "2026-03-07T00:00:00Z", "end": "2026-03-08T00:00:00Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/temporal-range',
-            desc: 'Retrieve all vectors in a time range for a specific entity. Returns the full behavioral timeline within the window.',
-            request: '{\n  "entity_id": "vehicle-0042",\n  "time_range": {\n    "start": "2026-03-08T09:00:00Z",\n    "end": "2026-03-08T17:00:00Z"\n  },\n  "limit": 1000\n}',
-            response: '{\n  "entity_id": "vehicle-0042",\n  "vectors": [\n    { "timestamp": "2026-03-08T09:00:01Z", "embedding": [...] },\n    { "timestamp": "2026-03-08T09:00:02Z", "embedding": [...] }\n  ],\n  "count": 847,\n  "latency_ms": 3.1\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/temporal-range \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "vehicle-0042", "time_range": {"start": "2026-03-08T09:00:00Z", "end": "2026-03-08T17:00:00Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/trajectory',
-            desc: 'DTW-based trajectory similarity comparison. Compares the behavioral trajectory of one entity against another or against a reference pattern.',
-            request: '{\n  "entity_a": "vehicle-0042",\n  "entity_b": "vehicle-0099",\n  "time_range": {\n    "start": "2026-03-08T08:00:00Z",\n    "end": "2026-03-08T12:00:00Z"\n  },\n  "algorithm": "dtw"\n}',
-            response: '{\n  "similarity_score": 0.847,\n  "dtw_distance": 12.34,\n  "aligned_length": 421,\n  "divergence_points": [\n    { "timestamp": "2026-03-08T10:14:22Z", "gap": 0.42 }\n  ],\n  "latency_ms": 18.4\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/trajectory \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_a": "vehicle-0042", "entity_b": "vehicle-0099", "time_range": {"start": "2026-03-08T08:00:00Z", "end": "2026-03-08T12:00:00Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/scene-diff',
-            desc: '3D scene differencing between two timestamps. Identifies changed, added, and removed elements in a Gaussian splatting scene.',
-            request: '{\n  "scene_id": "warehouse-scan-01",\n  "timestamp_a": "2026-03-07T14:00:00Z",\n  "timestamp_b": "2026-03-08T14:00:00Z",\n  "threshold": 0.05\n}',
-            response: '{\n  "scene_id": "warehouse-scan-01",\n  "changed": 1247,\n  "added": 312,\n  "removed": 89,\n  "unchanged": 247083,\n  "change_regions": [\n    { "center": [12.4, -3.1, 1.8], "radius": 2.3, "type": "moved" }\n  ],\n  "latency_ms": 142\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/scene-diff \\\n  -H "Content-Type: application/json" \\\n  -d \'{"scene_id": "warehouse-scan-01", "timestamp_a": "2026-03-07T14:00:00Z", "timestamp_b": "2026-03-08T14:00:00Z"}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/anomaly-score',
-            desc: 'Behavioral anomaly scoring for an entity. Computes how much the current behavior deviates from the entity\'s historical baseline.',
-            request: '{\n  "entity_id": "vehicle-0042",\n  "timestamp": "2026-03-08T15:30:00Z",\n  "baseline_window": "7d"\n}',
-            response: '{\n  "entity_id": "vehicle-0042",\n  "anomaly_score": 0.87,\n  "severity": "high",\n  "contributing_factors": [\n    { "factor": "route_deviation", "weight": 0.62 },\n    { "factor": "speed_profile", "weight": 0.25 }\n  ],\n  "latency_ms": 4.7\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/anomaly-score \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "vehicle-0042", "timestamp": "2026-03-08T15:30:00Z", "baseline_window": "7d"}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/forecast',
-            desc: 'Behavioral trajectory forecasting. Predicts the likely future behavioral trajectory of an entity based on historical patterns.',
-            request: '{\n  "entity_id": "vehicle-0042",\n  "horizon": "1h",\n  "confidence_intervals": [0.5, 0.9, 0.99]\n}',
-            response: '{\n  "entity_id": "vehicle-0042",\n  "forecast": [\n    {\n      "timestamp": "2026-03-08T16:00:00Z",\n      "predicted_embedding": [...],\n      "confidence": { "p50": 0.12, "p90": 0.31, "p99": 0.58 }\n    }\n  ],\n  "model": "behavioral_extrapolation",\n  "latency_ms": 8.2\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/forecast \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "vehicle-0042", "horizon": "1h", "confidence_intervals": [0.5, 0.9, 0.99]}\''
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Domain-Specific Queries — Networking
-         ------------------------------------------------------- */
-      {
-        title: 'Domain Queries: Networking',
-        id: 'domain-networking',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/query/route-recommend',
-            desc: 'DTW-based route optimization. Analyzes historical traffic patterns to recommend optimal network paths.',
-            request: '{\n  "src": "router-edge-01",\n  "dst": "router-edge-12",\n  "constraints": {\n    "max_latency_ms": 5,\n    "min_bandwidth_gbps": 10\n  },\n  "time_range": {\n    "start": "2026-03-08T00:00:00Z",\n    "end": "2026-03-08T12:00:00Z"\n  }\n}',
-            response: '{\n  "recommended_path": ["router-edge-01", "router-core-03", "router-core-07", "router-edge-12"],\n  "estimated_latency_ms": 2.8,\n  "confidence": 0.94,\n  "alternatives": 3,\n  "latency_ms": 6.1\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/route-recommend \\\n  -H "Content-Type: application/json" \\\n  -d \'{"src": "router-edge-01", "dst": "router-edge-12", "constraints": {"max_latency_ms": 5}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/network-anomaly',
-            desc: 'Topology-aware traffic anomaly detection. Identifies unusual patterns considering network graph structure and historical baselines.',
-            request: '{\n  "entity_id": "spine-sw-02",\n  "time_range": {\n    "start": "2026-03-08T10:00:00Z",\n    "end": "2026-03-08T11:00:00Z"\n  },\n  "include_neighbors": true\n}',
-            response: '{\n  "anomalies": [\n    {\n      "entity_id": "spine-sw-02",\n      "timestamp": "2026-03-08T10:32:14Z",\n      "score": 0.92,\n      "type": "traffic_spike",\n      "affected_interfaces": ["eth1/1", "eth1/2"]\n    }\n  ],\n  "topology_context": { "neighbors_affected": 4 },\n  "latency_ms": 11.2\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/network-anomaly \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "spine-sw-02", "time_range": {"start": "2026-03-08T10:00:00Z", "end": "2026-03-08T11:00:00Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/cdn-profile',
-            desc: 'CDN edge behavioral profiling. Characterizes content delivery patterns and detects cache behavior shifts at edge locations.',
-            request: '{\n  "entity_id": "cdn-edge-us-west-04",\n  "time_range": {\n    "start": "2026-03-08T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  }\n}',
-            response: '{\n  "entity_id": "cdn-edge-us-west-04",\n  "profile": {\n    "cache_hit_rate": 0.94,\n    "peak_throughput_gbps": 42.7,\n    "behavioral_regime": "normal_peak"\n  },\n  "regime_changes": [\n    { "timestamp": "2026-03-08T18:30:00Z", "from": "off_peak", "to": "normal_peak" }\n  ],\n  "latency_ms": 7.4\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/cdn-profile \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "cdn-edge-us-west-04", "time_range": {"start": "2026-03-08T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/topology-trace',
-            desc: 'Network path tracing and impact analysis. Traces packet paths through the network and assesses blast radius of potential failures.',
-            request: '{\n  "entity_id": "router-core-03",\n  "trace_type": "failure_impact",\n  "depth": 3\n}',
-            response: '{\n  "entity_id": "router-core-03",\n  "impact": {\n    "directly_affected": 12,\n    "indirectly_affected": 47,\n    "critical_paths_disrupted": 3\n  },\n  "affected_entities": ["router-edge-01", "router-edge-05", "..."],\n  "latency_ms": 14.8\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/topology-trace \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "router-core-03", "trace_type": "failure_impact", "depth": 3}\''
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Domain-Specific Queries — Financial Markets
-         ------------------------------------------------------- */
-      {
-        title: 'Domain Queries: Financial Markets',
-        id: 'domain-finance',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/query/market-regime',
-            desc: 'Detect bull/bear/sideways/crisis market regimes. Uses behavioral embeddings to identify regime transitions in real time.',
-            request: '{\n  "entity_id": "SPX",\n  "time_range": {\n    "start": "2026-01-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "granularity": "1d"\n}',
-            response: '{\n  "entity_id": "SPX",\n  "current_regime": "bull",\n  "confidence": 0.88,\n  "transitions": [\n    { "timestamp": "2026-02-14T00:00:00Z", "from": "sideways", "to": "bull", "confidence": 0.91 }\n  ],\n  "latency_ms": 22.1\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/market-regime \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "SPX", "time_range": {"start": "2026-01-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/correlation-regime',
-            desc: 'Cross-asset correlation change detection. Identifies when correlation structures between assets shift, signaling regime changes.',
-            request: '{\n  "entities": ["SPX", "TLT", "GLD", "DXY"],\n  "time_range": {\n    "start": "2026-01-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "window": "30d"\n}',
-            response: '{\n  "correlation_matrix": {\n    "SPX-TLT": -0.42,\n    "SPX-GLD": 0.18,\n    "SPX-DXY": -0.31\n  },\n  "regime_breaks": [\n    { "timestamp": "2026-02-20T00:00:00Z", "pair": "SPX-TLT", "shift": 0.67 }\n  ],\n  "latency_ms": 34.7\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/correlation-regime \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entities": ["SPX", "TLT", "GLD", "DXY"], "time_range": {"start": "2026-01-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/pattern-replay',
-            desc: 'Historical pattern matching via DTW. Finds past periods where market behavior was most similar to the current pattern.',
-            request: '{\n  "entity_id": "SPX",\n  "pattern_window": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "search_range": "5y",\n  "top_k": 5\n}',
-            response: '{\n  "matches": [\n    {\n      "period": { "start": "2024-11-12T00:00:00Z", "end": "2024-11-19T00:00:00Z" },\n      "similarity": 0.934,\n      "subsequent_return_5d": 0.023\n    }\n  ],\n  "latency_ms": 87.3\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/pattern-replay \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "SPX", "pattern_window": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "top_k": 5}\''
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Domain-Specific Queries — Bio-Computing
-         ------------------------------------------------------- */
-      {
-        title: 'Domain Queries: Bio-Computing',
-        id: 'domain-bio',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/query/learning-onset',
-            desc: 'Detect learning onset in neural recordings. Identifies the point where an organoid or neural culture begins to exhibit learned behavioral patterns.',
-            request: '{\n  "entity_id": "organoid-alpha-07",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "sensitivity": 0.8\n}',
-            response: '{\n  "entity_id": "organoid-alpha-07",\n  "learning_detected": true,\n  "onset_timestamp": "2026-03-04T14:22:00Z",\n  "confidence": 0.91,\n  "learning_rate": 0.034,\n  "latency_ms": 42.8\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/learning-onset \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "organoid-alpha-07", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/stim-response',
-            desc: 'Analyze stimulus-response latency and patterns. Measures how neural cultures respond to stimulation events over time.',
-            request: '{\n  "entity_id": "organoid-alpha-07",\n  "stim_events": [\n    { "timestamp": "2026-03-08T10:00:00Z", "type": "electrical", "amplitude_ua": 50 }\n  ],\n  "response_window_ms": 500\n}',
-            response: '{\n  "responses": [\n    {\n      "stim_timestamp": "2026-03-08T10:00:00Z",\n      "response_latency_ms": 12.4,\n      "peak_amplitude": 0.78,\n      "channels_responding": 42\n    }\n  ],\n  "avg_latency_ms": 12.4,\n  "latency_ms": 8.9\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/stim-response \\\n  -H "Content-Type: application/json" \\\n  -d @stim_request.json'
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/learning-transfer',
-            desc: 'Compare learning patterns across organoids. Determines whether behavioral learning in one organoid resembles learning in another.',
-            request: '{\n  "entity_a": "organoid-alpha-07",\n  "entity_b": "organoid-beta-03",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  }\n}',
-            response: '{\n  "transfer_score": 0.72,\n  "shared_patterns": 4,\n  "unique_to_a": 2,\n  "unique_to_b": 1,\n  "temporal_lag_hours": 18.4,\n  "latency_ms": 67.2\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/learning-transfer \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_a": "organoid-alpha-07", "entity_b": "organoid-beta-03", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/synchrony-transitions',
-            desc: 'Detect neural synchrony state changes. Identifies transitions between synchronized and desynchronized firing states in neural networks.',
-            request: '{\n  "entity_id": "mea-array-12",\n  "time_range": {\n    "start": "2026-03-08T09:00:00Z",\n    "end": "2026-03-08T10:00:00Z"\n  },\n  "min_duration_ms": 100\n}',
-            response: '{\n  "transitions": [\n    {\n      "timestamp": "2026-03-08T09:12:34Z",\n      "from_state": "desynchronized",\n      "to_state": "synchronized",\n      "duration_ms": 2340,\n      "channels_involved": 78\n    }\n  ],\n  "total_transitions": 7,\n  "latency_ms": 19.4\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/synchrony-transitions \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "mea-array-12", "time_range": {"start": "2026-03-08T09:00:00Z", "end": "2026-03-08T10:00:00Z"}}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/query/organoid-fleet',
-            desc: 'Fleet-wide organoid comparison and ranking. Ranks all organoids by learning speed, response quality, or behavioral complexity.',
-            request: '{\n  "metric": "learning_speed",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "top_k": 10\n}',
-            response: '{\n  "rankings": [\n    { "entity_id": "organoid-alpha-07", "score": 0.94, "rank": 1 },\n    { "entity_id": "organoid-gamma-01", "score": 0.89, "rank": 2 }\n  ],\n  "fleet_size": 24,\n  "latency_ms": 112.3\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/query/organoid-fleet \\\n  -H "Content-Type: application/json" \\\n  -d \'{"metric": "learning_speed", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "top_k": 10}\''
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Patterns & Intelligence
-         ------------------------------------------------------- */
-      {
-        title: 'Patterns & Intelligence',
-        id: 'patterns',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/patterns/detect',
-            desc: 'Detect recurring behavioral patterns for an entity. Finds repeated behavioral sequences that exceed a similarity threshold.',
-            request: '{\n  "entity_id": "vehicle-0042",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "min_occurrences": 3\n}',
-            response: '{\n  "patterns": [\n    {\n      "pattern_id": "pat-0001",\n      "occurrences": 5,\n      "avg_duration_minutes": 42,\n      "label": "morning_commute",\n      "timestamps": ["2026-03-03T07:45:00Z", "2026-03-04T07:50:00Z", "..."]\n    }\n  ],\n  "total_patterns": 3,\n  "latency_ms": 31.5\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/patterns/detect \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "vehicle-0042", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "min_occurrences": 3}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/patterns/anomaly',
-            desc: 'Compute fleet-wide anomaly scores. Scores every entity in a fleet against the population baseline to find outliers.',
-            request: '{\n  "entity_type": "VEHICLE",\n  "time_range": {\n    "start": "2026-03-08T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "top_k": 20\n}',
-            response: '{\n  "anomalies": [\n    { "entity_id": "vehicle-0117", "score": 0.96, "severity": "critical" },\n    { "entity_id": "vehicle-0042", "score": 0.87, "severity": "high" }\n  ],\n  "fleet_size": 1240,\n  "baseline_entities": 1218,\n  "latency_ms": 142.7\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/patterns/anomaly \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "VEHICLE", "time_range": {"start": "2026-03-08T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "top_k": 20}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/patterns/cluster',
-            desc: 'Semantic clustering of entity behaviors. Groups entities by behavioral similarity to discover natural segments.',
-            request: '{\n  "entity_type": "VEHICLE",\n  "time_range": {\n    "start": "2026-03-08T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "num_clusters": 5\n}',
-            response: '{\n  "clusters": [\n    {\n      "cluster_id": 0,\n      "label": "high_utilization",\n      "size": 342,\n      "representative_entity": "vehicle-0042"\n    },\n    {\n      "cluster_id": 1,\n      "label": "idle_parked",\n      "size": 498,\n      "representative_entity": "vehicle-0210"\n    }\n  ],\n  "total_entities": 1240,\n  "latency_ms": 284.1\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/patterns/cluster \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "VEHICLE", "time_range": {"start": "2026-03-08T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "num_clusters": 5}\''
-          },
-          {
-            method: 'POST',
-            path: '/v1/patterns/fleet',
-            desc: 'Cross-entity pattern matching at fleet scale. Finds entities whose behavioral patterns match a reference trajectory.',
-            request: '{\n  "reference_entity": "vehicle-0042",\n  "entity_type": "VEHICLE",\n  "time_range": {\n    "start": "2026-03-08T08:00:00Z",\n    "end": "2026-03-08T12:00:00Z"\n  },\n  "min_similarity": 0.8\n}',
-            response: '{\n  "matches": [\n    { "entity_id": "vehicle-0099", "similarity": 0.94 },\n    { "entity_id": "vehicle-0301", "similarity": 0.88 }\n  ],\n  "scanned": 1240,\n  "latency_ms": 198.4\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/patterns/fleet \\\n  -H "Content-Type: application/json" \\\n  -d \'{"reference_entity": "vehicle-0042", "entity_type": "VEHICLE", "min_similarity": 0.8}\''
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Gaussian / Scene
-         ------------------------------------------------------- */
-      {
-        title: 'Gaussian / Scene',
-        id: 'gaussian',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/gaussian/scene-diff',
-            desc: 'Scene differencing for Gaussian splatting scenes. Returns changed, added, and removed elements between two scene versions.',
-            request: '{\n  "scene_id": "warehouse-scan-01",\n  "version_a": "2026-03-07T14:00:00Z",\n  "version_b": "2026-03-08T14:00:00Z",\n  "detail_level": "summary"\n}',
-            response: '{\n  "scene_id": "warehouse-scan-01",\n  "diff": {\n    "added": 312,\n    "removed": 89,\n    "changed": 1247,\n    "unchanged": 247083\n  },\n  "change_volume_pct": 0.66,\n  "latency_ms": 138\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/gaussian/scene-diff \\\n  -H "Content-Type: application/json" \\\n  -d \'{"scene_id": "warehouse-scan-01", "version_a": "2026-03-07T14:00:00Z", "version_b": "2026-03-08T14:00:00Z"}\''
-          },
-          {
-            method: 'GET',
-            path: '/v1/gaussian/lod',
-            desc: 'Level-of-detail streaming for Gaussian scenes. Returns progressively refined scene data for real-time rendering.',
-            request: '/* Query parameters */\nscene_id=warehouse-scan-01\nlevel=2\nviewport=0,0,1920,1080\ncamera_pos=10.0,5.0,3.0',
-            response: '{\n  "scene_id": "warehouse-scan-01",\n  "lod_level": 2,\n  "gaussians_returned": 12400,\n  "total_gaussians": 248731,\n  "bounding_box": { "min": [-20, -20, 0], "max": [20, 20, 10] },\n  "latency_ms": 24.1\n}',
-            curl: 'curl "http://localhost:8080/v1/gaussian/lod?scene_id=warehouse-scan-01&level=2&camera_pos=10.0,5.0,3.0"'
-          },
-          {
-            method: 'GET',
-            path: '/v1/gaussian/scene/{scene_id}/stats',
-            desc: 'Scene statistics and metadata. Returns Gaussian count, bounding box, capture timestamps, and storage usage.',
-            request: null,
-            response: '{\n  "scene_id": "warehouse-scan-01",\n  "total_gaussians": 248731,\n  "versions": 14,\n  "first_capture": "2026-02-01T08:00:00Z",\n  "last_capture": "2026-03-08T14:00:00Z",\n  "storage_mb": 847.2,\n  "bounding_box": { "min": [-25, -25, 0], "max": [25, 25, 12] }\n}',
-            curl: 'curl http://localhost:8080/v1/gaussian/scene/warehouse-scan-01/stats'
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Streaming
-         ------------------------------------------------------- */
-      {
-        title: 'Streaming',
-        id: 'streaming',
-        open: false,
-        endpoints: [
-          {
-            method: 'GET',
-            path: '/v1/stream/changes',
-            desc: 'Server-Sent Events for real-time change stream. Streams entity updates, anomaly detections, and pattern matches as they occur.',
-            request: '/* Query parameters */\nentity_type=VEHICLE\nevents=anomaly,pattern_match',
-            response: '/* SSE stream */\nevent: anomaly\ndata: {"entity_id":"vehicle-0117","score":0.96,"timestamp":"2026-03-08T15:42:01Z"}\n\nevent: pattern_match\ndata: {"entity_id":"vehicle-0042","pattern":"morning_commute","timestamp":"2026-03-08T07:45:00Z"}',
-            curl: 'curl -N http://localhost:8080/v1/stream/changes?entity_type=VEHICLE&events=anomaly,pattern_match'
-          },
-          {
-            method: 'POST',
-            path: '/v1/webhooks',
-            desc: 'Register a webhook for event notifications. VectorScaleDB will POST event payloads to your URL when matching events occur.',
-            request: '{\n  "url": "https://your-app.com/webhooks/vsdb",\n  "events": ["anomaly", "pattern_match", "regime_change"],\n  "entity_types": ["VEHICLE"],\n  "secret": "whsec_your_signing_secret"\n}',
-            response: '{\n  "webhook_id": "wh-a1b2c3d4",\n  "url": "https://your-app.com/webhooks/vsdb",\n  "events": ["anomaly", "pattern_match", "regime_change"],\n  "status": "active",\n  "created_at": "2026-03-08T16:00:00Z"\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/webhooks \\\n  -H "Content-Type: application/json" \\\n  -d \'{"url": "https://your-app.com/webhooks/vsdb", "events": ["anomaly"], "secret": "whsec_your_signing_secret"}\''
-          },
-          {
-            method: 'GET',
-            path: '/v1/webhooks',
-            desc: 'List all registered webhooks. Returns webhook configurations and delivery status.',
-            request: null,
-            response: '{\n  "webhooks": [\n    {\n      "webhook_id": "wh-a1b2c3d4",\n      "url": "https://your-app.com/webhooks/vsdb",\n      "events": ["anomaly", "pattern_match"],\n      "status": "active",\n      "last_delivery": "2026-03-08T15:42:01Z",\n      "success_rate": 0.998\n    }\n  ]\n}',
-            curl: 'curl http://localhost:8080/v1/webhooks'
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         Enterprise & Admin
-         ------------------------------------------------------- */
-      {
-        title: 'Enterprise & Admin',
-        id: 'enterprise',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/v1/admin/encryption/rotate',
-            desc: 'Rotate encryption keys. Generates a new data encryption key and re-encrypts active data segments. Requires admin role.',
-            request: '{\n  "reason": "scheduled_quarterly_rotation",\n  "algorithm": "AES-256-GCM"\n}',
-            response: '{\n  "key_id": "key-2026-03-08-001",\n  "algorithm": "AES-256-GCM",\n  "rotated_at": "2026-03-08T16:00:00Z",\n  "segments_re_encrypted": 4821,\n  "duration_ms": 12480\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/admin/encryption/rotate \\\n  -H "Authorization: Bearer $ADMIN_TOKEN" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"reason": "scheduled_quarterly_rotation"}\''
-          },
-          {
-            method: 'GET',
-            path: '/v1/admin/encryption/status',
-            desc: 'Encryption status and key metadata. Shows active key, algorithm, rotation history, and coverage metrics.',
-            request: null,
-            response: '{\n  "active_key_id": "key-2026-03-08-001",\n  "algorithm": "AES-256-GCM",\n  "created_at": "2026-03-08T16:00:00Z",\n  "total_keys": 4,\n  "encryption_coverage": 1.0,\n  "next_rotation_due": "2026-06-08T00:00:00Z"\n}',
-            curl: 'curl http://localhost:8080/v1/admin/encryption/status \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
-          },
-          {
-            method: 'GET',
-            path: '/v1/admin/audit',
-            desc: 'Query the audit trail. Returns SHA-256 chained audit events for compliance and forensics. Supports time range and entity filters.',
-            request: '/* Query parameters */\nstart=2026-03-08T00:00:00Z\nend=2026-03-08T23:59:59Z\naction=data_access\nlimit=100',
-            response: '{\n  "events": [\n    {\n      "event_id": "evt-9f8a7b6c",\n      "timestamp": "2026-03-08T14:22:01Z",\n      "action": "data_access",\n      "actor": "user:jdoe",\n      "resource": "entity:vehicle-0042",\n      "chain_hash": "sha256:a1b2c3..."\n    }\n  ],\n  "total": 247,\n  "chain_verified": true\n}',
-            curl: 'curl "http://localhost:8080/v1/admin/audit?start=2026-03-08T00:00:00Z&end=2026-03-08T23:59:59Z&action=data_access" \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
-          },
-          {
-            method: 'POST',
-            path: '/v1/admin/gdpr/delete',
-            desc: 'GDPR-compliant entity data deletion. Permanently removes all data for a specified entity and logs the deletion in the audit trail.',
-            request: '{\n  "entity_id": "user-eu-12847",\n  "reason": "gdpr_right_to_erasure",\n  "requester": "dpo@company.com"\n}',
-            response: '{\n  "entity_id": "user-eu-12847",\n  "records_deleted": 84291,\n  "segments_purged": 127,\n  "audit_event_id": "evt-del-3c4d5e",\n  "completed_at": "2026-03-08T16:00:01Z"\n}',
-            curl: 'curl -X POST http://localhost:8080/v1/admin/gdpr/delete \\\n  -H "Authorization: Bearer $ADMIN_TOKEN" \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "user-eu-12847", "reason": "gdpr_right_to_erasure"}\''
-          },
-          {
-            method: 'GET',
-            path: '/v1/admin/sla',
-            desc: 'SLA monitoring metrics. Returns uptime, p99 latencies, error rates, and SLA compliance status across all service tiers.',
-            request: null,
-            response: '{\n  "uptime_pct": 99.997,\n  "p99_query_ms": 4.2,\n  "p99_ingest_ms": 8.1,\n  "error_rate_pct": 0.003,\n  "sla_status": "compliant",\n  "period": { "start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z" }\n}',
-            curl: 'curl http://localhost:8080/v1/admin/sla \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
-          },
-          {
-            method: 'GET',
-            path: '/v1/admin/metering',
-            desc: 'Usage metering data. Returns ingestion volume, query counts, storage consumption, and compute usage for billing and capacity planning.',
-            request: '/* Query parameters */\nperiod=2026-03\ngranularity=daily',
-            response: '{\n  "period": "2026-03",\n  "totals": {\n    "vectors_ingested": 482910000,\n    "queries_executed": 12847000,\n    "storage_gb": 847.2,\n    "compute_hours": 1248.7\n  },\n  "daily": [\n    { "date": "2026-03-08", "vectors": 18420000, "queries": 1284700 }\n  ]\n}',
-            curl: 'curl "http://localhost:8080/v1/admin/metering?period=2026-03&granularity=daily" \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
-          }
-        ]
-      },
-
-      /* -------------------------------------------------------
-         GraphQL
-         ------------------------------------------------------- */
-      {
-        title: 'GraphQL',
-        id: 'graphql',
-        open: false,
-        endpoints: [
-          {
-            method: 'POST',
-            path: '/graphql',
-            desc: 'Execute GraphQL queries and mutations. Supports all temporal-semantic operations available via REST, with the flexibility of GraphQL field selection.',
-            request: '{\n  "query": "query { entity(id: \\"vehicle-0042\\") { id entityType lastSeen anomalyScore vectors(last: 5) { timestamp embedding } } }",\n  "variables": {}\n}',
-            response: '{\n  "data": {\n    "entity": {\n      "id": "vehicle-0042",\n      "entityType": "VEHICLE",\n      "lastSeen": "2026-03-08T15:42:01Z",\n      "anomalyScore": 0.87,\n      "vectors": [{ "timestamp": "2026-03-08T15:42:01Z", "embedding": [...] }]\n    }\n  }\n}',
-            curl: 'curl -X POST http://localhost:8080/graphql \\\n  -H "Content-Type: application/json" \\\n  -d \'{"query": "{ entity(id: \\"vehicle-0042\\") { id entityType anomalyScore } }"}\''
-          },
-          {
-            method: 'GET',
-            path: '/graphql',
-            desc: 'GraphQL Playground. Available in development mode for interactive query building and schema exploration.',
-            request: null,
-            response: '/* Returns the GraphQL Playground HTML interface */\n/* Available at http://localhost:8080/graphql in your browser */',
-            curl: 'curl http://localhost:8080/graphql \\\n  -H "Accept: text/html"'
-          },
-          {
-            method: 'WS',
-            path: '/graphql/ws',
-            desc: 'GraphQL subscriptions via WebSocket. Enables real-time push notifications for entity updates, anomaly alerts, and pattern detections.',
-            request: '{\n  "type": "subscribe",\n  "payload": {\n    "query": "subscription { anomalyDetected(entityType: VEHICLE, minScore: 0.8) { entityId score timestamp severity } }"\n  }\n}',
-            response: '{\n  "type": "data",\n  "payload": {\n    "data": {\n      "anomalyDetected": {\n        "entityId": "vehicle-0117",\n        "score": 0.96,\n        "timestamp": "2026-03-08T15:42:01Z",\n        "severity": "critical"\n      }\n    }\n  }\n}',
-            curl: '# WebSocket connection (use wscat or similar tool)\nwscat -c ws://localhost:8080/graphql/ws'
-          }
-        ]
-      }
-    ];
-
-    /* =========================================================
-       Render
-       ========================================================= */
-    document.addEventListener('DOMContentLoaded', () => {
-      VsdbDocs.init('api');
-      const container = document.getElementById('api-endpoints');
-      API_DATA.forEach(group => {
-        VsdbDocs.renderEndpointGroup(container, group);
-      });
-    });
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('api'));
   </script>
 </body>
 </html>

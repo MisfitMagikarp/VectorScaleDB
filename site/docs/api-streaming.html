@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streaming API | VectorScaleDB Docs</title>
+  <meta name="description" content="Real-time event streaming via Server-Sent Events and webhook-based notifications.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Streaming</li>
+      </ul>
+      <h1>Streaming</h1>
+      <p class="docs-intro">Real-time event streaming via Server-Sent Events and webhook-based notifications.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Streaming',
+        id: 'streaming',
+        open: true,
+        endpoints: [
+          {
+            method: 'GET',
+            path: '/v1/segments/watch',
+            description: 'Server-Sent Events for real-time change stream.',
+            request: '/* Query parameters */\nentity_type=VEHICLE\nevents=anomaly,pattern_match',
+            response: '/* SSE stream */\nevent: anomaly\ndata: {"entity_id":"vehicle-0117","score":0.96,"timestamp":"2026-03-08T15:42:01Z"}\n\nevent: pattern_match\ndata: {"entity_id":"vehicle-0042","pattern":"morning_commute","timestamp":"2026-03-08T07:45:00Z"}',
+            curl: 'curl -N http://localhost:8080/v1/segments/watch?entity_type=VEHICLE&events=anomaly,pattern_match'
+          },
+          {
+            method: 'POST',
+            path: '/v1/admin/webhooks',
+            description: 'Register a webhook for event notifications.',
+            request: '{\n  "url": "https://your-app.com/webhooks/vsdb",\n  "events": ["anomaly", "pattern_match", "regime_change"],\n  "entity_types": ["VEHICLE"],\n  "secret": "whsec_your_signing_secret"\n}',
+            response: '{\n  "webhook_id": "wh-a1b2c3d4",\n  "url": "https://your-app.com/webhooks/vsdb",\n  "events": ["anomaly", "pattern_match", "regime_change"],\n  "status": "active",\n  "created_at": "2026-03-08T16:00:00Z"\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/admin/webhooks \\\n  -H "Content-Type: application/json" \\\n  -d \'{"url": "https://your-app.com/webhooks/vsdb", "events": ["anomaly"], "secret": "whsec_your_signing_secret"}\''
+          },
+          {
+            method: 'GET',
+            path: '/v1/admin/webhooks',
+            description: 'List all registered webhooks.',
+            request: null,
+            response: '{\n  "webhooks": [\n    {\n      "webhook_id": "wh-a1b2c3d4",\n      "url": "https://your-app.com/webhooks/vsdb",\n      "events": ["anomaly", "pattern_match"],\n      "status": "active",\n      "last_delivery": "2026-03-08T15:42:01Z",\n      "success_rate": 0.998\n    }\n  ]\n}',
+            curl: 'curl http://localhost:8080/v1/admin/webhooks'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-streaming');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

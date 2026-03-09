@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4D Scene Intelligence | VectorScaleDB</title>
+  <meta name="description" content="Deep dive into VectorScaleDB's 4D Gaussian Splatting storage: 13-dim state vectors, scene differencing, LOD streaming, anchor-relative offsets, and native SPZ/glTF ingestion.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Spatial</div>
+      <h1 class="hero-title">4D Scene Intelligence</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">The first database with native 4D Gaussian Splatting support. Store, diff, stream, and query 3D scenes across time &mdash; with the same temporal-semantic engine that powers everything else.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4DGS Storage -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">4D Gaussian Splatting Storage</h2>
+    <p class="section-subtitle fade-in">Gaussian Splatting represents 3D scenes as millions of oriented, colored ellipsoids. VectorScaleDB stores each Gaussian as a 13-dimensional state vector, making scenes queryable with the same temporal-semantic primitives used for any other entity type.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">What is 4DGS</div>
+        <div class="card-title">3D Gaussians extended through time</div>
+        <div class="card-description">
+          3D Gaussian Splatting (3DGS) reconstructs photorealistic scenes from photographs by fitting millions of 3D Gaussians &mdash; each defined by position (xyz), covariance (scale + rotation), opacity, and color (spherical harmonics). 4DGS adds the time dimension: each Gaussian can move, deform, appear, or disappear over time. VectorScaleDB is the storage engine purpose-built for this data.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Position: 3 floats (x, y, z)</li>
+            <li>Scale: 3 floats (sx, sy, sz)</li>
+            <li>Rotation: 4 floats (quaternion)</li>
+            <li>Opacity: 1 float</li>
+            <li>Color: spherical harmonics (stored separately)</li>
+            <li>Timestamp: nanosecond-precision temporal binding</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">13-Dim State Vector</div>
+        <div class="card-title">Compact, queryable representation</div>
+        <div class="card-description">
+          Each Gaussian is encoded as a 13-dimensional state vector: [x, y, z, sx, sy, sz, qw, qx, qy, qz, opacity, sh_dc_r, sh_dc_g]. This representation is compact enough for efficient storage and indexing, while preserving all geometric and appearance properties needed for rendering and spatial queries.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>13-dim vector fits naturally into the TST index</li>
+            <li>Spatial KNN queries find nearby Gaussians</li>
+            <li>Cosine similarity detects appearance changes</li>
+            <li>Compression engine groups stable Gaussians into segments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Entity Classification -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Static / Dynamic / Transient Classification</h2>
+    <p class="section-subtitle fade-in">Not all Gaussians behave the same way. VectorScaleDB automatically classifies each Gaussian based on its temporal behavior, enabling differentiated storage, compression, and query strategies.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label" style="color: var(--success);">Static</div>
+        <div class="card-title">Unchanging scene elements</div>
+        <div class="card-description">Buildings, terrain, permanent fixtures. These Gaussians show near-zero drift across time snapshots. Stored once with extreme compression ratios (10,000x+) since their state vectors are constant. Queried via spatial index only.</div>
+      </div>
+      <div class="card">
+        <div class="card-label" style="color: var(--warning);">Dynamic</div>
+        <div class="card-title">Moving or changing elements</div>
+        <div class="card-description">Vehicles, people, machinery. These Gaussians exhibit meaningful state changes across snapshots. Stored with the standard compression pipeline, creating segments at regime boundaries. Full temporal-semantic queries apply.</div>
+      </div>
+      <div class="card">
+        <div class="card-label" style="color: var(--danger);">Transient</div>
+        <div class="card-title">Ephemeral artifacts</div>
+        <div class="card-description">Lighting effects, reflections, reconstruction noise. These Gaussians appear in only one or a few snapshots. Identified by low temporal persistence scores and optionally filtered from storage and queries to reduce noise.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scene Differencing -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Scene Differencing Across Time</h2>
+    <p class="section-subtitle fade-in">Compare two snapshots of the same scene and get a structured diff of what changed &mdash; not just pixel differences, but semantically meaningful spatial changes.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Spatial Diff</div>
+        <div class="card-title">What moved, appeared, or disappeared</div>
+        <div class="card-description">
+          Scene differencing compares Gaussians between two timestamps using spatial proximity and state-vector similarity. The result is a structured changeset:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><strong>Added:</strong> Gaussians present in T2 but not T1</li>
+            <li><strong>Removed:</strong> Gaussians present in T1 but not T2</li>
+            <li><strong>Moved:</strong> Matched Gaussians with position delta above threshold</li>
+            <li><strong>Modified:</strong> Matched Gaussians with appearance changes</li>
+            <li><strong>Unchanged:</strong> Count of stable Gaussians (not returned by default)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Applications</div>
+        <div class="card-title">From construction monitoring to security</div>
+        <div class="card-description">
+          Scene differencing powers a wide range of use cases where understanding spatial change over time is critical:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Construction progress tracking (daily/weekly diffs)</li>
+            <li>Perimeter security (detecting unauthorized changes)</li>
+            <li>Inventory management (warehouse shelf diffs)</li>
+            <li>Environmental monitoring (erosion, vegetation change)</li>
+            <li>Forensic analysis (crime scene temporal reconstruction)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOD Streaming -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">LOD Streaming</h2>
+    <p class="section-subtitle fade-in">Deliver scene data at the right fidelity for the client's viewport and bandwidth, from coarse overviews to full-resolution detail.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Level of Detail</div>
+        <div class="card-title">Progressive scene delivery</div>
+        <div class="card-description">
+          VectorScaleDB organizes Gaussians into LOD tiers based on their visual contribution (opacity-weighted scale). Clients request a LOD level and receive only the Gaussians needed for that fidelity, reducing bandwidth by 10-100x for distant or overview views.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>LOD 0: Coarse overview (largest, most opaque Gaussians)</li>
+            <li>LOD 1-3: Progressive detail refinement</li>
+            <li>LOD max: Full-resolution scene</li>
+            <li>Viewport-aware culling reduces transmitted Gaussians further</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Streaming</div>
+        <div class="card-title">Real-time progressive loading</div>
+        <div class="card-description">
+          The LOD streaming endpoint supports both request-response and server-sent events (SSE) for progressive loading. Clients can request a coarse view immediately, then progressively refine as bandwidth allows, providing an instant "hero view" while detail loads in the background.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>SSE for progressive refinement</li>
+            <li>Delta-only updates for subsequent LOD levels</li>
+            <li>Configurable quality targets per LOD tier</li>
+            <li>Bandwidth-adaptive tier selection</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Anchor-Relative & SPZ/glTF -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Anchor-Relative Storage & Native Ingestion</h2>
+    <p class="section-subtitle fade-in">Spatial consistency across time snapshots and direct ingestion from industry-standard formats.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Spatial Consistency</div>
+        <div class="card-title">Anchor-relative offset storage</div>
+        <div class="card-description">
+          Real-world scene captures rarely have perfectly aligned coordinate systems between sessions. VectorScaleDB stores Gaussian positions as offsets from user-defined anchor points (GPS coordinates, survey markers, or fixed scene elements). This ensures that scene diffs and temporal queries produce accurate results even when raw capture coordinates drift.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Anchor points defined per scene or per capture session</li>
+            <li>Automatic coordinate transformation on ingestion</li>
+            <li>Multiple anchor systems for large-area scenes</li>
+            <li>Sub-centimeter alignment accuracy with surveyed anchors</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Ingestion</div>
+        <div class="card-title">SPZ and glTF native support</div>
+        <div class="card-description">
+          VectorScaleDB ingests Gaussian Splatting data directly from industry formats without external preprocessing:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><strong>SPZ:</strong> Niantic's compressed splat format &mdash; parsed and indexed directly</li>
+            <li><strong>glTF:</strong> Khronos standard 3D format with Gaussian extensions</li>
+            <li><strong>PLY:</strong> Point cloud format commonly used in 3DGS toolchains</li>
+            <li>Automatic entity classification during ingestion</li>
+            <li>Spherical harmonics stored with configurable band count</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Technical Detail: Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="solution-card fade-in">
+      <div class="card-label">Technical Detail</div>
+      <div class="card-title">Querying scene differences</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">Use the scene diff endpoint to compare two temporal snapshots of a scene and retrieve a structured changeset of what moved, appeared, or disappeared in the environment.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Python: Query scene diff between two timestamps</span>
+<span style="color: #7c3aed;">import</span> vectorscaledb
+
+client = vectorscaledb.Client(<span style="color: #22c55e;">"https://your-instance.vectorscaledb.com"</span>)
+
+<span style="color: var(--text-muted);"># Compare yesterday's scan to today's scan</span>
+diff = client.gaussian.scene_diff(
+    scene_id=<span style="color: #22c55e;">"warehouse-floor-b"</span>,
+    timestamp_a=<span style="color: #22c55e;">"2026-03-08T06:00:00Z"</span>,
+    timestamp_b=<span style="color: #22c55e;">"2026-03-09T06:00:00Z"</span>,
+    position_threshold=<span style="color: #f59e0b;">0.05</span>,   <span style="color: var(--text-muted);"># 5cm movement threshold</span>
+    appearance_threshold=<span style="color: #f59e0b;">0.1</span>, <span style="color: var(--text-muted);"># cosine distance for appearance</span>
+    include_unchanged=<span style="color: #f59e0b;">False</span>,
+    classification_filter=[<span style="color: #22c55e;">"dynamic"</span>, <span style="color: #22c55e;">"static"</span>]  <span style="color: var(--text-muted);"># exclude transient</span>
+)
+
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Scene: {diff.scene_id}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Gaussians compared: {diff.total_compared:,}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Added:    {len(diff.added):,}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Removed:  {len(diff.removed):,}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Moved:    {len(diff.moved):,}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Modified: {len(diff.modified):,}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Latency:  {diff.latency_ms}ms"</span>)
+
+<span style="color: var(--text-muted);"># Inspect moved Gaussians (e.g., forklift repositioned pallets)</span>
+<span style="color: #7c3aed;">for</span> change <span style="color: #7c3aed;">in</span> diff.moved[:<span style="color: #f59e0b;">5</span>]:
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  Gaussian {change.gaussian_id}:"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"    From: ({change.position_a.x:.2f}, {change.position_a.y:.2f}, {change.position_a.z:.2f})"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"    To:   ({change.position_b.x:.2f}, {change.position_b.y:.2f}, {change.position_b.z:.2f})"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"    Delta: {change.distance:.3f}m"</span>)
+
+<span style="color: var(--text-muted);"># Example output:</span>
+<span style="color: var(--text-muted);"># Scene: warehouse-floor-b</span>
+<span style="color: var(--text-muted);"># Gaussians compared: 2,847,312</span>
+<span style="color: var(--text-muted);"># Added:    1,204</span>
+<span style="color: var(--text-muted);"># Removed:  887</span>
+<span style="color: var(--text-muted);"># Moved:    3,412</span>
+<span style="color: var(--text-muted);"># Modified: 892</span>
+<span style="color: var(--text-muted);"># Latency:  142ms</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related API Endpoints -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related API Endpoints</h2>
+    <p class="section-subtitle fade-in">Explore the full API reference for 4D Gaussian Splatting operations.</p>
+    <div class="grid-2 fade-in">
+      <a href="../docs/api-gaussian.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/gaussian/scene/{id}/diff</code>
+        </div>
+        <div class="card-description">Compare two temporal snapshots of a Gaussian Splatting scene. Returns structured changesets with added, removed, moved, and modified Gaussians.</div>
+      </a>
+      <a href="../docs/api-gaussian.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-get">GET</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/gaussian/scene/{id}/lod</code>
+        </div>
+        <div class="card-description">Level-of-detail streaming endpoint. Retrieve Gaussians at a specified fidelity level with optional viewport culling and progressive refinement via SSE.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to build with 4D scene intelligence?</h2>
+    <p class="cta-subtitle fade-in">Schedule a demo to see scene differencing and LOD streaming with your Gaussian Splatting data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%204DGS" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

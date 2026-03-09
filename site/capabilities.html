@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capabilities | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB capabilities: temporal-semantic indexing, vector-aware compression, 4D scene intelligence, trajectory analysis, enterprise security, distributed architecture, and more.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <meta property="og:title" content="Capabilities | VectorScaleDB">
+  <meta property="og:description" content="Explore VectorScaleDB's full capability set: temporal-semantic indexing, 1000x compression, 4DGS scene intelligence, trajectory analysis, and enterprise-grade security.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/capabilities.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Capabilities | VectorScaleDB">
+  <meta name="twitter:description" content="Explore VectorScaleDB's full capability set: temporal-semantic indexing, 1000x compression, 4DGS scene intelligence, and more.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo-link"><img src="logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="capabilities.html">Capabilities</a></li>
+      <li><a href="use-cases.html">Use Cases</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="comparison.html">Compare</a></li>
+      <li><a href="docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="capabilities.html">Capabilities</a></li>
+    <li><a href="use-cases.html">Use Cases</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="comparison.html">Compare</a></li>
+    <li><a href="docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Page Header -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <h1 class="hero-title">Core Capabilities</h1>
+      <p class="hero-subtitle">Every capability shipped and production-ready. From sub-millisecond temporal-semantic queries to enterprise-grade encryption and decentralized federation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Capabilities Bento Grid -->
+<section class="section" id="capabilities">
+  <div class="container">
+    <div class="bento-grid fade-in">
+
+      <!-- Temporal-Semantic Index -->
+      <a href="capabilities/indexing.html" class="card bento-large" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Indexing</div>
+        <div class="card-title">Temporal-Semantic Index</div>
+        <div class="card-description">HNSW graph per time-chunk with temporal continuity edges — neither a time index nor a vector index, but both fused into a single queryable structure. Sub-millisecond KNN across millions of temporal vectors.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>HNSW per time-chunk with cross-chunk continuity edges</li>
+          <li>Sub-ms approximate nearest neighbor search</li>
+          <li>Full snapshot/restore for index durability</li>
+          <li>Unified temporal + semantic query planning</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- Vector-Aware Compression -->
+      <a href="capabilities/compression.html" class="card bento-large" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">100-1000x compression beyond columnar approaches by storing behavioral regimes instead of individual data points. Drift-based regime detection compresses stable periods into compact segment representations.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>100-1000x compression ratios</li>
+          <li>Drift-based regime detection</li>
+          <li>WAL + crash recovery for write safety</li>
+          <li>Adaptive threshold tuning per entity</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- 4D Scene Intelligence -->
+      <a href="capabilities/gaussian.html" class="card bento-medium" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Spatial</div>
+        <div class="card-title">4D Scene Intelligence</div>
+        <div class="card-description">Native 4D Gaussian Splatting storage with temporal scene differencing, LOD streaming, and anchor-relative offset storage for spatial consistency across time.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>4DGS storage and retrieval</li>
+          <li>Scene differencing across time</li>
+          <li>LOD streaming for bandwidth control</li>
+          <li>Anchor-relative offset storage</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- Trajectory Analysis -->
+      <a href="capabilities/trajectory.html" class="card bento-medium" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Trajectory Analysis</div>
+        <div class="card-description">Full trajectory intelligence pipeline: FastDTW similarity matching, statistical anomaly scoring, behavioral forecasting, and DBSCAN clustering for fleet-scale pattern discovery.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>FastDTW trajectory similarity</li>
+          <li>Anomaly scoring with statistical baselines</li>
+          <li>Behavioral forecasting engine</li>
+          <li>Change-point detection + DBSCAN clustering</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- Enterprise Security -->
+      <a href="capabilities/security.html" class="card bento-medium" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Security</div>
+        <div class="card-title">Enterprise Security</div>
+        <div class="card-description">Defense-in-depth security with AES-256-GCM envelope encryption, per-tenant key management, automated key rotation, RBAC, SHA-256 audit chains, GDPR compliance, and differential privacy.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>AES-256-GCM envelope encryption</li>
+          <li>Per-tenant key management + automated rotation</li>
+          <li>RBAC with fine-grained permissions</li>
+          <li>SHA-256 audit chains + GDPR compliance</li>
+          <li>Differential privacy on query results</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- Distributed Intelligence -->
+      <a href="capabilities/distributed.html" class="card bento-medium" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Distributed</div>
+        <div class="card-title">Distributed Intelligence</div>
+        <div class="card-description">Production-grade distributed coordination with consistent hashing, SWIM gossip protocol, CRDTs for conflict-free replication, and scatter-gather query coordination.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>Consistent hashing for shard placement</li>
+          <li>SWIM gossip protocol for cluster membership</li>
+          <li>CRDTs for conflict-free state replication</li>
+          <li>Entity migration and rebalancing</li>
+          <li>Federated template exchange across clusters</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- Cross-Domain Intelligence -->
+      <a href="capabilities/cross-domain.html" class="card bento-medium" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Intelligence</div>
+        <div class="card-title">Cross-Domain Intelligence</div>
+        <div class="card-description">Detect patterns that span domains. Cascade detection identifies behavioral ripple effects, and the alerting pipeline triggers notifications when regime cascades emerge.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>Cross-domain cascade detection</li>
+          <li>Predictive forecasting across entity types</li>
+          <li>Cross-domain alerting pipeline</li>
+          <li>Domain composition analysis</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+      <!-- Decentralized Architecture -->
+      <a href="capabilities/decentralized.html" class="card bento-medium" style="text-decoration:none;color:inherit;">
+        <div class="card-label">Decentralized</div>
+        <div class="card-title">Decentralized Architecture</div>
+        <div class="card-description">Edge-native decentralized deployment with libp2p transport, IPFS segment archival for content-addressed durability, and differential privacy for safe data sharing.</div>
+        <ul class="card-description" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+          <li>libp2p transport layer</li>
+          <li>IPFS segment archival with content-addressed CIDs</li>
+          <li>Differential privacy on shared segments</li>
+          <li>Peer-to-peer data exchange</li>
+        </ul>
+        <div class="card-label" style="margin-top: 1rem; color: var(--accent);">Learn more &rarr;</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Demos -->
+<section class="section demo-section" id="demos">
+  <div class="container">
+    <h2 class="section-title demo-heading fade-in">Interactive Demos</h2>
+    <p class="section-subtitle fade-in">See VectorScaleDB's core algorithms in action.</p>
+
+    <!-- Compression Visualizer -->
+    <div class="fade-in" style="margin-bottom: 4rem;">
+      <h3 class="card-title" style="margin-bottom: 1.5rem;">Compression Visualizer</h3>
+      <p class="card-description" style="margin-bottom: 1.5rem;">Watch raw temporal vectors compress into behavioral regimes in real time. The left panel shows incoming data points; the right shows the compressed representation.</p>
+      <div class="viz-container">
+        <div class="viz-panel">
+          <div class="card-label" style="margin-bottom: 0.5rem;">Raw Vectors</div>
+          <canvas id="raw-canvas" width="400" height="250"></canvas>
+        </div>
+        <div class="viz-panel">
+          <div class="card-label" style="margin-bottom: 0.5rem;">Compressed Regimes</div>
+          <canvas id="compressed-canvas" width="400" height="250"></canvas>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 1rem;">
+        <span class="card-label">Compression Ratio: </span>
+        <span id="compression-counter" class="stat-value" style="font-size: 1.25rem;">--</span>
+      </div>
+    </div>
+
+    <!-- Temporal KNN -->
+    <div class="fade-in" style="margin-bottom: 4rem;">
+      <h3 class="card-title" style="margin-bottom: 1.5rem;">Temporal KNN Search</h3>
+      <p class="card-description" style="margin-bottom: 1.5rem;">Visualize how the Temporal-Semantic Index performs nearest-neighbor search across time chunks, finding similar behavioral patterns regardless of when they occurred.</p>
+      <div class="viz-container">
+        <div class="viz-panel" style="flex: 1;">
+          <canvas id="knn-canvas" width="800" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene Differencing -->
+    <div class="fade-in">
+      <h3 class="card-title" style="margin-bottom: 1.5rem;">Scene Differencing</h3>
+      <p class="card-description" style="margin-bottom: 1.5rem;">See how VectorScaleDB detects changes between 4D Gaussian Splatting scene snapshots, identifying spatial regions where the environment has evolved over time.</p>
+      <div class="viz-container">
+        <div class="viz-panel" style="flex: 1;">
+          <canvas id="scene-diff-canvas" width="800" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">See these capabilities in action with your data</h2>
+    <p class="cta-subtitle fade-in">Schedule a technical demo tailored to your use case.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="capabilities.html">Capabilities</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="comparison.html">Compare</a></li>
+          <li><a href="comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="docs/">Documentation</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

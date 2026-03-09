@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GraphQL API | VectorScaleDB Docs</title>
+  <meta name="description" content="GraphQL queries, mutations, subscriptions, and the interactive Playground.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>GraphQL</li>
+      </ul>
+      <h1>GraphQL</h1>
+      <p class="docs-intro">GraphQL queries, mutations, subscriptions, and the interactive Playground.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'GraphQL',
+        id: 'graphql',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/graphql',
+            description: 'Execute GraphQL queries and mutations.',
+            request: '{\n  "query": "query { entity(id: \\"vehicle-0042\\") { id entityType lastSeen anomalyScore vectors(last: 5) { timestamp embedding } } }",\n  "variables": {}\n}',
+            response: '{\n  "data": {\n    "entity": {\n      "id": "vehicle-0042",\n      "entityType": "VEHICLE",\n      "lastSeen": "2026-03-08T15:42:01Z",\n      "anomalyScore": 0.87,\n      "vectors": [{ "timestamp": "2026-03-08T15:42:01Z", "embedding": [...] }]\n    }\n  }\n}',
+            curl: 'curl -X POST http://localhost:8080/graphql \\\n  -H "Content-Type: application/json" \\\n  -d \'{"query": "{ entity(id: \\"vehicle-0042\\") { id entityType anomalyScore } }"}\''
+          },
+          {
+            method: 'GET',
+            path: '/graphql',
+            description: 'GraphQL Playground. Available in development mode.',
+            request: null,
+            response: '/* Returns the GraphQL Playground HTML interface */\n/* Available at http://localhost:8080/graphql in your browser */',
+            curl: 'curl http://localhost:8080/graphql \\\n  -H "Accept: text/html"'
+          },
+          {
+            method: 'WS',
+            path: '/graphql/ws',
+            description: 'GraphQL subscriptions via WebSocket.',
+            request: '{\n  "type": "subscribe",\n  "payload": {\n    "query": "subscription { anomalyDetected(entityType: VEHICLE, minScore: 0.8) { entityId score timestamp severity } }"\n  }\n}',
+            response: '{\n  "type": "data",\n  "payload": {\n    "data": {\n      "anomalyDetected": {\n        "entityId": "vehicle-0117",\n        "score": 0.96,\n        "timestamp": "2026-03-08T15:42:01Z",\n        "severity": "critical"\n      }\n    }\n  }\n}',
+            curl: '# WebSocket connection (use wscat or similar tool)\nwscat -c ws://localhost:8080/graphql/ws'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-graphql');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

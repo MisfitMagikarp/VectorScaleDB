@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise & Admin API | VectorScaleDB Docs</title>
+  <meta name="description" content="Audit trail, GDPR compliance, SLA monitoring, and usage metering.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Enterprise & Admin</li>
+      </ul>
+      <h1>Enterprise & Admin</h1>
+      <p class="docs-intro">Audit trail, GDPR compliance, SLA monitoring, and usage metering.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Enterprise & Admin',
+        id: 'enterprise',
+        open: true,
+        endpoints: [
+          {
+            method: 'GET',
+            path: '/v1/admin/audit',
+            description: 'Query the audit trail. Returns SHA-256 chained audit events.',
+            request: '/* Query parameters */\nstart=2026-03-08T00:00:00Z\nend=2026-03-08T23:59:59Z\naction=data_access\nlimit=100',
+            response: '{\n  "events": [\n    {\n      "event_id": "evt-9f8a7b6c",\n      "timestamp": "2026-03-08T14:22:01Z",\n      "action": "data_access",\n      "actor": "user:jdoe",\n      "resource": "entity:vehicle-0042",\n      "chain_hash": "sha256:a1b2c3..."\n    }\n  ],\n  "total": 247,\n  "chain_verified": true\n}',
+            curl: 'curl "http://localhost:8080/v1/admin/audit?start=2026-03-08T00:00:00Z&end=2026-03-08T23:59:59Z&action=data_access" \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
+          },
+          {
+            method: 'DELETE',
+            path: '/v1/admin/entity/{entity_id}',
+            description: 'GDPR-compliant entity data deletion.',
+            request: null,
+            response: '{\n  "entity_id": "user-eu-12847",\n  "records_deleted": 84291,\n  "segments_purged": 127,\n  "audit_event_id": "evt-del-3c4d5e",\n  "completed_at": "2026-03-08T16:00:01Z"\n}',
+            curl: 'curl -X DELETE http://localhost:8080/v1/admin/entity/user-eu-12847 \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
+          },
+          {
+            method: 'GET',
+            path: '/v1/admin/sla/report',
+            description: 'SLA monitoring metrics.',
+            request: null,
+            response: '{\n  "uptime_pct": 99.997,\n  "p99_query_ms": 4.2,\n  "p99_ingest_ms": 8.1,\n  "error_rate_pct": 0.003,\n  "sla_status": "compliant",\n  "period": { "start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z" }\n}',
+            curl: 'curl http://localhost:8080/v1/admin/sla/report \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
+          },
+          {
+            method: 'GET',
+            path: '/v1/admin/metering',
+            description: 'Usage metering data.',
+            request: '/* Query parameters */\nperiod=2026-03\ngranularity=daily',
+            response: '{\n  "period": "2026-03",\n  "totals": {\n    "vectors_ingested": 482910000,\n    "queries_executed": 12847000,\n    "storage_gb": 847.2,\n    "compute_hours": 1248.7\n  },\n  "daily": [\n    { "date": "2026-03-08", "vectors": 18420000, "queries": 1284700 }\n  ]\n}',
+            curl: 'curl "http://localhost:8080/v1/admin/metering?period=2026-03&granularity=daily" \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-enterprise');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

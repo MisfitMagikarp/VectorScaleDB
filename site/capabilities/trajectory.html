@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trajectory Analysis | VectorScaleDB</title>
+  <meta name="description" content="Deep dive into VectorScaleDB's trajectory analysis engine: FastDTW similarity matching, anomaly scoring, behavioral forecasting, change-point detection, and DBSCAN semantic clustering.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Analytics</div>
+      <h1 class="hero-title">Trajectory Analysis</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Full behavioral intelligence pipeline: compare trajectories, detect anomalies, forecast behavior, identify regime transitions, and discover fleet-scale patterns &mdash; all as native database queries.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FastDTW Trajectory Similarity -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">FastDTW Trajectory Similarity</h2>
+    <p class="section-subtitle fade-in">Compare two behavioral trajectories even when they occur at different speeds, with gaps, or across different time periods. Dynamic Time Warping finds the optimal alignment between any two sequences.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Algorithm</div>
+        <div class="card-title">FastDTW with adaptive radius</div>
+        <div class="card-description">
+          Classical DTW is O(n^2), making it impractical for long trajectories. VectorScaleDB uses FastDTW with an adaptive radius parameter that provides near-optimal alignments in O(n) time. The radius automatically adjusts based on trajectory length and variance, balancing accuracy and performance.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>O(n) time complexity with adaptive radius</li>
+            <li>Handles trajectories of different lengths and speeds</li>
+            <li>Cosine distance as the per-step metric (matches compression)</li>
+            <li>Alignment path returned for visualization</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Use Cases</div>
+        <div class="card-title">When to use trajectory similarity</div>
+        <div class="card-description">
+          Trajectory similarity answers the question: "Did entity A behave like entity B?" This is distinct from point-in-time KNN (which finds similar states at a moment) or anomaly scoring (which measures deviation from baseline).
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Route comparison: Do two vehicles follow the same path?</li>
+            <li>Behavior cloning: Find entities with matching behavioral patterns</li>
+            <li>Reference matching: Compare against a "golden" trajectory template</li>
+            <li>Correlation detection: Identify synchronized behavioral trajectories</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Anomaly Scoring -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Statistical Anomaly Scoring</h2>
+    <p class="section-subtitle fade-in">Detect when an entity is behaving unusually compared to its own historical baseline or its peer group. Anomaly scores are computed in real time as new data arrives.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Baseline Construction</div>
+        <div class="card-title">Statistical baselines from compressed segments</div>
+        <div class="card-description">
+          The anomaly engine builds baselines from an entity's historical compressed segments. Because segments already capture regime statistics (centroid, drift, variance), baseline construction is fast and memory-efficient &mdash; no need to re-read raw vectors.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Configurable baseline window (1h, 1d, 7d, 30d, custom)</li>
+            <li>Weighted by recency: recent regimes matter more</li>
+            <li>Peer-group baselines: compare against similar entity types</li>
+            <li>Seasonal adjustment for periodic behavioral patterns</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Scoring</div>
+        <div class="card-title">Multi-factor anomaly scores</div>
+        <div class="card-description">
+          The anomaly score is a 0-1 normalized value computed from multiple contributing factors. Each factor measures a different dimension of behavioral deviation, and the overall score is a weighted combination.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><strong>Drift deviation:</strong> Current drift vs. historical drift distribution</li>
+            <li><strong>Regime novelty:</strong> Is the current regime unlike any seen before?</li>
+            <li><strong>Temporal pattern:</strong> Is this behavior unusual for this time of day/week?</li>
+            <li><strong>Peer divergence:</strong> Is this entity deviating from its peer group?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Behavioral Forecasting -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Behavioral Forecasting Engine</h2>
+    <p class="section-subtitle fade-in">Predict where an entity's behavioral trajectory is heading, with confidence intervals, using historical regime patterns as the forecasting basis.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Approach</div>
+        <div class="card-title">Regime-based extrapolation</div>
+        <div class="card-description">Rather than forecasting individual vectors (which would require massive models), VectorScaleDB forecasts at the regime level. Given the current regime and historical regime transitions, it predicts the most likely next regime and when the transition will occur.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Confidence</div>
+        <div class="card-title">Multi-level confidence intervals</div>
+        <div class="card-description">Forecasts include configurable confidence intervals (p50, p90, p99). Wider intervals indicate higher uncertainty, which naturally increases with forecast horizon. Intervals are computed from the historical variance of similar regime transitions.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Horizons</div>
+        <div class="card-title">Minutes to days ahead</div>
+        <div class="card-description">The forecast engine supports horizons from minutes (for real-time decision-making) to days (for planning). Accuracy degrades gracefully with horizon length, and the confidence intervals widen accordingly. Typical useful horizons depend on entity type and regime stability.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Change-Point Detection -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Change-Point Detection</h2>
+    <p class="section-subtitle fade-in">Identify the exact moments when an entity's behavior fundamentally changes &mdash; the regime transitions that matter most for operational decision-making.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Multi-scale regime transition identification</div>
+        <div class="card-description">
+          Change-point detection operates at multiple scales simultaneously. Micro-scale detects brief behavioral spikes (seconds). Meso-scale detects regime transitions (minutes to hours). Macro-scale detects long-term behavioral shifts (days to weeks). All three scales run in parallel on the compressed segment stream.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Micro-scale: sudden behavioral spikes or drops</li>
+            <li>Meso-scale: regime transitions (the primary use case)</li>
+            <li>Macro-scale: long-term behavioral evolution</li>
+            <li>Configurable sensitivity per scale</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Integration</div>
+        <div class="card-title">Change points power downstream queries</div>
+        <div class="card-description">
+          Detected change points are indexed and queryable. They serve as inputs to anomaly scoring (sudden regime changes elevate anomaly scores), forecasting (regime transitions update prediction models), and cross-domain cascade detection (correlated regime changes across entities signal systemic events).
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Change points stored as queryable events</li>
+            <li>Feed into anomaly scoring pipeline</li>
+            <li>Trigger alerting rules when thresholds are exceeded</li>
+            <li>Power cross-domain cascade detection</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DBSCAN Clustering -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">DBSCAN Semantic Clustering</h2>
+    <p class="section-subtitle fade-in">Discover behavioral patterns across entire fleets or entity populations. DBSCAN clustering groups entities by behavioral similarity, revealing emergent patterns invisible in individual analysis.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Algorithm</div>
+        <div class="card-title">Density-based clustering on segment centroids</div>
+        <div class="card-description">
+          DBSCAN operates on compressed segment centroids in embedding space. Because segments already represent behavioral regimes, clustering operates on meaningful behavioral representations rather than noisy raw data. The density-based approach naturally handles outliers and discovers arbitrarily-shaped clusters.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>No need to specify cluster count in advance</li>
+            <li>Automatically identifies outlier entities</li>
+            <li>Cosine distance for behavioral similarity</li>
+            <li>Configurable eps (neighborhood radius) and min_samples</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Applications</div>
+        <div class="card-title">Fleet-scale pattern discovery</div>
+        <div class="card-description">
+          Semantic clustering answers questions that no single-entity analysis can:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>How many distinct behavioral patterns exist in this fleet?</li>
+            <li>Which entities are behaving unlike any cluster (outliers)?</li>
+            <li>Are behavioral clusters shifting over time?</li>
+            <li>Which entities changed clusters this week?</li>
+            <li>What is the "normal" behavior distribution for this entity type?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Technical Detail: Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="solution-card fade-in">
+      <div class="card-label">Technical Detail</div>
+      <div class="card-title">Trajectory similarity query with divergence analysis</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">Compare two entities' behavioral trajectories over a time window using FastDTW, then inspect the divergence points where their behaviors separated.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Python: Trajectory similarity with divergence analysis</span>
+<span style="color: #7c3aed;">import</span> vectorscaledb
+
+client = vectorscaledb.Client(<span style="color: #22c55e;">"https://your-instance.vectorscaledb.com"</span>)
+
+<span style="color: var(--text-muted);"># Compare two delivery vehicles' morning routes</span>
+result = client.query.trajectory_similarity(
+    entity_a=<span style="color: #22c55e;">"vehicle-0042"</span>,
+    entity_b=<span style="color: #22c55e;">"vehicle-0099"</span>,
+    time_range={
+        <span style="color: #22c55e;">"start"</span>: <span style="color: #22c55e;">"2026-03-09T06:00:00Z"</span>,
+        <span style="color: #22c55e;">"end"</span>: <span style="color: #22c55e;">"2026-03-09T12:00:00Z"</span>
+    },
+    algorithm=<span style="color: #22c55e;">"fastdtw"</span>,
+    radius=<span style="color: #f59e0b;">50</span>,  <span style="color: var(--text-muted);"># FastDTW constraint radius</span>
+    return_alignment=<span style="color: #f59e0b;">True</span>,
+    return_divergence_points=<span style="color: #f59e0b;">True</span>
+)
+
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Similarity score: {result.similarity_score:.4f}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"DTW distance:     {result.dtw_distance:.2f}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Aligned length:   {result.aligned_length}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Latency:          {result.latency_ms}ms"</span>)
+
+<span style="color: var(--text-muted);"># Inspect where the two vehicles diverged</span>
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"\nDivergence points ({len(result.divergence_points)}):"</span>)
+<span style="color: #7c3aed;">for</span> dp <span style="color: #7c3aed;">in</span> result.divergence_points:
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  {dp.timestamp}: gap={dp.gap:.3f} ({dp.description})"</span>)
+
+<span style="color: var(--text-muted);"># Now find all vehicles with similar morning behavior</span>
+fleet_matches = client.query.trajectory_search(
+    reference_entity=<span style="color: #22c55e;">"vehicle-0042"</span>,
+    time_range={
+        <span style="color: #22c55e;">"start"</span>: <span style="color: #22c55e;">"2026-03-09T06:00:00Z"</span>,
+        <span style="color: #22c55e;">"end"</span>: <span style="color: #22c55e;">"2026-03-09T12:00:00Z"</span>
+    },
+    entity_type=<span style="color: #22c55e;">"VEHICLE"</span>,
+    min_similarity=<span style="color: #f59e0b;">0.8</span>,
+    limit=<span style="color: #f59e0b;">20</span>
+)
+
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"\nFleet matches (similarity >= 0.8): {len(fleet_matches.results)}"</span>)
+<span style="color: #7c3aed;">for</span> match <span style="color: #7c3aed;">in</span> fleet_matches.results[:<span style="color: #f59e0b;">5</span>]:
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  {match.entity_id}: {match.similarity:.4f}"</span>)
+
+<span style="color: var(--text-muted);"># Example output:</span>
+<span style="color: var(--text-muted);"># Similarity score: 0.8472</span>
+<span style="color: var(--text-muted);"># DTW distance:     12.34</span>
+<span style="color: var(--text-muted);"># Aligned length:   421</span>
+<span style="color: var(--text-muted);"># Latency:          18.4ms</span>
+<span style="color: var(--text-muted);">#</span>
+<span style="color: var(--text-muted);"># Divergence points (3):</span>
+<span style="color: var(--text-muted);">#   2026-03-09T08:14:22Z: gap=0.42 (route_split)</span>
+<span style="color: var(--text-muted);">#   2026-03-09T09:31:05Z: gap=0.38 (speed_change)</span>
+<span style="color: var(--text-muted);">#   2026-03-09T11:02:41Z: gap=0.29 (stop_duration)</span>
+<span style="color: var(--text-muted);">#</span>
+<span style="color: var(--text-muted);"># Fleet matches (similarity >= 0.8): 7</span>
+<span style="color: var(--text-muted);">#   vehicle-0017: 0.9234</span>
+<span style="color: var(--text-muted);">#   vehicle-0088: 0.9012</span>
+<span style="color: var(--text-muted);">#   vehicle-0055: 0.8841</span>
+<span style="color: var(--text-muted);">#   vehicle-0103: 0.8567</span>
+<span style="color: var(--text-muted);">#   vehicle-0071: 0.8229</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related API Endpoints -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related API Endpoints</h2>
+    <p class="section-subtitle fade-in">Explore the full API reference for trajectory analysis and behavioral intelligence.</p>
+    <div class="grid-3 fade-in">
+      <a href="../docs/api-queries.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/query/trajectory</code>
+        </div>
+        <div class="card-description">DTW-based trajectory similarity comparison between two entities or against a reference pattern. Returns similarity score, distance, and divergence points.</div>
+      </a>
+      <a href="../docs/api-queries.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/query/anomaly-score</code>
+        </div>
+        <div class="card-description">Behavioral anomaly scoring against historical baselines. Multi-factor scoring with contributing factor breakdown and severity classification.</div>
+      </a>
+      <a href="../docs/api-queries.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/query/forecast</code>
+        </div>
+        <div class="card-description">Behavioral trajectory forecasting with configurable horizons and multi-level confidence intervals. Predicts likely regime transitions.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Unlock behavioral intelligence for your fleet</h2>
+    <p class="cta-subtitle fade-in">Schedule a technical demo to run trajectory analysis, anomaly detection, and forecasting on your data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Trajectory%20Analysis" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

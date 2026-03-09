@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB architecture: a layered Rust engine with temporal-semantic indexing, vector-aware compression, and enterprise middleware.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <meta property="og:title" content="Architecture | VectorScaleDB">
+  <meta property="og:description" content="VectorScaleDB architecture: a layered Rust engine with temporal-semantic indexing, vector-aware compression, and enterprise middleware.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/architecture.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Architecture | VectorScaleDB">
+  <meta name="twitter:description" content="VectorScaleDB architecture: a layered Rust engine with temporal-semantic indexing, vector-aware compression, and enterprise middleware.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo-link"><img src="logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="capabilities.html">Capabilities</a></li>
+      <li><a href="use-cases.html">Use Cases</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="comparison.html">Compare</a></li>
+      <li><a href="docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="capabilities.html">Capabilities</a></li>
+    <li><a href="use-cases.html">Use Cases</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="comparison.html">Compare</a></li>
+    <li><a href="docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Page Header -->
+<section class="hero" style="min-height: auto; padding-top: 8rem; padding-bottom: 2rem;">
+  <div class="container">
+    <h1 class="hero-title" style="font-size: 3rem;">Architecture</h1>
+    <p class="hero-subtitle">A layered Rust engine purpose-built for temporal-semantic workloads. Every layer is modular, observable, and enterprise-hardened.</p>
+  </div>
+</section>
+
+<!-- Architecture Stack -->
+<section class="section" id="architecture">
+  <div class="container">
+    <h2 class="section-title fade-in">System Architecture</h2>
+    <p class="section-subtitle fade-in">Six layers from API surface to distributed storage, each independently scalable.</p>
+
+    <div class="arch-stack fade-in">
+
+      <!-- API Layer -->
+      <div class="arch-layer arch-layer--api">
+        <div class="arch-layer-label">API Layer</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">REST</span>
+          <span class="arch-chip">gRPC</span>
+          <span class="arch-chip">GraphQL</span>
+          <span class="arch-chip">SSE Streaming</span>
+          <span class="arch-chip">Webhooks</span>
+        </div>
+      </div>
+
+      <!-- Middleware Layer -->
+      <div class="arch-layer arch-layer--middleware">
+        <div class="arch-layer-label">Middleware</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">Auth / RBAC</span>
+          <span class="arch-chip">Rate Limiting</span>
+          <span class="arch-chip">Audit Chain</span>
+          <span class="arch-chip">Multi-Tenant</span>
+          <span class="arch-chip">Envelope Encryption</span>
+          <span class="arch-chip">Differential Privacy</span>
+        </div>
+      </div>
+
+      <!-- Core Engine -->
+      <div class="arch-layer arch-layer--engine">
+        <div class="arch-layer-label">Core Engine</div>
+        <div class="arch-layer-inner">
+          <div class="arch-block">
+            <div class="arch-block-title">Ingestion</div>
+            <div class="arch-block-detail">21 endpoints, MCAP, FIX, NetFlow, NWB, SPZ/glTF, Prometheus, LAS/PCD, multi-modal alignment</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Compression</div>
+            <div class="arch-block-detail">Drift-based regime detection, 100-1,000x, per-entity thresholds, WAL + crash recovery, adaptive threshold tuning</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">TST Index</div>
+            <div class="arch-block-detail">Temporal-semantic tree, HNSW per chunk, sub-ms KNN, trajectory similarity, snapshot/restore</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Query Engine</div>
+            <div class="arch-block-detail">15+ operations, anomaly scoring, pattern matching, forecasting, DBSCAN clustering, cascade detection</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Storage Layer -->
+      <div class="arch-layer arch-layer--storage">
+        <div class="arch-layer-label">Storage</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">Time Series Collections</span>
+          <span class="arch-chip">Atlas Vector Search</span>
+          <span class="arch-chip">Change Streams</span>
+          <span class="arch-chip">Sharding</span>
+        </div>
+      </div>
+
+      <!-- Distribution Layer -->
+      <div class="arch-layer" style="background: rgba(236, 72, 153, 0.05); border-color: rgba(236, 72, 153, 0.12);">
+        <div class="arch-layer-label" style="color: #f472b6;">Distribution</div>
+        <div class="arch-layer-chips">
+          <span class="arch-chip">Jump Consistent Hashing</span>
+          <span class="arch-chip">SWIM Gossip</span>
+          <span class="arch-chip">CRDTs</span>
+          <span class="arch-chip">IPFS Archival</span>
+          <span class="arch-chip">libp2p Transport</span>
+          <span class="arch-chip">Federated Templates</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Code Examples -->
+<section class="section" id="code-examples">
+  <div class="container">
+    <h2 class="section-title fade-in">Quick Start</h2>
+    <p class="section-subtitle fade-in">Ingest temporal-semantic data in three lines. SDKs for Python, Rust, and raw HTTP.</p>
+
+    <div class="card fade-in" style="padding: 0; overflow: hidden;">
+      <div class="code-tabs">
+        <button class="code-tab active" data-tab="python">Python</button>
+        <button class="code-tab" data-tab="rust">Rust</button>
+        <button class="code-tab" data-tab="curl">curl</button>
+      </div>
+      <div class="code-panel active" data-tab="python">
+<pre><span style="color: #71717a;"># pip install vectorscaledb</span>
+<span style="color: #c084fc;">from</span> vectorscaledb <span style="color: #c084fc;">import</span> Client
+
+client = Client(<span style="color: #fbbf24;">"http://localhost:8080"</span>)
+
+<span style="color: #71717a;"># Ingest a temporal vector</span>
+client.ingest({
+    <span style="color: #fbbf24;">"entity_id"</span>: <span style="color: #fbbf24;">"drone-7"</span>,
+    <span style="color: #fbbf24;">"timestamp"</span>: <span style="color: #fbbf24;">"2026-03-08T12:00:00Z"</span>,
+    <span style="color: #fbbf24;">"vector"</span>: [0.1, 0.9, 0.3, 0.7],
+    <span style="color: #fbbf24;">"metadata"</span>: {<span style="color: #fbbf24;">"altitude"</span>: 120.5}
+})
+
+<span style="color: #71717a;"># Find similar trajectories</span>
+results = client.query.trajectory_similarity(
+    entity_id=<span style="color: #fbbf24;">"drone-7"</span>,
+    time_range=(<span style="color: #fbbf24;">"2026-03-07"</span>, <span style="color: #fbbf24;">"2026-03-08"</span>),
+    top_k=<span style="color: #60a5fa;">5</span>
+)</pre>
+      </div>
+      <div class="code-panel" data-tab="rust">
+<pre><span style="color: #c084fc;">use</span> vectorscaledb::Client;
+
+<span style="color: #c084fc;">let</span> client = Client::new(<span style="color: #fbbf24;">"http://localhost:8080"</span>);
+
+<span style="color: #71717a;">// Ingest a temporal vector</span>
+client.ingest(IngestRequest {
+    entity_id: <span style="color: #fbbf24;">"drone-7"</span>.into(),
+    timestamp: Utc::now(),
+    vector: <span style="color: #c084fc;">vec!</span>[0.1, 0.9, 0.3, 0.7],
+    metadata: json!({ <span style="color: #fbbf24;">"altitude"</span>: 120.5 }),
+}).<span style="color: #c084fc;">await</span>?;
+
+<span style="color: #71717a;">// Find similar trajectories</span>
+<span style="color: #c084fc;">let</span> results = client.trajectory_similarity(
+    <span style="color: #fbbf24;">"drone-7"</span>,
+    time_range,
+    <span style="color: #60a5fa;">5</span>,
+).<span style="color: #c084fc;">await</span>?;</pre>
+      </div>
+      <div class="code-panel" data-tab="curl">
+<pre><span style="color: #71717a;"># Ingest a temporal vector</span>
+curl -X POST http://localhost:8080/api/v1/ingest \
+  -H <span style="color: #fbbf24;">"Content-Type: application/json"</span> \
+  -d <span style="color: #fbbf24;">'{
+    "entity_id": "drone-7",
+    "timestamp": "2026-03-08T12:00:00Z",
+    "vector": [0.1, 0.9, 0.3, 0.7],
+    "metadata": {"altitude": 120.5}
+  }'</span>
+
+<span style="color: #71717a;"># Find similar trajectories</span>
+curl -X POST http://localhost:8080/api/v1/query/trajectory-similarity \
+  -H <span style="color: #fbbf24;">"Content-Type: application/json"</span> \
+  -d <span style="color: #fbbf24;">'{
+    "entity_id": "drone-7",
+    "start": "2026-03-07T00:00:00Z",
+    "end": "2026-03-08T00:00:00Z",
+    "top_k": 5
+  }'</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API Preview -->
+<section class="section" id="api-preview">
+  <div class="container">
+    <h2 class="section-title fade-in">API Preview</h2>
+    <p class="section-subtitle fade-in">Key endpoints across ingestion, query, and management surfaces.</p>
+
+    <div class="table-wrapper fade-in">
+      <table class="compare-table api-preview-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Endpoint</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="method-post">POST</span></td>
+            <td><code>/api/v1/ingest</code></td>
+            <td>Ingest a temporal vector with metadata</td>
+          </tr>
+          <tr>
+            <td><span class="method-post">POST</span></td>
+            <td><code>/api/v1/ingest/batch</code></td>
+            <td>Batch ingest up to 10,000 vectors</td>
+          </tr>
+          <tr>
+            <td><span class="method-post">POST</span></td>
+            <td><code>/api/v1/query/knn</code></td>
+            <td>K-nearest neighbor search with time filter</td>
+          </tr>
+          <tr>
+            <td><span class="method-post">POST</span></td>
+            <td><code>/api/v1/query/trajectory-similarity</code></td>
+            <td>Find entities with similar behavioral trajectories</td>
+          </tr>
+          <tr>
+            <td><span class="method-post">POST</span></td>
+            <td><code>/api/v1/query/anomaly-score</code></td>
+            <td>Score entity behavior against baseline</td>
+          </tr>
+          <tr>
+            <td><span class="method-post">POST</span></td>
+            <td><code>/api/v1/query/pattern-match</code></td>
+            <td>Match behavioral patterns across entities</td>
+          </tr>
+          <tr>
+            <td><span class="method-get">GET</span></td>
+            <td><code>/api/v1/entity/{id}/history</code></td>
+            <td>Full temporal history for an entity</td>
+          </tr>
+          <tr>
+            <td><span class="method-get">GET</span></td>
+            <td><code>/api/v1/compression/stats</code></td>
+            <td>Compression ratios and regime counts</td>
+          </tr>
+          <tr>
+            <td><span class="method-get">GET</span></td>
+            <td><code>/api/v1/health</code></td>
+            <td>Health check with storage connectivity</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 2rem;" class="fade-in">
+      <a href="docs/api.html" class="btn-ghost">Full API Reference &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to unify your temporal-semantic data?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB in action with your data and your use case.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="capabilities.html">Capabilities</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="comparison.html">Compare</a></li>
+          <li><a href="comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="docs/">Documentation</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

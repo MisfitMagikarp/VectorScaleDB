@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Domain Intelligence | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB cross-domain intelligence: cascade detection, regime prediction, cross-domain alerting, DBSCAN composition analysis, and pattern replay across 38 entity types.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Cross-Domain Intelligence | VectorScaleDB">
+  <meta property="og:description" content="Detect behavioral cascades across domains, predict regime transitions, and replay patterns across entity types with unified segment representation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/capabilities/cross-domain.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cross-Domain Intelligence | VectorScaleDB">
+  <meta name="twitter:description" content="Detect behavioral cascades across domains, predict regime transitions, and replay patterns across entity types.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Intelligence</div>
+      <h1 class="hero-title">Cross-Domain Intelligence</h1>
+      <p class="hero-subtitle">Detect patterns that no single-domain system can see. Behavioral cascades across entity types, predictive regime transitions, and automated alerting &mdash; all from a unified segment representation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Unified Segment Format -->
+<section class="section" id="unified-format">
+  <div class="container">
+    <h2 class="section-title fade-in">Domain-Agnostic Segment Format</h2>
+    <p class="section-subtitle fade-in">38 entity types share a single compressed representation. Compare a vehicle's trajectory to a network link's behavior &mdash; the math is the same.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Unified Representation</div>
+        <div class="card-title">One Format, All Domains</div>
+        <div class="card-description">Every entity &mdash; whether it is a vehicle, a financial instrument, a network link, or a neural organoid &mdash; compresses into the same segment structure: a centroid vector, temporal bounds, drift magnitude, and metadata. This uniformity is what makes cross-domain queries possible.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">38 Entity Types</div>
+        <div class="card-title">Native Type Coverage</div>
+        <div class="card-description">Mobility, finance, networking, spatial computing, IoT, gaming, defense, life sciences, and more. Each entity type has a purpose-built ingestion adapter, but downstream &mdash; in the index, compression engine, and query planner &mdash; they are all segments.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Behavioral Math</div>
+        <div class="card-title">Cross-Type Similarity</div>
+        <div class="card-description">Because segments share the same vector representation, you can compute cosine similarity between a drone's flight pattern and a stock's price trajectory. If the behavioral shapes match, the similarity score reflects it &mdash; regardless of the source domain.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cascade Detection -->
+<section class="section" id="cascade" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cross-Domain Cascade Detection</h2>
+    <p class="section-subtitle fade-in">When a regime change in one domain triggers behavioral shifts in another, VectorScaleDB detects the ripple effect automatically.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Behavioral Ripple Effects</div>
+        <div class="card-description">The cascade detector monitors regime transitions across all entity types simultaneously. When entity A in domain X changes regime, the system checks whether correlated entities in domains Y and Z follow suit within a configurable lag window.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Prediction</div>
+        <div class="card-title">Historical Lag Analysis</div>
+        <div class="card-description">By analyzing historical cascade patterns, the engine builds a lag model: "when energy-grid entities enter high-load regime, manufacturing sensors follow within 4-8 minutes with 87% confidence." These predictions are available via <code>/v1/query/forecast</code>.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Confidence</div>
+        <div class="card-title">Statistical Scoring</div>
+        <div class="card-description">Every cascade prediction includes a confidence score derived from the number of historical precedents, the consistency of the lag window, and the strength of the behavioral correlation. Low-confidence cascades are flagged but not alerted.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Alerting Pipeline -->
+<section class="section" id="alerting" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cross-Domain Alerting Pipeline</h2>
+    <p class="section-subtitle fade-in">From detection to notification in milliseconds. Webhook-driven alerts when behavioral cascades emerge.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Webhooks</div>
+        <div class="card-title">Real-Time Notifications</div>
+        <div class="card-description">Register webhook endpoints that fire when specific cascade patterns are detected. Each notification includes the source entity, affected entities, cascade type, lag duration, confidence score, and the anomaly scores that triggered detection.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Filtering</div>
+        <div class="card-title">Configurable Alert Rules</div>
+        <div class="card-description">Set minimum confidence thresholds, domain filters, and entity-type constraints for each webhook. An operations team might only want cascades involving infrastructure entities above 80% confidence; a research team might want everything above 50%.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Composition</div>
+        <div class="card-title">DBSCAN Domain Analysis</div>
+        <div class="card-description">For any behavioral cluster discovered via DBSCAN, the domain composition report shows which entity types and domains contribute to the cluster. A cluster of 200 segments might be 40% financial, 35% energy, 25% logistics &mdash; revealing cross-domain coupling.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pattern Replay -->
+<section class="section" id="replay" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Pattern Replay Across Entity Types</h2>
+    <p class="section-subtitle fade-in">Find similar behaviors regardless of domain. Take a known pattern from one entity type and search for it across all others.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Search</div>
+        <div class="card-title">Cross-Type Pattern Matching</div>
+        <div class="card-description">Submit a trajectory or segment as a query vector and search across all entity types simultaneously. The TST index does not discriminate by domain &mdash; it returns the nearest behavioral matches regardless of source, ranked by semantic similarity.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Discovery</div>
+        <div class="card-title">Emergent Correlations</div>
+        <div class="card-description">Patterns that were never explicitly correlated emerge from the data. A supply-chain disruption pattern might match a shipping-route deviation and a commodity-price spike &mdash; three domains, one behavioral fingerprint.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Anomaly</div>
+        <div class="card-title">Multi-Domain Anomaly Scoring</div>
+        <div class="card-description">The anomaly scorer at <code>/v1/query/anomaly-score</code> computes deviation from baselines across all entity types in a single call. An entity that is normal within its own domain but anomalous in the cross-domain context gets flagged.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" id="code-example" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">See It in Action</h2>
+    <p class="section-subtitle fade-in">Detect cross-domain cascades and query anomaly scores across entity types.</p>
+    <div class="fade-in" style="max-width: 800px;">
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-anomaly').classList.add('active');this.classList.add('active');">Anomaly Score</button>
+        <button class="code-tab" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-forecast').classList.add('active');this.classList.add('active');">Cascade Forecast</button>
+        <button class="code-tab" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-cascade-response').classList.add('active');this.classList.add('active');">Cascade Response</button>
+      </div>
+      <div class="code-panel active" id="code-anomaly">
+<pre># Score anomaly level for an entity across all domain baselines
+curl -X POST "https://your-instance.vectorscaledb.com/v1/query/anomaly-score" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_id": "supply-chain-node-42",
+    "time_range": {
+      "start": "2026-03-09T00:00:00Z",
+      "end": "2026-03-09T12:00:00Z"
+    },
+    "cross_domain": true,
+    "include_contributing_domains": true
+  }'</pre>
+      </div>
+      <div class="code-panel" id="code-forecast">
+<pre># Forecast regime transitions with cross-domain cascade analysis
+curl -X POST "https://your-instance.vectorscaledb.com/v1/query/forecast" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_id": "energy-grid-sector-7",
+    "horizon_minutes": 30,
+    "include_cascade_predictions": true,
+    "min_cascade_confidence": 0.75
+  }'</pre>
+      </div>
+      <div class="code-panel" id="code-cascade-response">
+<pre>{
+  "entity_id": "energy-grid-sector-7",
+  "current_regime": "high_load",
+  "forecast": {
+    "predicted_regime": "critical_load",
+    "transition_probability": 0.82,
+    "estimated_transition": "2026-03-09T12:34:00Z"
+  },
+  "cascade_predictions": [
+    {
+      "affected_domain": "manufacturing",
+      "affected_entities": 14,
+      "expected_lag_minutes": 4.2,
+      "predicted_regime": "throttled",
+      "confidence": 0.87,
+      "historical_precedents": 23
+    },
+    {
+      "affected_domain": "logistics",
+      "affected_entities": 8,
+      "expected_lag_minutes": 7.8,
+      "predicted_regime": "rerouting",
+      "confidence": 0.76,
+      "historical_precedents": 11
+    }
+  ],
+  "domain_composition": {
+    "energy": 0.42,
+    "manufacturing": 0.31,
+    "logistics": 0.18,
+    "finance": 0.09
+  }
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Discover patterns that span your entire organization</h2>
+    <p class="cta-subtitle fade-in">See how cross-domain intelligence reveals hidden correlations in your data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Cross-Domain%20Demo" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -28,14 +28,13 @@
 <!-- Navigation -->
 <nav class="nav" id="nav">
   <div class="nav-container">
-    <a href="#" class="nav-logo-link"><img src="logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <a href="index.html" class="nav-logo-link"><img src="logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
     <ul class="nav-links">
-      <li><a href="#problem">Why</a></li>
-      <li><a href="#capabilities">Capabilities</a></li>
-      <li><a href="#use-cases">Use Cases</a></li>
-      <li><a href="#architecture">Architecture</a></li>
-      <li><a href="#comparison">Compare</a></li>
-      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="capabilities.html">Capabilities</a></li>
+      <li><a href="use-cases.html">Use Cases</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="comparison.html">Compare</a></li>
+      <li><a href="docs/">Docs</a></li>
     </ul>
     <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
@@ -48,12 +47,11 @@
 <div class="mobile-menu" id="mobile-menu">
   <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
   <ul class="mobile-menu-links">
-    <li><a href="#problem">Why</a></li>
-    <li><a href="#capabilities">Capabilities</a></li>
-    <li><a href="#use-cases">Use Cases</a></li>
-    <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#comparison">Compare</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="capabilities.html">Capabilities</a></li>
+    <li><a href="use-cases.html">Use Cases</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="comparison.html">Compare</a></li>
+    <li><a href="docs/">Docs</a></li>
   </ul>
   <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
 </div>
@@ -67,7 +65,7 @@
         <p class="hero-subtitle">The first database where time-series data and vector embeddings share a unified index. Query what nothing else can: <em>"find entities that behaved like this one did yesterday."</em></p>
         <div class="hero-buttons">
           <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary">Request Demo</a>
-          <a href="#capabilities" class="btn-ghost">View Capabilities</a>
+          <a href="capabilities.html" class="btn-ghost">View Capabilities</a>
         </div>
       </div>
       <div class="hero-visual">
@@ -88,7 +86,7 @@
         <div class="stat-label">Entity Types</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value" data-target="8" data-suffix="">0</div>
+        <div class="stat-value" data-target="11" data-suffix="">0</div>
         <div class="stat-label">Patents Pending</div>
       </div>
     </div>
@@ -125,455 +123,6 @@
   </div>
 </section>
 
-<!-- Capabilities -->
-<section class="section" id="capabilities">
-  <div class="container">
-    <h2 class="section-title fade-in">Core Capabilities</h2>
-    <p class="section-subtitle fade-in">Purpose-built operations that no combination of existing databases can replicate.</p>
-    <div class="bento-grid fade-in">
-      <div class="card bento-large">
-        <div class="card-label">Index</div>
-        <div class="card-title">Temporal-Semantic Index</div>
-        <div class="card-description">Time-bounded vector similarity in one engine. The first index where temporal proximity and semantic similarity are jointly optimized. Sub-millisecond KNN queries across any time range.</div>
-      </div>
-      <div class="card bento-large">
-        <div class="card-label">Compression</div>
-        <div class="card-title">Vector-Aware Compression</div>
-        <div class="card-description">100-1,000x compression via drift-based behavioral regime detection. Store behavioral patterns, not individual data points. Per-entity-type configurable sensitivity.</div>
-      </div>
-      <div class="card bento-medium">
-        <div class="card-label">3D</div>
-        <div class="card-title">4D Scene Intelligence</div>
-        <div class="card-description">Native 4D Gaussian Splatting storage. Scene differencing, LOD streaming, spatial anchor clustering, and temporal compression of 3D scenes.</div>
-      </div>
-      <div class="card bento-medium">
-        <div class="card-label">Analysis</div>
-        <div class="card-title">Trajectory Analysis</div>
-        <div class="card-description">DTW-based similarity, anomaly scoring, behavioral forecasting, change-point detection, and semantic clustering — all native database operations.</div>
-      </div>
-      <div class="card bento-medium">
-        <div class="card-label">Enterprise</div>
-        <div class="card-title">Enterprise Security</div>
-        <div class="card-description">Multi-tenant isolation, role-based access control, SHA-256 audit chains, GDPR entity deletion, rate limiting, SLA monitoring, and usage metering.</div>
-      </div>
-      <div class="card bento-medium">
-        <div class="card-label">Scale</div>
-        <div class="card-title">Fleet-Scale Queries</div>
-        <div class="card-description">Pattern matching across millions of entities. Consistent-hash sharding, query caching, materialized views, and webhook-driven event processing.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Interactive Demos -->
-<section class="section" id="demos">
-  <div class="container">
-    <h2 class="section-title fade-in">See It In Action</h2>
-    <p class="section-subtitle fade-in">Interactive visualizations of core VectorScaleDB operations.</p>
-
-    <!-- Compression Visualizer -->
-    <div class="demo-section fade-in">
-      <h3 class="demo-heading">Vector-Aware Compression</h3>
-      <div class="viz-container">
-        <div class="viz-panel">
-          <div class="viz-panel-title">Raw Vectors</div>
-          <canvas id="raw-canvas"></canvas>
-        </div>
-        <div class="viz-counter">
-          <div class="viz-counter-value" id="compression-counter">1x</div>
-          <div class="viz-counter-label">compression ratio</div>
-        </div>
-        <div class="viz-panel">
-          <div class="viz-panel-title">Compressed Segments</div>
-          <canvas id="compressed-canvas"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Temporal KNN -->
-    <div class="demo-section fade-in" style="margin-top: 4rem;">
-      <h3 class="demo-heading">Temporal KNN Search</h3>
-      <canvas id="knn-canvas" class="demo-canvas"></canvas>
-      <div class="demo-label">Time-bounded similarity search — find vectors similar to the query point within any time range</div>
-    </div>
-
-    <!-- Scene Diff -->
-    <div class="demo-section fade-in" style="margin-top: 4rem;">
-      <h3 class="demo-heading">Scene Differencing</h3>
-      <canvas id="scene-diff-canvas" class="demo-canvas"></canvas>
-      <div class="demo-label">Detect exactly which 3D elements changed between any two timestamps</div>
-    </div>
-  </div>
-</section>
-
-<!-- Use Cases -->
-<section class="section" id="use-cases">
-  <div class="container">
-    <h2 class="section-title fade-in">Use Cases</h2>
-    <p class="section-subtitle fade-in">Purpose-built for industries where time-series and vectors collide.</p>
-    <div class="grid-4 fade-in">
-      <div class="card">
-        <div class="card-label">Mobility</div>
-        <div class="card-title">Autonomous Vehicles</div>
-        <div class="card-description">MCAP recordings, LiDAR voxelization, fleet sensor compression, HD map maintenance via scene differencing.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Entertainment</div>
-        <div class="card-title">Film &amp; VFX</div>
-        <div class="card-description">Motion capture compression at 120-240Hz, virtual camera tracking, performance trajectory comparison, VFX versioning.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Finance</div>
-        <div class="card-title">Financial Markets</div>
-        <div class="card-description">Tick data compression, market regime detection, cross-asset correlation tracking, historical pattern matching across all assets.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Defense</div>
-        <div class="card-title">Geospatial Intelligence</div>
-        <div class="card-description">Entity tracking with 100-1,000x compression, behavioral anomaly detection, trajectory matching, behavioral forecasting.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Infrastructure</div>
-        <div class="card-title">Networking &amp; CDN</div>
-        <div class="card-description">Telemetry compression, predictive routing, traffic pattern analysis, CDN edge profiling, network anomaly detection.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Spatial</div>
-        <div class="card-title">3D Scene Persistence</div>
-        <div class="card-description">First database for 4D Gaussian Splatting. SPZ/glTF native ingestion, scene diff, LOD streaming, spatial anchor clustering.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Industrial</div>
-        <div class="card-title">IoT &amp; Digital Twins</div>
-        <div class="card-description">Sensor behavioral regime detection, device telemetry compression, predictive maintenance, webhook-driven failure alerts.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Gaming</div>
-        <div class="card-title">Gaming</div>
-        <div class="card-description">Player telemetry compression, NPC behavioral analysis, world state compression, anti-cheat trajectory anomaly detection.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Biological Computing</div>
-        <div class="card-title">Bio-Computing &amp; Neural Interfaces</div>
-        <div class="card-description">Compress months of multi-electrode array recordings into queryable behavioral segments — 500-5,000x on neural data. Detect learning onset in real time. Compare organoid fleet trajectories. Native NWB/HDF5 ingestion with sub-15ms closed-loop latency.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Code Examples -->
-<section class="section" id="code-examples">
-  <div class="container">
-    <h2 class="section-title fade-in">Quick Start</h2>
-    <p class="section-subtitle fade-in">Ingest data and query in seconds with any language.</p>
-    <div class="code-example fade-in">
-      <div class="code-tabs">
-        <button class="code-tab active" data-tab="python">Python</button>
-        <button class="code-tab" data-tab="rust">Rust</button>
-        <button class="code-tab" data-tab="curl">curl</button>
-      </div>
-      <div class="code-panel active" data-panel="python"><pre><code><span class="code-keyword">from</span> vectorscaledb <span class="code-keyword">import</span> Client
-
-client = Client(<span class="code-string">"http://localhost:8080"</span>)
-
-<span class="code-comment"># Ingest a temporal vector</span>
-client.ingest(
-    entity_id=<span class="code-string">"sensor-42"</span>,
-    vector=[<span class="code-number">0.1</span>, <span class="code-number">0.8</span>, <span class="code-number">0.3</span>, <span class="code-number">0.9</span>],
-    entity_type=<span class="code-string">"LINK_METRIC"</span>
-)
-
-<span class="code-comment"># Temporal KNN — find similar vectors in a time range</span>
-results = client.temporal_knn(
-    query_vector=[<span class="code-number">0.1</span>, <span class="code-number">0.7</span>, <span class="code-number">0.4</span>, <span class="code-number">0.8</span>],
-    start_time=<span class="code-string">"2025-01-01T00:00:00Z"</span>,
-    end_time=<span class="code-string">"2025-12-31T23:59:59Z"</span>,
-    k=<span class="code-number">5</span>
-)</code></pre></div>
-      <div class="code-panel" data-panel="rust"><pre><code><span class="code-keyword">use</span> vectorscale_client::Client;
-
-<span class="code-keyword">let</span> client = Client::new(<span class="code-string">"http://localhost:8080"</span>);
-
-<span class="code-comment">// Ingest a temporal vector</span>
-client.ingest(<span class="code-string">"sensor-42"</span>, &amp;[<span class="code-number">0.1</span>, <span class="code-number">0.8</span>, <span class="code-number">0.3</span>, <span class="code-number">0.9</span>])
-    .entity_type(<span class="code-string">"LINK_METRIC"</span>)
-    .send().<span class="code-keyword">await</span>?;
-
-<span class="code-comment">// Temporal KNN — find similar vectors in a time range</span>
-<span class="code-keyword">let</span> results = client.temporal_knn(&amp;[<span class="code-number">0.1</span>, <span class="code-number">0.7</span>, <span class="code-number">0.4</span>, <span class="code-number">0.8</span>])
-    .time_range(start, end)
-    .k(<span class="code-number">5</span>)
-    .send().<span class="code-keyword">await</span>?;</code></pre></div>
-      <div class="code-panel" data-panel="curl"><pre><code><span class="code-comment"># Ingest a temporal vector</span>
-curl -X POST http://localhost:8080/v1/ingest \
-  -H <span class="code-string">"Content-Type: application/json"</span> \
-  -d <span class="code-string">'{
-    "entity_id": "sensor-42",
-    "vector": [0.1, 0.8, 0.3, 0.9],
-    "entity_type": "LINK_METRIC"
-  }'</span>
-
-<span class="code-comment"># Temporal KNN — find similar vectors in a time range</span>
-curl -X POST http://localhost:8080/v1/query/temporal-knn \
-  -H <span class="code-string">"Content-Type: application/json"</span> \
-  -d <span class="code-string">'{
-    "query_vector": [0.1, 0.7, 0.4, 0.8],
-    "start_time": "2025-01-01T00:00:00Z",
-    "end_time": "2025-12-31T23:59:59Z",
-    "k": 5
-  }'</span></code></pre></div>
-    </div>
-  </div>
-</section>
-
-<!-- Architecture -->
-<section class="section" id="architecture">
-  <div class="container">
-    <h2 class="section-title fade-in">Architecture</h2>
-    <p class="section-subtitle fade-in">Purpose-built Rust engine. Zero-copy, zero-GC, sub-millisecond.</p>
-    <div class="arch-stack fade-in">
-      <div class="arch-layer arch-layer--api">
-        <div class="arch-layer-label">API Layer</div>
-        <div class="arch-layer-chips">
-          <span class="arch-chip">REST</span>
-          <span class="arch-chip">gRPC</span>
-          <span class="arch-chip">GraphQL</span>
-          <span class="arch-chip">Streaming</span>
-          <span class="arch-chip">Webhooks</span>
-        </div>
-      </div>
-      <div class="arch-layer arch-layer--middleware">
-        <div class="arch-layer-label">Middleware</div>
-        <div class="arch-layer-chips">
-          <span class="arch-chip">Auth / RBAC</span>
-          <span class="arch-chip">Rate Limiting</span>
-          <span class="arch-chip">Audit Chain</span>
-          <span class="arch-chip">Multi-Tenant</span>
-          <span class="arch-chip">Encryption</span>
-        </div>
-      </div>
-      <div class="arch-layer arch-layer--engine">
-        <div class="arch-layer-label">Core Engine</div>
-        <div class="arch-layer-inner">
-          <div class="arch-block">
-            <div class="arch-block-title">Ingestion</div>
-            <div class="arch-block-detail">15 adapters &middot; MCAP, FIX, NetFlow, NWB, SPZ/glTF, Prometheus</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Compression</div>
-            <div class="arch-block-detail">Drift-based regime detection &middot; 100-1,000x &middot; Per-entity thresholds</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">TST Index</div>
-            <div class="arch-block-detail">Temporal-semantic tree &middot; Sub-ms KNN &middot; Trajectory similarity</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Query Engine</div>
-            <div class="arch-block-detail">11 operations &middot; Anomaly scoring &middot; Pattern matching &middot; Forecasting</div>
-          </div>
-        </div>
-      </div>
-      <div class="arch-layer arch-layer--storage">
-        <div class="arch-layer-label">Storage</div>
-        <div class="arch-layer-chips">
-          <span class="arch-chip">Time Series Collections</span>
-          <span class="arch-chip">Atlas Vector Search</span>
-          <span class="arch-chip">Change Streams</span>
-          <span class="arch-chip">Sharding</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- API Preview -->
-<section class="section" id="api-preview">
-  <div class="container">
-    <h2 class="section-title fade-in">API Preview</h2>
-    <p class="section-subtitle fade-in">80+ endpoints. Purpose-built for temporal-semantic workloads.</p>
-    <div class="api-preview-table fade-in">
-      <table>
-        <thead>
-          <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="method-post">POST</span></td><td><code>/v1/ingest</code></td><td>Ingest a temporal vector</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td><code>/v1/ingest/batch</code></td><td>Batch ingestion (up to 10,000)</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td><code>/v1/query/temporal-knn</code></td><td>Time-bounded K-nearest neighbors</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td><code>/v1/query/trajectory-similarity</code></td><td>DTW-based trajectory comparison</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td><code>/v1/query/anomaly-score</code></td><td>Behavioral anomaly detection</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td><code>/v1/gaussian/scene/{id}/diff</code></td><td>3D scene differencing</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="margin-top: 1.5rem;">
-      <a href="docs/api.html" class="btn-ghost">View Full API Reference &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- Comparison -->
-<section class="section" id="comparison">
-  <div class="container">
-    <h2 class="section-title fade-in">How We Compare</h2>
-    <p class="section-subtitle fade-in">The only database purpose-built for temporal-semantic workloads.</p>
-    <div class="table-wrapper fade-in">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th class="compare-highlight">VectorScaleDB</th>
-            <th>KDB-X (KX)</th>
-            <th>TimescaleDB + pgvector</th>
-            <th>Milvus</th>
-            <th>Pinecone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Temporal KNN</td>
-            <td class="compare-highlight"><span class="badge-native">Native</span></td>
-            <td>Scalar TSS only</td>
-            <td>Cross-extension join</td>
-            <td>Metadata filter</td>
-            <td>Metadata filter</td>
-          </tr>
-          <tr>
-            <td>Trajectory Similarity</td>
-            <td class="compare-highlight"><span class="badge-native">Native DTW</span></td>
-            <td>Custom q code</td>
-            <td>App code</td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-          </tr>
-          <tr>
-            <td>Vector-Aware Compression</td>
-            <td class="compare-highlight"><span class="badge-native">100-1,000x</span></td>
-            <td>Columnar (~10x)</td>
-            <td>Columnar only</td>
-            <td><span class="badge-none">None</span></td>
-            <td><span class="badge-none">None</span></td>
-          </tr>
-          <tr>
-            <td>4DGS Scene Storage</td>
-            <td class="compare-highlight"><span class="badge-native">Native</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-          </tr>
-          <tr>
-            <td>Anomaly Detection</td>
-            <td class="compare-highlight"><span class="badge-native">Native</span></td>
-            <td>Custom q code</td>
-            <td>App code</td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-          </tr>
-          <tr>
-            <td>Behavioral Forecasting</td>
-            <td class="compare-highlight"><span class="badge-native">Native</span></td>
-            <td><span class="badge-partial">Limited</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-          </tr>
-          <tr>
-            <td>Multi-Tenant Isolation</td>
-            <td class="compare-highlight"><span class="badge-native">Native</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td>Schema-level</td>
-            <td>App code</td>
-            <td><span class="badge-partial">Namespace</span></td>
-          </tr>
-          <tr>
-            <td>Audit Trail</td>
-            <td class="compare-highlight"><span class="badge-native">SHA-256 Chain</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td>pgaudit</td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-          </tr>
-          <tr>
-            <td>API</td>
-            <td class="compare-highlight">REST / gRPC / GraphQL</td>
-            <td>Proprietary q</td>
-            <td>SQL</td>
-            <td>REST / gRPC</td>
-            <td>REST</td>
-          </tr>
-          <tr>
-            <td>Neural Recording Queries</td>
-            <td class="compare-highlight"><span class="badge-native">Native</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-            <td><span class="badge-none">N/A</span></td>
-          </tr>
-          <tr>
-            <td>Pricing</td>
-            <td class="compare-highlight">Contact us</td>
-            <td>$100K+ enterprise</td>
-            <td>Open source + paid</td>
-            <td>Open source + paid</td>
-            <td>Usage-based</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- Roadmap -->
-<section class="section" id="roadmap">
-  <div class="container">
-    <h2 class="section-title fade-in">Roadmap</h2>
-    <p class="section-subtitle fade-in">What we've shipped and what's next.</p>
-    <div class="roadmap-grid fade-in">
-      <div class="card roadmap-card shipped">
-        <div class="roadmap-status shipped">Shipped</div>
-        <div class="card-title">Core Engine</div>
-        <div class="card-description">Temporal-semantic index, vector-aware compression, 11 query operations, pluggable embeddings, 3 SDKs (Rust, Python, Node.js).</div>
-      </div>
-      <div class="card roadmap-card shipped">
-        <div class="roadmap-status shipped">Shipped</div>
-        <div class="card-title">Enterprise Infrastructure</div>
-        <div class="card-description">80+ endpoints, gRPC, auth, TLS, RBAC, rate limiting, audit chains, multi-tenant isolation, SLA monitoring, webhooks, metering, sharding.</div>
-      </div>
-      <div class="card roadmap-card shipped">
-        <div class="roadmap-status shipped">Shipped</div>
-        <div class="card-title">Industry Adapters</div>
-        <div class="card-description">4DGS (SPZ/glTF), MCAP, LAS/PCD, multi-modal alignment, NetFlow/sFlow, SNMP/gNMI, Prometheus, FIX protocol, market data feeds.</div>
-      </div>
-      <div class="card roadmap-card shipped">
-        <div class="roadmap-status shipped">Shipped</div>
-        <div class="card-title">4DGS Storage</div>
-        <div class="card-description">Scene differencing, LOD streaming, spatial anchor clustering, temporal compression of 3D Gaussian scenes.</div>
-      </div>
-      <div class="card roadmap-card shipped">
-        <div class="roadmap-status shipped">Shipped</div>
-        <div class="card-title">GraphQL API</div>
-        <div class="card-description">Full GraphQL schema with queries, mutations, and subscriptions alongside existing REST and gRPC.</div>
-      </div>
-      <div class="card roadmap-card shipped">
-        <div class="roadmap-status shipped">Shipped</div>
-        <div class="card-title">Encryption at Rest</div>
-        <div class="card-description">AES-256-GCM field-level encryption with envelope key management and pluggable key providers.</div>
-      </div>
-      <div class="card roadmap-card next">
-        <div class="roadmap-status next">Next</div>
-        <div class="card-title">GPU-Accelerated Indexing</div>
-        <div class="card-description">WGPU-based batch similarity computation and index construction for large-scale deployments.</div>
-      </div>
-      <div class="card roadmap-card next">
-        <div class="roadmap-status next">Next</div>
-        <div class="card-title">VectorScaleDB Cloud</div>
-        <div class="card-description">Managed service with OIDC/SSO, CDC to Kafka/Pulsar, SOC 2 compliance, and usage-based pricing.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CTA -->
 <section class="cta-section">
   <div class="container">
@@ -596,10 +145,10 @@ curl -X POST http://localhost:8080/v1/query/temporal-knn \
       <div>
         <div class="footer-heading">Product</div>
         <ul class="footer-links">
-          <li><a href="#capabilities">Capabilities</a></li>
+          <li><a href="capabilities.html">Capabilities</a></li>
           <li><a href="docs/api.html">API Reference</a></li>
-          <li><a href="#comparison">Compare</a></li>
-          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="comparison.html">Compare</a></li>
+          <li><a href="comparison.html#roadmap">Roadmap</a></li>
         </ul>
       </div>
       <div>

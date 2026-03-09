@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaussian / Scene API | VectorScaleDB Docs</title>
+  <meta name="description" content="3D Gaussian Splatting scene management: scene differencing, level-of-detail streaming, and scene statistics.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Gaussian / Scene</li>
+      </ul>
+      <h1>Gaussian / Scene</h1>
+      <p class="docs-intro">3D Gaussian Splatting scene management: scene differencing, level-of-detail streaming, and scene statistics.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Gaussian / Scene',
+        id: 'gaussian',
+        open: true,
+        endpoints: [
+          {
+            method: 'GET',
+            path: '/v1/gaussian/scene/{scene_id}/diff',
+            description: 'Scene differencing for Gaussian splatting scenes.',
+            request: '/* Query parameters */\nversion_a=2026-03-07T14:00:00Z\nversion_b=2026-03-08T14:00:00Z\ndetail_level=summary',
+            response: '{\n  "scene_id": "warehouse-scan-01",\n  "diff": {\n    "added": 312,\n    "removed": 89,\n    "changed": 1247,\n    "unchanged": 247083\n  },\n  "change_volume_pct": 0.66,\n  "latency_ms": 138\n}',
+            curl: 'curl "http://localhost:8080/v1/gaussian/scene/warehouse-scan-01/diff?version_a=2026-03-07T14:00:00Z&version_b=2026-03-08T14:00:00Z"'
+          },
+          {
+            method: 'GET',
+            path: '/v1/gaussian/scene/{scene_id}/lod',
+            description: 'Level-of-detail streaming for Gaussian scenes.',
+            request: '/* Query parameters */\nlevel=2\nviewport=0,0,1920,1080\ncamera_pos=10.0,5.0,3.0',
+            response: '{\n  "scene_id": "warehouse-scan-01",\n  "lod_level": 2,\n  "gaussians_returned": 12400,\n  "total_gaussians": 248731,\n  "bounding_box": { "min": [-20, -20, 0], "max": [20, 20, 10] },\n  "latency_ms": 24.1\n}',
+            curl: 'curl "http://localhost:8080/v1/gaussian/scene/warehouse-scan-01/lod?level=2&camera_pos=10.0,5.0,3.0"'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-gaussian');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

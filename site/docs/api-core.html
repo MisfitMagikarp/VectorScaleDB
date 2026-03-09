@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core API | VectorScaleDB Docs</title>
+  <meta name="description" content="Core health, info, and metrics endpoints for VectorScaleDB.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Core</li>
+      </ul>
+      <h1>Core</h1>
+      <p class="docs-intro">Health checks, system information, and Prometheus-compatible metrics.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Core',
+        id: 'core',
+        open: true,
+        endpoints: [
+          {
+            method: 'GET',
+            path: '/health',
+            desc: 'Health check. Returns service status and uptime.',
+            request: null,
+            response: '{\n  "status": "healthy",\n  "uptime_seconds": 86401,\n  "version": "0.1.0"\n}',
+            curl: 'curl http://localhost:8080/health'
+          },
+          {
+            method: 'GET',
+            path: '/metrics',
+            desc: 'Prometheus-compatible metrics endpoint. Returns counters, gauges, and histograms for ingestion rate, query latency, compression ratio, and memory usage.',
+            request: null,
+            response: '# HELP vsdb_ingest_total Total vectors ingested\n# TYPE vsdb_ingest_total counter\nvsdb_ingest_total 4.8291e+07\n# HELP vsdb_query_latency_ms Query latency in milliseconds\n# TYPE vsdb_query_latency_ms histogram\nvsdb_query_latency_ms_bucket{le="1"} 91247',
+            curl: 'curl http://localhost:8080/metrics'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-core');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

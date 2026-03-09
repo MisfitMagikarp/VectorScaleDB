@@ -40,12 +40,15 @@
       <!-- Key Capabilities -->
       <h2 id="key-capabilities">Key Capabilities</h2>
       <ul>
-        <li><strong>Temporal-Semantic Index</strong> -- Sub-millisecond KNN across any time range, combining temporal and vector similarity in a single query</li>
-        <li><strong>Vector-Aware Compression</strong> -- 100-1,000x compression via behavioral regime detection, storing patterns rather than individual data points</li>
-        <li><strong>4D Scene Intelligence</strong> -- Native 4D Gaussian Splatting storage and querying for volumetric scene data</li>
-        <li><strong>Trajectory Analysis</strong> -- DTW-based trajectory similarity, anomaly scoring, and forecasting across entity histories</li>
-        <li><strong>Enterprise Security</strong> -- Multi-tenant isolation, RBAC, audit chains, GDPR-compliant deletion, and encryption at rest</li>
-        <li><strong>Fleet-Scale Pattern Matching</strong> -- Behavioral pattern detection across millions of entities simultaneously</li>
+        <li><strong>Temporal-Semantic Index</strong> -- HNSW per time-chunk with temporal continuity edges, sub-millisecond KNN across any time range, snapshot/restore</li>
+        <li><strong>Vector-Aware Compression</strong> -- 100-1,000x compression via drift-based regime detection, WAL + crash recovery, adaptive threshold tuning</li>
+        <li><strong>4D Scene Intelligence</strong> -- Native 4D Gaussian Splatting storage, scene differencing, LOD streaming, anchor-relative offset storage</li>
+        <li><strong>Trajectory Analysis</strong> -- FastDTW similarity, anomaly scoring, behavioral forecasting, change-point detection, DBSCAN semantic clustering</li>
+        <li><strong>Enterprise Security</strong> -- AES-256-GCM envelope encryption, per-tenant key management, automated key rotation, RBAC, SHA-256 audit chains, GDPR deletion, differential privacy</li>
+        <li><strong>Distributed Intelligence</strong> -- Jump consistent hashing, SWIM gossip protocol, CRDTs, scatter-gather coordination, entity migration, federated template exchange</li>
+        <li><strong>Cross-Domain Intelligence</strong> -- Cascade detection, predictive forecasting, cross-domain alerting pipeline, DBSCAN domain composition analysis</li>
+        <li><strong>Decentralized Architecture</strong> -- libp2p transport layer, IPFS segment archival, content-addressed CIDs, differential privacy on segments</li>
+        <li><strong>Fleet-Scale Pattern Matching</strong> -- Behavioral pattern detection across millions of entities, cross-node federated template discovery</li>
       </ul>
 
       <!-- Quick Start -->
@@ -141,6 +144,7 @@ curl <span class="s">https://your-instance.vectorscaledb.com</span>/api/v1/healt
         <li><strong>REST API</strong> -- 80+ endpoints covering ingestion, querying, administration, and streaming</li>
         <li><strong>gRPC</strong> -- Protocol Buffer definitions for high-throughput, low-latency communication</li>
         <li><strong>GraphQL</strong> -- Queries, mutations, and subscriptions for flexible data access</li>
+        <li><strong>SSE / WebSocket</strong> -- Server-Sent Events and WebSocket streams for real-time notifications</li>
         <li><strong>SDKs</strong> -- Native clients for Python, Rust, and Node.js with full type safety</li>
       </ul>
 
@@ -183,9 +187,9 @@ curl <span class="s">https://your-instance.vectorscaledb.com</span>/api/v1/healt
       <!-- Next Steps -->
       <h2 id="next-steps">Next Steps</h2>
       <ul>
-        <li><a href="../api.html">API Reference</a> -- Full endpoint documentation for REST, gRPC, and GraphQL</li>
+        <li><a href="api.html">API Reference</a> -- Full endpoint documentation for REST, gRPC, and GraphQL</li>
         <li><a href="sdks.html">SDKs</a> -- Installation, configuration, and usage for Python, Rust, and Node.js</li>
-        <li><a href="entity-types.html">Entity Types</a> -- All 23 supported entity types and their schemas</li>
+        <li><a href="entity-types.html">Entity Types</a> -- All 38 supported entity types and their schemas</li>
         <li><a href="configuration.html">Configuration</a> -- Deployment options, tuning parameters, and environment setup</li>
         <li><a href="faq.html">FAQ</a> -- Common questions and troubleshooting</li>
       </ul>
@@ -196,7 +200,7 @@ curl <span class="s">https://your-instance.vectorscaledb.com</span>/api/v1/healt
   <script src="../components.js"></script>
   <script src="../docs.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('getting-started'));
+    document.addEventListener('DOMContentLoaded', () => VsdbDocs.init('index'));
   </script>
 </body>
 </html>

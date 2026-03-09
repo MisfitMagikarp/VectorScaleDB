@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare | VectorScaleDB</title>
+  <meta name="description" content="See how VectorScaleDB compares to KDB-X, TimescaleDB + pgvector, Milvus, and Pinecone across temporal-semantic capabilities, enterprise features, and pricing.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <meta property="og:title" content="Compare | VectorScaleDB">
+  <meta property="og:description" content="See how VectorScaleDB compares to KDB-X, TimescaleDB + pgvector, Milvus, and Pinecone across temporal-semantic capabilities.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/comparison.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Compare | VectorScaleDB">
+  <meta name="twitter:description" content="See how VectorScaleDB compares to KDB-X, TimescaleDB + pgvector, Milvus, and Pinecone.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo-link"><img src="logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="capabilities.html">Capabilities</a></li>
+      <li><a href="use-cases.html">Use Cases</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="comparison.html">Compare</a></li>
+      <li><a href="docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="capabilities.html">Capabilities</a></li>
+    <li><a href="use-cases.html">Use Cases</a></li>
+    <li><a href="architecture.html">Architecture</a></li>
+    <li><a href="comparison.html">Compare</a></li>
+    <li><a href="docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Comparison -->
+<section class="section" id="comparison" style="padding-top: 8rem;">
+  <div class="container">
+    <h2 class="section-title fade-in">How VectorScaleDB Compares</h2>
+    <p class="section-subtitle fade-in">No other database unifies temporal queries and vector embeddings in a single index. Here is how VectorScaleDB stacks up against the alternatives.</p>
+    <div class="table-wrapper fade-in">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="compare-highlight">VectorScaleDB</th>
+            <th>KDB-X (KX)</th>
+            <th>TimescaleDB + pgvector</th>
+            <th>Milvus</th>
+            <th>Pinecone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Temporal KNN</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-partial">Scalar TSS only</span></td>
+            <td><span class="badge-partial">Cross-extension join</span></td>
+            <td><span class="badge-partial">Metadata filter</span></td>
+            <td><span class="badge-partial">Metadata filter</span></td>
+          </tr>
+          <tr>
+            <td>Trajectory Similarity</td>
+            <td class="compare-highlight"><span class="badge-native">Native DTW</span></td>
+            <td><span class="badge-partial">Custom q code</span></td>
+            <td><span class="badge-partial">App code</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Vector-Aware Compression</td>
+            <td class="compare-highlight"><span class="badge-native">100&ndash;1,000x</span></td>
+            <td><span class="badge-partial">Columnar (~10x)</span></td>
+            <td><span class="badge-partial">Columnar only</span></td>
+            <td><span class="badge-none">None</span></td>
+            <td><span class="badge-none">None</span></td>
+          </tr>
+          <tr>
+            <td>4DGS Scene Storage</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Anomaly Detection</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-partial">Custom q code</span></td>
+            <td><span class="badge-partial">App code</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Behavioral Forecasting</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-partial">Limited</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Multi-Tenant Isolation</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">Schema-level</span></td>
+            <td><span class="badge-partial">App code</span></td>
+            <td><span class="badge-partial">Namespace</span></td>
+          </tr>
+          <tr>
+            <td>Encryption at Rest</td>
+            <td class="compare-highlight"><span class="badge-native">AES-256-GCM Envelope</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">pgcrypto</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">Managed</span></td>
+          </tr>
+          <tr>
+            <td>Distributed Clustering</td>
+            <td class="compare-highlight"><span class="badge-native">Native (SWIM + CRDTs)</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">Milvus Distributed</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Audit Trail</td>
+            <td class="compare-highlight"><span class="badge-native">SHA-256 Chain</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">pgaudit</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>API</td>
+            <td class="compare-highlight">REST / gRPC / GraphQL</td>
+            <td>Proprietary q</td>
+            <td>SQL</td>
+            <td>REST / gRPC</td>
+            <td>REST</td>
+          </tr>
+          <tr>
+            <td>Neural Recording Queries</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Cross-Domain Intelligence</td>
+            <td class="compare-highlight"><span class="badge-native">Native</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Pricing</td>
+            <td class="compare-highlight"><a href="mailto:sales@vectorscaledb.com">Contact us</a></td>
+            <td>$100K+ enterprise</td>
+            <td>Open source + paid</td>
+            <td>Open source + paid</td>
+            <td>Usage-based</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap -->
+<section class="section" id="roadmap">
+  <div class="container">
+    <h2 class="section-title fade-in">Roadmap</h2>
+    <p class="section-subtitle fade-in">What we have shipped and what is coming next.</p>
+    <div class="roadmap-grid fade-in">
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Core Engine</div>
+        <div class="card-description">TST index with HNSW, vector-aware compression with WAL/recovery, adaptive thresholds, 15+ query operations, 3 SDKs.</div>
+      </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Enterprise Infrastructure</div>
+        <div class="card-description">80+ endpoints, gRPC, GraphQL, auth, TLS, RBAC, rate limiting, SHA-256 audit chains, multi-tenant isolation, SLA monitoring, webhooks, metering, sharding.</div>
+      </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Industry Adapters</div>
+        <div class="card-description">4DGS (SPZ/glTF), MCAP, LAS/PCD, multi-modal alignment, NetFlow/sFlow, SNMP/gNMI, Prometheus (8-dim), FIX protocol, market data feeds.</div>
+      </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Privacy &amp; Encryption</div>
+        <div class="card-description">AES-256-GCM envelope encryption, per-tenant key management, automated key rotation, differential privacy, GDPR entity deletion.</div>
+      </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Distributed System</div>
+        <div class="card-description">Jump consistent hashing, SWIM gossip protocol, CRDTs (GSet/LWWRegister/ORSet), scatter-gather coordination, entity migration, federated template exchange, libp2p transport, IPFS archival.</div>
+      </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Cross-Domain Intelligence</div>
+        <div class="card-description">Cascade detection, predictive forecasting, cross-domain alerting, DBSCAN domain composition, regime cascade detection.</div>
+      </div>
+      <div class="roadmap-card next">
+        <div class="roadmap-status next">Next</div>
+        <div class="card-title">GPU-Accelerated Indexing</div>
+        <div class="card-description">WGPU-based batch similarity computation and index construction.</div>
+      </div>
+      <div class="roadmap-card next">
+        <div class="roadmap-status next">Next</div>
+        <div class="card-title">VectorScaleDB Cloud</div>
+        <div class="card-description">Managed service with OIDC/SSO, CDC to Kafka/Pulsar, SOC 2 compliance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to unify your temporal-semantic data?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB in action with your data and your use case.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="capabilities.html">Capabilities</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="comparison.html">Compare</a></li>
+          <li><a href="comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="docs/">Documentation</a></li>
+          <li><a href="docs/api.html">API Reference</a></li>
+          <li><a href="docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

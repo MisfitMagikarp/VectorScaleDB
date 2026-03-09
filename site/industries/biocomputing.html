@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bio-Computing & Neural Interfaces | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB for bio-computing: multi-electrode array analysis, learning onset detection, stimulus-response correlation, organoid fleet comparison, and closed-loop control pipelines.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Bio-Computing & Neural Interfaces | VectorScaleDB">
+  <meta property="og:description" content="Detect learning onset, correlate stimulus-response at millisecond precision, compare organoid behaviors via DTW, and run closed-loop neural control pipelines.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/industries/biocomputing.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Bio-Computing & Neural Interfaces | VectorScaleDB">
+  <meta name="twitter:description" content="Detect learning onset, compare organoid behaviors, and run closed-loop neural control pipelines.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Life Sciences</div>
+      <h1 class="hero-title">Bio-Computing &amp; Neural Interfaces</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Detect learning onset in neural organoids, correlate stimulus-response at millisecond precision, compare organoid behaviors via DTW, and orchestrate closed-loop control pipelines. From multi-electrode arrays to fleet-scale organoid ranking.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Multi-Electrode Array Recording -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Multi-Electrode Array Recording Analysis</h2>
+    <p class="section-subtitle fade-in">Ingest high-density MEA recordings at thousands of channels. Every electrode becomes a temporal vector stream with automatic spike detection and population state tracking.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Ingestion</div>
+        <div class="card-title">Channel-Level Decomposition</div>
+        <div class="card-description">MEA recordings from 64 to 4,096+ channels are decomposed per electrode. Each channel becomes a NeuralUnit entity with temporal vectors capturing firing rate, burst frequency, inter-spike interval distribution, and waveform shape. NWB and HDF5 formats ingested natively.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Population</div>
+        <div class="card-title">Population State Vectors</div>
+        <div class="card-description">Beyond individual channels, VectorScaleDB constructs PopulationState entities that capture the collective behavior of neural ensembles: synchrony index, spatial firing patterns, network burst rates, and functional connectivity matrices. Population states compress dramatically during stable activity periods.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Neural Regime Compression</div>
+        <div class="card-description">Neural recordings exhibit long periods of baseline activity punctuated by bursts and state transitions. VectorScaleDB's drift-based compression captures this naturally: hours of baseline compress to single regime segments, while burst events and transitions retain full temporal resolution. 500x+ compression on continuous recordings.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Learning Onset Detection -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Learning Onset Detection</h2>
+    <p class="section-subtitle fade-in">Detect when an organoid begins learning. Change-point detection on compressed population state segments surfaces the exact moment behavior shifts from random to structured.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Change-Point Analysis on Neural Regimes</div>
+        <div class="card-description">Learning onset manifests as a regime transition in the population state trajectory: firing patterns shift from stochastic to structured, synchrony increases, and stimulus-response latencies decrease. VectorScaleDB's change-point detection identifies these transitions automatically, timestamping the onset of learning to millisecond precision across all recorded channels simultaneously.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Quantification</div>
+        <div class="card-title">Learning Rate Metrics</div>
+        <div class="card-description">Once onset is detected, VectorScaleDB tracks the learning trajectory: how quickly does the population state converge to structured behavior? How stable is the learned regime? Does learning generalize across stimulation protocols? These metrics are derived directly from the compressed segment sequence, without re-processing raw recordings.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stimulus-Response Correlation -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Stimulus-Response Correlation</h2>
+    <p class="section-subtitle fade-in">Correlate stimulation events with neural responses at millisecond precision. Every stimulation becomes a temporal anchor for response analysis.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Precision</div>
+        <div class="card-title">Millisecond-Resolution Alignment</div>
+        <div class="card-description">StimulationEvent entities are ingested with precise timestamps. VectorScaleDB's temporal index allows querying "what was the population state in the 50ms window after each stimulation?" across millions of stimulation events. Response latency distributions, amplitude profiles, and spatial activation patterns are computed directly from the index.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Analysis</div>
+        <div class="card-title">Response Trajectory Similarity</div>
+        <div class="card-description">Compare neural responses across stimulation protocols using FastDTW. "Did the organoid respond to electrical stimulation at 10Hz the same way it responded to optogenetic stimulation at 10Hz?" Trajectory similarity scores quantify response equivalence across modalities, frequencies, and amplitudes.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Adaptation</div>
+        <div class="card-title">Habituation &amp; Sensitization Tracking</div>
+        <div class="card-description">Track how responses evolve over repeated stimulation. VectorScaleDB's regime detection identifies habituation (decreasing response magnitude) and sensitization (increasing response magnitude) as behavioral regime transitions. Alert when an organoid's response profile shifts, indicating adaptation or fatigue.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-Organoid Comparison -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cross-Organoid Comparison &amp; Fleet Ranking</h2>
+    <p class="section-subtitle fade-in">Compare behavioral trajectories across organoids via DTW. Rank your entire fleet by learning speed, response consistency, and behavioral complexity.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Comparison</div>
+        <div class="card-title">DTW Behavioral Comparison</div>
+        <div class="card-description">Compare any two organoids' behavioral trajectories using FastDTW, accounting for temporal offsets in development and learning timelines. An organoid that learned a task on day 12 can be compared to one that learned it on day 18. DTW aligns the developmental trajectories, scoring similarity independent of absolute timing. Identify which organoids follow similar developmental paths.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Fleet</div>
+        <div class="card-title">Fleet-Scale Organoid Ranking</div>
+        <div class="card-description">Rank hundreds of organoids by any behavioral metric: learning onset time, peak synchrony index, response consistency, regime stability, or behavioral complexity (number of distinct regimes). Identify top-performing organoids for downstream experiments, and detect underperformers for protocol adjustment. DBSCAN clustering groups organoids with similar developmental trajectories.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Closed-Loop Control -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Closed-Loop Control Pipelines</h2>
+    <p class="section-subtitle fade-in">Record, analyze, stimulate, measure. VectorScaleDB serves as the state engine for closed-loop neural control systems.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Pipeline</div>
+        <div class="card-title">Record &rarr; Analyze &rarr; Stimulate &rarr; Measure</div>
+        <div class="card-description">Each ClosedLoopCycle entity captures one iteration: the recorded neural state, the analysis result (regime classification, anomaly score), the stimulation decision (protocol, parameters), and the measured response. The full cycle history is a temporal vector stream, enabling trajectory analysis on the control loop itself.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Decisions</div>
+        <div class="card-title">Regime-Driven Stimulation</div>
+        <div class="card-description">Stimulation protocols adapt based on the current neural regime. VectorScaleDB's real-time regime detection classifies the organoid's state (quiescent, bursting, synchronous, learning), and the control system selects the appropriate stimulation protocol. Regime transitions trigger protocol switches within milliseconds.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Gaming</div>
+        <div class="card-title">Organoid Gaming State Tracking</div>
+        <div class="card-description">For neural gaming paradigms (e.g., organoids playing Pong), GameState entities track the relationship between game state, neural activity, and control output. VectorScaleDB enables queries like "in which game states does the organoid exhibit the highest learning rate?" directly from compressed behavioral data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Supported Formats -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Supported Formats &amp; Protocols</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Standard</div>
+        <div class="card-title">NWB / HDF5</div>
+        <div class="card-description">Neurodata Without Borders (NWB 2.x) and raw HDF5 files. Full support for spike trains, LFP, stimulus tables, electrode metadata, and behavioral annotations. NWB's hierarchical structure maps directly to VectorScaleDB's entity model.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Hardware</div>
+        <div class="card-title">NEV / NSx</div>
+        <div class="card-description">Blackrock Microsystems NEV (neural event) and NSx (continuous) formats. Direct ingestion of multi-electrode recordings from Cerebus and CerePlex systems with automatic channel mapping and threshold detection.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Integration</div>
+        <div class="card-title">SpikeInterface / MEA Streams</div>
+        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via WebSocket or gRPC endpoints.</div>
+      </div>
+    </div>
+    <div class="card fade-in" style="margin-top: 1.5rem;">
+      <div class="card-label">Entity Types</div>
+      <div class="card-title">Native Bio-Computing Entity Types</div>
+      <div class="card-description" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">NeuralUnit</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">PopulationState</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">StimulationEvent</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">OrganoidState</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GameState</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">ClosedLoopCycle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Example Workflow</h2>
+    <p class="section-subtitle fade-in">Detect learning onset in an organoid, then compare its developmental trajectory against the fleet.</p>
+    <div class="fade-in">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="code-tabs">
+          <button class="code-tab active" onclick="document.querySelectorAll('.bio-panel').forEach(p=>p.classList.remove('active'));document.getElementById('bio-ingest').classList.add('active');document.querySelectorAll('.bio-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">1. Ingest MEA Recording</button>
+          <button class="code-tab bio-tab" onclick="document.querySelectorAll('.bio-panel').forEach(p=>p.classList.remove('active'));document.getElementById('bio-learning').classList.add('active');document.querySelectorAll('.bio-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">2. Detect Learning Onset</button>
+          <button class="code-tab bio-tab" onclick="document.querySelectorAll('.bio-panel').forEach(p=>p.classList.remove('active'));document.getElementById('bio-compare').classList.add('active');document.querySelectorAll('.bio-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">3. Compare Organoids</button>
+        </div>
+        <div id="bio-ingest" class="code-panel bio-panel active"><pre>
+# Ingest NWB recording from organoid ORG-0147
+curl -X POST http://localhost:8080/v1/ingest/nwb \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source": "/recordings/organoids/ORG-0147/session-042.nwb",
+    "organoid_id": "ORG-0147",
+    "session_id": "session-042",
+    "electrode_mapping": "auto",
+    "entity_types": {
+      "per_channel": "NeuralUnit",
+      "population": "PopulationState",
+      "stimulation": "StimulationEvent"
+    },
+    "population_state": {
+      "bin_size_ms": 10,
+      "synchrony_window_ms": 50,
+      "connectivity_method": "cross_correlation"
+    },
+    "compression": {
+      "enabled": true,
+      "drift_threshold": 0.06,
+      "min_segment_duration": "500ms"
+    }
+  }'
+
+# Response:
+# {
+#   "organoid_id": "ORG-0147",
+#   "session_id": "session-042",
+#   "channels_ingested": 512,
+#   "neural_units_created": 512,
+#   "population_states_created": 1,
+#   "stimulation_events": 2400,
+#   "duration_seconds": 3600,
+#   "segments_created": 847,
+#   "compression_ratio": 623.4,
+#   "ingestion_time_ms": 8920
+# }</pre></div>
+        <div id="bio-learning" class="code-panel bio-panel"><pre>
+# Detect learning onset for ORG-0147
+curl -X POST http://localhost:8080/v1/query/learning-onset \
+  -H "Content-Type: application/json" \
+  -d '{
+    "organoid_id": "ORG-0147",
+    "entity_type": "PopulationState",
+    "time_range": {
+      "start": "2026-03-01T00:00:00Z",
+      "end": "2026-03-09T23:59:59Z"
+    },
+    "detection": {
+      "method": "change_point",
+      "metrics": ["synchrony_index", "response_latency", "firing_pattern_entropy"],
+      "confidence_threshold": 0.8
+    },
+    "include_regime_sequence": true
+  }'
+
+# Response:
+# {
+#   "organoid_id": "ORG-0147",
+#   "learning_detected": true,
+#   "onset": {
+#     "timestamp": "2026-03-05T14:23:17.442Z",
+#     "confidence": 0.91,
+#     "session": "session-038",
+#     "stimulus_protocol": "pong-feedback-10hz"
+#   },
+#   "pre_onset_regime": {
+#     "label": "stochastic",
+#     "synchrony_index": 0.12,
+#     "mean_response_latency_ms": 89.3,
+#     "firing_pattern_entropy": 0.94
+#   },
+#   "post_onset_regime": {
+#     "label": "structured",
+#     "synchrony_index": 0.67,
+#     "mean_response_latency_ms": 34.1,
+#     "firing_pattern_entropy": 0.41
+#   },
+#   "regime_sequence": [
+#     { "regime": "stochastic", "duration": "4d 14h", "stability": 0.88 },
+#     { "regime": "transitional", "duration": "2h 17m", "stability": 0.34 },
+#     { "regime": "structured", "duration": "3d 9h", "stability": 0.91 }
+#   ],
+#   "latency_ms": 42.7
+# }</pre></div>
+        <div id="bio-compare" class="code-panel bio-panel"><pre>
+# Compare ORG-0147's learning trajectory against the fleet
+curl -X POST http://localhost:8080/v1/query/trajectory-similarity \
+  -H "Content-Type: application/json" \
+  -d '{
+    "reference": {
+      "entity_id": "ORG-0147",
+      "entity_type": "OrganoidState",
+      "time_range": {
+        "start": "2026-03-01T00:00:00Z",
+        "end": "2026-03-09T23:59:59Z"
+      }
+    },
+    "search_scope": {
+      "entity_type": "OrganoidState",
+      "fleet_filter": {
+        "protocol": "pong-feedback-*"
+      }
+    },
+    "algorithm": "fastdtw",
+    "top_k": 10,
+    "include_ranking_metrics": true
+  }'
+
+# Response:
+# {
+#   "reference": "ORG-0147",
+#   "fleet_rank": 3,
+#   "fleet_size": 147,
+#   "matches": [
+#     {
+#       "organoid_id": "ORG-0089",
+#       "similarity": 0.943,
+#       "learning_onset_day": 4.2,
+#       "peak_synchrony": 0.72,
+#       "regime_count": 3,
+#       "developmental_alignment": "fast-learner"
+#     },
+#     {
+#       "organoid_id": "ORG-0203",
+#       "similarity": 0.891,
+#       "learning_onset_day": 5.8,
+#       "peak_synchrony": 0.61,
+#       "regime_count": 4,
+#       "developmental_alignment": "moderate-learner"
+#     }
+#   ],
+#   "fleet_statistics": {
+#     "median_learning_onset_day": 7.3,
+#     "median_peak_synchrony": 0.54,
+#     "clusters_detected": 4,
+#     "cluster_labels": ["fast-learner", "moderate-learner", "slow-learner", "non-responder"]
+#   },
+#   "latency_ms": 189.4
+# }</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Capabilities -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related Capabilities</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Trajectory Analysis</div>
+        <div class="card-description">FastDTW for cross-organoid comparison, DBSCAN clustering for fleet segmentation, and change-point detection for learning onset identification.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">500x+ compression on continuous neural recordings. Baseline activity collapses while burst events and learning transitions retain full resolution.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Intelligence</div>
+        <div class="card-title">Cross-Domain Intelligence</div>
+        <div class="card-description">Correlate neural activity with game state, stimulation protocol, and environmental conditions. Cascade detection identifies multi-factor influences on learning.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to accelerate your neural computing research?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB detect learning onset, compare organoid trajectories, and run closed-loop experiments.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20BioComputing%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Bio-Computing Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

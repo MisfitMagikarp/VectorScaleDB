@@ -633,6 +633,31 @@ img {
   line-height: 1.5;
 }
 
+/* API Method Badges */
+.method-post {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}
+
+.method-get {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent);
+}
+
 /* ===========================
    Overflow Containment
    =========================== */

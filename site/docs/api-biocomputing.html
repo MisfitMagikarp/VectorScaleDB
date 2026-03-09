@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bio-Computing API | VectorScaleDB Docs</title>
+  <meta name="description" content="Neural recording analysis: learning onset detection, stimulus-response correlation, cross-organoid comparison, synchrony transitions, and fleet ranking.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Bio-Computing</li>
+      </ul>
+      <h1>Bio-Computing</h1>
+      <p class="docs-intro">Neural recording analysis: learning onset detection, stimulus-response correlation, cross-organoid comparison, synchrony transitions, and fleet ranking.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Bio-Computing',
+        id: 'biocomputing',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/query/learning-onset',
+            description: 'Detect learning onset in neural recordings.',
+            request: '{\n  "entity_id": "organoid-alpha-07",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "sensitivity": 0.8\n}',
+            response: '{\n  "entity_id": "organoid-alpha-07",\n  "learning_detected": true,\n  "onset_timestamp": "2026-03-04T14:22:00Z",\n  "confidence": 0.91,\n  "learning_rate": 0.034,\n  "latency_ms": 42.8\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/learning-onset \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "organoid-alpha-07", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/stim-response',
+            description: 'Analyze stimulus-response latency and patterns.',
+            request: '{\n  "entity_id": "organoid-alpha-07",\n  "stim_events": [\n    { "timestamp": "2026-03-08T10:00:00Z", "type": "electrical", "amplitude_ua": 50 }\n  ],\n  "response_window_ms": 500\n}',
+            response: '{\n  "responses": [\n    {\n      "stim_timestamp": "2026-03-08T10:00:00Z",\n      "response_latency_ms": 12.4,\n      "peak_amplitude": 0.78,\n      "channels_responding": 42\n    }\n  ],\n  "avg_latency_ms": 12.4,\n  "latency_ms": 8.9\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/stim-response \\\n  -H "Content-Type: application/json" \\\n  -d @stim_request.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/learning-transfer',
+            description: 'Compare learning patterns across organoids.',
+            request: '{\n  "entity_a": "organoid-alpha-07",\n  "entity_b": "organoid-beta-03",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  }\n}',
+            response: '{\n  "transfer_score": 0.72,\n  "shared_patterns": 4,\n  "unique_to_a": 2,\n  "unique_to_b": 1,\n  "temporal_lag_hours": 18.4,\n  "latency_ms": 67.2\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/learning-transfer \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_a": "organoid-alpha-07", "entity_b": "organoid-beta-03", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/synchrony-transitions',
+            description: 'Detect neural synchrony state changes.',
+            request: '{\n  "entity_id": "mea-array-12",\n  "time_range": {\n    "start": "2026-03-08T09:00:00Z",\n    "end": "2026-03-08T10:00:00Z"\n  },\n  "min_duration_ms": 100\n}',
+            response: '{\n  "transitions": [\n    {\n      "timestamp": "2026-03-08T09:12:34Z",\n      "from_state": "desynchronized",\n      "to_state": "synchronized",\n      "duration_ms": 2340,\n      "channels_involved": 78\n    }\n  ],\n  "total_transitions": 7,\n  "latency_ms": 19.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/synchrony-transitions \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "mea-array-12", "time_range": {"start": "2026-03-08T09:00:00Z", "end": "2026-03-08T10:00:00Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/organoid-fleet',
+            description: 'Fleet-wide organoid comparison and ranking.',
+            request: '{\n  "metric": "learning_speed",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "top_k": 10\n}',
+            response: '{\n  "rankings": [\n    { "entity_id": "organoid-alpha-07", "score": 0.94, "rank": 1 },\n    { "entity_id": "organoid-gamma-01", "score": 0.89, "rank": 2 }\n  ],\n  "fleet_size": 24,\n  "latency_ms": 112.3\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/organoid-fleet \\\n  -H "Content-Type: application/json" \\\n  -d \'{"metric": "learning_speed", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "top_k": 10}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-biocomputing');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

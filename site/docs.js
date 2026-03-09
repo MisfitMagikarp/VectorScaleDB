@@ -17,24 +17,26 @@ const VsdbDocs = {
     {
       section: 'API Reference',
       links: [
-        { label: 'Overview',        href: 'docs/api.html' },
-        { label: 'Core',            href: 'docs/api.html#core' },
-        { label: 'Ingestion',       href: 'docs/api.html#ingestion' },
-        { label: 'Queries',         href: 'docs/api.html#queries' },
-        { label: 'Domain Queries',  href: 'docs/api.html#domain' },
-        { label: 'Patterns',        href: 'docs/api.html#patterns' },
-        { label: 'Gaussian / Scene', href: 'docs/api.html#gaussian' },
-        { label: 'Streaming',       href: 'docs/api.html#streaming' },
-        { label: 'Enterprise',      href: 'docs/api.html#enterprise' },
-        { label: 'GraphQL',         href: 'docs/api.html#graphql' }
+        { label: 'Overview',         href: 'docs/api.html' },
+        { label: 'Core',             href: 'docs/api-core.html' },
+        { label: 'Ingestion',        href: 'docs/api-ingestion.html' },
+        { label: 'Queries',          href: 'docs/api-queries.html' },
+        { label: 'Networking',       href: 'docs/api-networking.html' },
+        { label: 'Finance',          href: 'docs/api-finance.html' },
+        { label: 'Biocomputing',     href: 'docs/api-biocomputing.html' },
+        { label: 'Patterns',         href: 'docs/api-patterns.html' },
+        { label: 'Gaussian / Scene', href: 'docs/api-gaussian.html' },
+        { label: 'Streaming',        href: 'docs/api-streaming.html' },
+        { label: 'Enterprise',       href: 'docs/api-enterprise.html' },
+        { label: 'GraphQL',          href: 'docs/api-graphql.html' }
       ]
     },
     {
       section: 'SDKs',
       links: [
-        { label: 'Python',  href: 'docs/sdks.html#python' },
-        { label: 'Rust',    href: 'docs/sdks.html#rust' },
-        { label: 'Node.js', href: 'docs/sdks.html#nodejs' }
+        { label: 'Python',  href: 'docs/sdks.html#python-sdk' },
+        { label: 'Rust',    href: 'docs/sdks.html#rust-sdk' },
+        { label: 'Node.js', href: 'docs/sdks.html#nodejs-sdk' }
       ]
     },
     {
@@ -93,15 +95,7 @@ const VsdbDocs = {
 
     var html = '';
 
-    // Header
-    html += '<div class="docs-sidebar-header">';
-    html += '<a href="' + prefix + 'index.html">';
-    html += '<img src="' + prefix + 'logo.svg" alt="VectorScaleDB">';
-    html += '</a>';
-    html += '<span>Docs</span>';
-    html += '</div>';
-
-    // Search
+    // Search (top of sidebar)
     html += '<div class="docs-search">';
     html += '<input type="text" id="docs-search-input" placeholder="Search docs..." autocomplete="off">';
     html += '</div>';
@@ -137,6 +131,9 @@ const VsdbDocs = {
     var currentBase = currentPage.split('#')[0];
     // Exact match for non-hash links
     if (href === currentPage) return true;
+    // Match currentPage identifier against href filename (e.g. 'api-core' matches 'docs/api-core.html')
+    var hrefFile = hrefPage.replace(/^.*\//, '').replace(/\.html$/, '');
+    if (hrefFile === currentBase) return true;
     // If there is a hash in the URL, match against that
     if (window.location.hash && href.indexOf('#') !== -1) {
       return hrefPage === currentBase && href.split('#')[1] === window.location.hash.slice(1);
@@ -249,10 +246,10 @@ const VsdbDocs = {
     html += '<div class="nav-container">';
     html += '<a href="' + prefix + 'index.html" class="nav-logo-link"><img src="' + prefix + 'logo.svg" alt="VectorScaleDB" class="nav-logo"></a>';
     html += '<ul class="nav-links">';
-    html += '<li><a href="' + prefix + 'index.html#capabilities">Capabilities</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#use-cases">Use Cases</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#architecture">Architecture</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#comparison">Compare</a></li>';
+    html += '<li><a href="' + prefix + 'capabilities.html">Capabilities</a></li>';
+    html += '<li><a href="' + prefix + 'use-cases.html">Use Cases</a></li>';
+    html += '<li><a href="' + prefix + 'architecture.html">Architecture</a></li>';
+    html += '<li><a href="' + prefix + 'comparison.html">Compare</a></li>';
     html += '<li><a href="' + prefix + 'docs/index.html">Docs</a></li>';
     html += '</ul>';
     html += '<a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta">';
@@ -268,10 +265,10 @@ const VsdbDocs = {
     html += '<div class="mobile-menu" id="mobile-menu">';
     html += '<button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>';
     html += '<ul class="mobile-menu-links">';
-    html += '<li><a href="' + prefix + 'index.html#capabilities">Capabilities</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#use-cases">Use Cases</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#architecture">Architecture</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#comparison">Compare</a></li>';
+    html += '<li><a href="' + prefix + 'capabilities.html">Capabilities</a></li>';
+    html += '<li><a href="' + prefix + 'use-cases.html">Use Cases</a></li>';
+    html += '<li><a href="' + prefix + 'architecture.html">Architecture</a></li>';
+    html += '<li><a href="' + prefix + 'comparison.html">Compare</a></li>';
     html += '<li><a href="' + prefix + 'docs/index.html">Docs</a></li>';
     html += '</ul>';
     html += '<a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>';
@@ -304,10 +301,10 @@ const VsdbDocs = {
     html += '<div>';
     html += '<div class="footer-heading">Product</div>';
     html += '<ul class="footer-links">';
-    html += '<li><a href="' + prefix + 'index.html#capabilities">Capabilities</a></li>';
+    html += '<li><a href="' + prefix + 'capabilities.html">Capabilities</a></li>';
     html += '<li><a href="' + prefix + 'docs/api.html">API Reference</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#comparison">Compare</a></li>';
-    html += '<li><a href="' + prefix + 'index.html#roadmap">Roadmap</a></li>';
+    html += '<li><a href="' + prefix + 'comparison.html">Compare</a></li>';
+    html += '<li><a href="' + prefix + 'comparison.html#roadmap">Roadmap</a></li>';
     html += '</ul>';
     html += '</div>';
 
@@ -317,6 +314,7 @@ const VsdbDocs = {
     html += '<ul class="footer-links">';
     html += '<li><a href="' + prefix + 'docs/index.html">Documentation</a></li>';
     html += '<li><a href="' + prefix + 'docs/api.html">API Reference</a></li>';
+    html += '<li><a href="' + prefix + 'docs/sdks.html">SDKs</a></li>';
     html += '<li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>';
     html += '</ul>';
     html += '</div>';

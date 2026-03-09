@@ -44,31 +44,11 @@
   border-radius: 2px;
 }
 
-.docs-sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1.25rem 1.25rem 1rem;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-}
-
-.docs-sidebar-header img {
-  height: 24px;
-  width: auto;
-}
-
-.docs-sidebar-header span {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text);
-  letter-spacing: 0.02em;
-}
-
-/* Search */
+/* Search (top of sidebar) */
 
 .docs-search {
-  padding: 0.75rem 1.25rem;
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
@@ -755,4 +735,52 @@
   .docs-content h2 {
     font-size: 1.65rem;
   }
+}
+
+/* ===========================
+   API Overview Grid
+   =========================== */
+
+.api-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.api-overview-card {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.api-overview-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.api-overview-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+
+.api-overview-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+
+.api-overview-card-count {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }

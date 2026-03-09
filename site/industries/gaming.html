@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming & Interactive Entertainment | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB for gaming: player telemetry compression, NPC behavioral analysis, world state compression, anti-cheat trajectory detection, motion capture integration, and VFX tracking.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Gaming & Interactive Entertainment | VectorScaleDB">
+  <meta property="og:description" content="Compress player telemetry at game-tick rates, detect anomalous behavior for anti-cheat, analyze NPC trajectories, and integrate motion capture data.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/industries/gaming.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Gaming & Interactive Entertainment | VectorScaleDB">
+  <meta name="twitter:description" content="Compress player telemetry, detect anomalous behavior, analyze NPC trajectories, and integrate motion capture.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Interactive</div>
+      <h1 class="hero-title">Gaming &amp; Interactive Entertainment</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Compress player telemetry at 60-120 tick rates, detect anomalous behavior for anti-cheat enforcement, tune NPC behaviors through trajectory analysis, integrate motion capture for character animation, and track VFX elements across takes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Player Telemetry -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Player Telemetry Compression</h2>
+    <p class="section-subtitle fade-in">Every player action, position, and state at every game tick. Compressed through behavioral regime detection so you keep years of telemetry at the cost of days.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Ingestion</div>
+        <div class="card-title">Game-Tick Rate Ingestion</div>
+        <div class="card-description">PlayerState entities capture position (x, y, z), velocity, orientation, health, inventory state, and action flags at every server tick (60-120Hz). VectorScaleDB ingests this high-frequency stream directly via gRPC or REST batches, with WAL-backed crash safety for every write.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Behavioral Regime Compression</div>
+        <div class="card-description">A player idling in spawn compresses to a single regime segment. A player running a known route compresses to a handful of segments. Combat encounters with rapid state changes retain full temporal resolution. Net result: 500-1000x compression on player telemetry with zero behavioral information loss.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Session Behavioral Analysis</div>
+        <div class="card-description">Query any player's behavioral trajectory: "show me every combat engagement for player X in the last 30 days." Results are returned as compressed regime sequences, not raw tick data. Compare play styles across players, identify engagement drop-off points, and detect session behavior anomalies.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NPC Behavioral Analysis -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">NPC Behavioral Analysis &amp; Tuning</h2>
+    <p class="section-subtitle fade-in">Every NPC is an entity with a behavioral trajectory. Analyze, compare, and tune NPC behaviors using the same tools you use for player analysis.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Analysis</div>
+        <div class="card-title">Behavioral Trajectory Comparison</div>
+        <div class="card-description">Compare NPC behavioral trajectories across AI parameter sets using FastDTW. "How does patrol-bot-v3's movement pattern compare to patrol-bot-v2?" Similarity scores and regime sequence diffs show exactly where behavioral changes occur. A/B test NPC parameters with quantified behavioral metrics instead of subjective observation.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Tuning</div>
+        <div class="card-title">Regime-Based Difficulty Tuning</div>
+        <div class="card-description">Track how NPC behavioral regimes correlate with player engagement. If an NPC's "aggressive patrol" regime causes 40% of players to disengage within 30 seconds, VectorScaleDB's cross-entity correlation surfaces this insight. Tune NPC regime transition thresholds based on actual player behavioral response data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- World State & Anti-Cheat -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">World State Compression &amp; Anti-Cheat</h2>
+    <p class="section-subtitle fade-in">Compress entire world states for large-scale simulations and detect trajectory anomalies that indicate cheating.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">World State</div>
+        <div class="card-title">Region-Level Compression</div>
+        <div class="card-description">WorldRegion entities capture the state of game world zones: entity density, resource availability, environmental conditions, and player activity metrics. Static regions (empty wilderness) compress at 1000x+. Dynamic regions (active battlegrounds) retain temporal resolution proportional to activity. Store complete world state histories for replay, debugging, and analytics.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Anti-Cheat</div>
+        <div class="card-title">Trajectory Anomaly Detection</div>
+        <div class="card-description">Cheating manifests as anomalous behavioral trajectories. Aimbots produce unnaturally smooth aim trajectories. Speed hacks create impossible velocity vectors. Wallhacks produce movement patterns that correlate with unseen entity positions. VectorScaleDB's anomaly scoring compares each player's trajectory against learned baselines, flagging deviations with per-dimension explanations.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Forensics</div>
+        <div class="card-title">Behavioral Replay &amp; Evidence</div>
+        <div class="card-description">When an anomaly is flagged, the player's full behavioral trajectory is available for forensic review. Compare the flagged segment against known cheat signatures using trajectory similarity search. Build an evidence package with anomaly scores, dimensional breakdowns, and similar confirmed-cheat trajectories from the historical database.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Motion Capture & VFX -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Motion Capture &amp; VFX Integration</h2>
+    <p class="section-subtitle fade-in">Compress high-frequency mocap recordings, compare performances across takes, and track VFX elements through production pipelines.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Motion Capture</div>
+        <div class="card-title">Performance Trajectory Comparison</div>
+        <div class="card-description">MocapMarker entities capture 120-240Hz motion capture data per marker. VectorScaleDB compresses repetitive movements (walk cycles, idle animations) while preserving unique performances. Compare takes using FastDTW: "which take of the combat sequence best matches the reference performance?" Directors get similarity-ranked take lists instead of watching every recording.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">VFX</div>
+        <div class="card-title">VFX Element Tracking</div>
+        <div class="card-description">VfxElement entities track particle systems, fluid simulations, rigid body dynamics, and shader parameter animations across frames. VirtualCamera entities capture camera trajectory and lens parameters. Scene differencing between VFX versions highlights exactly what changed between iterations, enabling precise review and approval workflows.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Supported Formats -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Supported Formats &amp; Protocols</h2>
+    <div class="card fade-in">
+      <div class="card-label">Entity Types</div>
+      <div class="card-title">Native Gaming &amp; Entertainment Entity Types</div>
+      <div class="card-description" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GameEntity</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">PlayerState</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">WorldRegion</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">MocapMarker</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">VirtualCamera</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">VfxElement</span>
+      </div>
+    </div>
+    <div class="grid-3 fade-in" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="card-label">Telemetry</div>
+        <div class="card-title">REST / gRPC Batch</div>
+        <div class="card-description">High-throughput game-tick ingestion via REST batches or gRPC streaming. SDKs for Rust, Python, and Node.js with built-in batching and backpressure handling.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Motion Capture</div>
+        <div class="card-title">FBX / BVH / C3D</div>
+        <div class="card-description">Standard motion capture formats with per-marker decomposition. Automatic skeleton mapping and coordinate system normalization.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">3D Scenes</div>
+        <div class="card-title">glTF / SPZ / USD</div>
+        <div class="card-description">Scene state snapshots in glTF 2.0, Gaussian Splatting SPZ, and Pixar USD formats for world state archival and VFX versioning.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Example Workflow</h2>
+    <p class="section-subtitle fade-in">Ingest player telemetry and detect anomalous behavior for anti-cheat investigation.</p>
+    <div class="fade-in">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="code-tabs">
+          <button class="code-tab active" onclick="document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));document.getElementById('game-ingest').classList.add('active');document.querySelectorAll('.game-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">1. Ingest Player Telemetry</button>
+          <button class="code-tab game-tab" onclick="document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));document.getElementById('game-anomaly').classList.add('active');document.querySelectorAll('.game-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">2. Detect Anomalies</button>
+          <button class="code-tab game-tab" onclick="document.querySelectorAll('.game-panel').forEach(p=>p.classList.remove('active'));document.getElementById('game-response').classList.add('active');document.querySelectorAll('.game-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">3. Response</button>
+        </div>
+        <div id="game-ingest" class="code-panel game-panel active"><pre>
+# Batch ingest player telemetry (typically called every 1-5 seconds with buffered ticks)
+curl -X POST http://localhost:8080/v1/ingest/batch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_type": "PlayerState",
+    "entity_id": "player_xK7mR9",
+    "session_id": "match-28471",
+    "vectors": [
+      {
+        "timestamp": "2026-03-09T21:14:00.000Z",
+        "values": [142.3, 67.8, 12.1, 5.2, 0.0, 3.1, 100, 1, 0],
+        "labels": ["x", "y", "z", "velocity", "aim_angle", "aim_delta", "health", "weapon_id", "firing"]
+      },
+      {
+        "timestamp": "2026-03-09T21:14:00.016Z",
+        "values": [142.5, 67.9, 12.1, 5.3, 14.2, 11.1, 100, 1, 0]
+      },
+      {
+        "timestamp": "2026-03-09T21:14:00.033Z",
+        "values": [142.8, 68.1, 12.1, 5.4, 47.8, 33.6, 100, 1, 1]
+      }
+    ],
+    "compression": {
+      "enabled": true,
+      "drift_threshold": 0.08,
+      "min_segment_duration": "100ms"
+    },
+    "metadata": {
+      "game": "arena-shooter-v3",
+      "map": "dust_arena",
+      "mode": "ranked",
+      "elo": 2140
+    }
+  }'
+
+# Response:
+# {
+#   "entity_id": "player_xK7mR9",
+#   "vectors_ingested": 3,
+#   "current_segment": "seg_a82f1",
+#   "current_regime": "combat_engagement",
+#   "compression_ratio": 47.2,
+#   "ingestion_time_ms": 2.1
+# }</pre></div>
+        <div id="game-anomaly" class="code-panel game-panel"><pre>
+# Detect anomalous player behavior in a ranked match
+curl -X POST http://localhost:8080/v1/query/trajectory-anomaly \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_id": "player_xK7mR9",
+    "entity_type": "PlayerState",
+    "time_range": {
+      "start": "2026-03-09T21:00:00Z",
+      "end": "2026-03-09T21:30:00Z"
+    },
+    "baseline": {
+      "method": "learned",
+      "reference_population": {
+        "elo_range": [2000, 2300],
+        "min_matches": 50
+      },
+      "training_window": "30d"
+    },
+    "analysis": {
+      "dimensions": ["aim_delta", "velocity", "aim_angle"],
+      "check_signatures": ["aimbot", "speedhack", "wallhack"],
+      "granularity": "per_engagement"
+    }
+  }'</pre></div>
+        <div id="game-response" class="code-panel game-panel"><pre>
+{
+  "entity_id": "player_xK7mR9",
+  "session": "match-28471",
+  "overall_anomaly_score": 0.87,
+  "verdict": "suspicious",
+  "engagements_analyzed": 14,
+  "anomalous_engagements": 11,
+  "per_engagement": [
+    {
+      "engagement_id": "eng_003",
+      "time_range": {
+        "start": "2026-03-09T21:03:12.440Z",
+        "end": "2026-03-09T21:03:14.120Z"
+      },
+      "anomaly_score": 0.94,
+      "signature_matches": [
+        {
+          "signature": "aimbot",
+          "confidence": 0.91,
+          "evidence": {
+            "aim_delta_smoothness": 0.97,
+            "baseline_aim_delta_smoothness": 0.34,
+            "time_to_target_ms": 48,
+            "baseline_time_to_target_ms": 210,
+            "snap_angle_degrees": 127.4
+          }
+        }
+      ],
+      "dimensional_breakdown": {
+        "aim_delta": { "deviation": 4.2, "description": "Aim transitions unnaturally smooth" },
+        "velocity": { "deviation": 0.3, "description": "Normal movement patterns" },
+        "aim_angle": { "deviation": 3.8, "description": "Target acquisition speed 4.4x baseline" }
+      }
+    }
+  ],
+  "similar_confirmed_cheaters": [
+    {
+      "player_id": "player_banned_r91k",
+      "similarity": 0.962,
+      "ban_reason": "aimbot",
+      "ban_date": "2026-02-18"
+    }
+  ],
+  "latency_ms": 67.3
+}</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Capabilities -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related Capabilities</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">500-1000x compression on player telemetry. Idle and traversal regimes collapse while combat engagements retain full tick resolution.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Trajectory Analysis</div>
+        <div class="card-description">FastDTW for performance comparison across mocap takes, anomaly scoring for anti-cheat, and DBSCAN clustering for player segmentation.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Spatial</div>
+        <div class="card-title">4D Scene Intelligence</div>
+        <div class="card-description">World state archival, scene differencing for VFX versioning, and LOD streaming for bandwidth-efficient game world delivery.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to add temporal-semantic intelligence to your game?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB compress telemetry, detect cheaters, and analyze player behavior at scale.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Gaming%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Gaming Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

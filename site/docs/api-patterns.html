@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patterns & Intelligence API | VectorScaleDB Docs</title>
+  <meta name="description" content="Behavioral pattern CRUD: create, list, retrieve, and delete stored behavioral patterns for fleet-scale matching.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Patterns & Intelligence</li>
+      </ul>
+      <h1>Patterns & Intelligence</h1>
+      <p class="docs-intro">Create and manage stored behavioral patterns for fleet-scale matching and cross-entity comparison.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Patterns & Intelligence',
+        id: 'patterns',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/patterns',
+            description: 'Create a stored behavioral pattern from a set of representative vectors.',
+            request: '{\n  "name": "morning_commute",\n  "description": "Typical morning commute behavioral signature",\n  "vectors": [\n    [0.8, 0.2, 0.1, 0.9],\n    [0.75, 0.25, 0.15, 0.85],\n    [0.82, 0.18, 0.12, 0.88]\n  ],\n  "entity_type": "VEHICLE",\n  "tags": ["commute", "morning", "weekday"]\n}',
+            response: '{\n  "pattern_id": "pat-a1b2c3d4"\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/patterns \\\n  -H "Content-Type: application/json" \\\n  -d \'{"name": "morning_commute", "vectors": [[0.8, 0.2, 0.1, 0.9], [0.75, 0.25, 0.15, 0.85]], "entity_type": "VEHICLE"}\''
+          },
+          {
+            method: 'GET',
+            path: '/v1/patterns',
+            description: 'List stored behavioral patterns. Supports filtering by entity type and pagination.',
+            request: '/* Query parameters */\nentity_type=VEHICLE\nlimit=100\noffset=0',
+            response: '{\n  "data": [\n    {\n      "pattern_id": "pat-a1b2c3d4",\n      "name": "morning_commute",\n      "description": "Typical morning commute behavioral signature",\n      "vectors": [[0.8, 0.2, 0.1, 0.9], [0.75, 0.25, 0.15, 0.85]],\n      "entity_type": "VEHICLE",\n      "tags": ["commute", "morning"]\n    }\n  ],\n  "total": 12,\n  "limit": 100,\n  "offset": 0\n}',
+            curl: 'curl http://localhost:8080/v1/patterns?entity_type=VEHICLE&limit=100'
+          },
+          {
+            method: 'GET',
+            path: '/v1/patterns/{id}',
+            description: 'Retrieve a single stored behavioral pattern by ID.',
+            request: null,
+            response: '{\n  "pattern_id": "pat-a1b2c3d4",\n  "name": "morning_commute",\n  "description": "Typical morning commute behavioral signature",\n  "vectors": [[0.8, 0.2, 0.1, 0.9], [0.75, 0.25, 0.15, 0.85], [0.82, 0.18, 0.12, 0.88]],\n  "entity_type": "VEHICLE",\n  "tags": ["commute", "morning", "weekday"]\n}',
+            curl: 'curl http://localhost:8080/v1/patterns/pat-a1b2c3d4'
+          },
+          {
+            method: 'DELETE',
+            path: '/v1/patterns/{id}',
+            description: 'Delete a stored behavioral pattern. Audit-logged.',
+            request: null,
+            response: '{\n  "deleted": true\n}',
+            curl: 'curl -X DELETE http://localhost:8080/v1/patterns/pat-a1b2c3d4 \\\n  -H "Authorization: Bearer $ADMIN_TOKEN"'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-patterns');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

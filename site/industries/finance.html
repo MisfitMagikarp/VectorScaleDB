@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Markets Intelligence | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB for finance: market regime detection, cross-asset correlation tracking, historical pattern replay, tick data compression, and FIX protocol integration.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Financial Markets Intelligence | VectorScaleDB">
+  <meta property="og:description" content="Detect market regimes, track cross-asset correlations, replay historical patterns, and compress tick data with temporal-semantic intelligence.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/industries/finance.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Financial Markets Intelligence | VectorScaleDB">
+  <meta name="twitter:description" content="Detect market regimes, track correlations, replay historical patterns, and compress tick data.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Finance</div>
+      <h1 class="hero-title">Financial Markets Intelligence</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Detect market regimes in real time, track cross-asset correlation shifts, replay historical patterns sorted by similarity, and compress tick data through behavioral regime detection. Purpose-built for quantitative workflows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Market Regime Detection -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Market Regime Detection</h2>
+    <p class="section-subtitle fade-in">Automatically classify market conditions into behavioral regimes. No manual labeling, no lagging indicators.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Regimes</div>
+        <div class="card-title">Four Core Regime Types</div>
+        <div class="card-description">VectorScaleDB's drift-based regime detection classifies market behavior into four regimes: <strong style="color: var(--success);">LowVol</strong> (compressed, range-bound), <strong style="color: var(--danger);">HighVol</strong> (expanded volatility, crisis risk), <strong style="color: var(--accent);">Trending</strong> (directional momentum), and <strong style="color: var(--warning);">MeanReverting</strong> (oscillating around equilibrium). Transitions between regimes are detected as change-points in the market's behavioral trajectory.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Confidence</div>
+        <div class="card-title">Transition Confidence Scoring</div>
+        <div class="card-description">Every regime transition carries a confidence score (0.0-1.0) derived from the magnitude of behavioral drift. A sudden volatility expansion (LowVol to HighVol with 0.97 confidence) triggers differently than a gradual drift (LowVol to Trending with 0.62 confidence). Configure webhook alerts on transition events above your confidence threshold.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-Asset Correlation -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cross-Asset Correlation Tracking</h2>
+    <p class="section-subtitle fade-in">Monitor correlation matrices across asset classes in real time. Detect correlation regime shifts before they cascade through your portfolio.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Tracking</div>
+        <div class="card-title">Rolling Correlation Matrices</div>
+        <div class="card-description">Track pairwise correlations across any set of entities (equities, bonds, commodities, FX, crypto) using configurable rolling windows. Each correlation pair is itself a temporal vector, enabling similarity search on correlation patterns: "when has the SPX-TLT correlation behaved like this before?"</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Correlation Shift Detection</div>
+        <div class="card-description">Correlation regime breaks are detected through the same drift-based mechanism as market regimes. When the SPX-GLD correlation shifts from -0.3 to +0.4 over two weeks, VectorScaleDB identifies the change-point, timestamps it, and surfaces the contributing factors. Risk models can consume these events in real time.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Alerting</div>
+        <div class="card-title">Portfolio Risk Triggers</div>
+        <div class="card-description">Configure alerts on correlation events that matter to your book. "Notify when any cross-asset correlation in my universe shifts by more than 0.3 within a 5-day window." Alerts fire through webhooks with full context: the pair, the shift magnitude, the regime transition, and the timestamp.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Historical Pattern Replay -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Historical Pattern Replay</h2>
+    <p class="section-subtitle fade-in">Find the historical periods that most resemble current market conditions. Not chart pattern matching. Behavioral trajectory similarity via FastDTW.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Search</div>
+        <div class="card-title">Trajectory Similarity Search</div>
+        <div class="card-description">Define a pattern window (e.g., "SPX behavior over the last 7 trading days") and search across years of compressed history. FastDTW handles temporal warping: a pattern that played out over 5 days in 2024 matches a similar pattern that took 8 days in 2019. Results ranked by similarity score with subsequent-period returns attached.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Context</div>
+        <div class="card-title">Multi-Asset Pattern Context</div>
+        <div class="card-description">Pattern matches include the full cross-asset context at the time of the historical match. "The last time SPX behaved like this, bonds were in a HighVol regime and the dollar was trending." Context spans all entities in your universe, not just the queried instrument.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tick Data & Adapters -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Tick Data Compression &amp; Adapters</h2>
+    <p class="section-subtitle fade-in">Ingest from FIX feeds and CSV files. Compress tick-level data through behavioral regime detection.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Tick-Level Regime Detection</div>
+        <div class="card-description">Raw tick data (price, bid, ask, volume, spread) is vectorized per symbol. Periods of stable quoting behavior compress into single regime segments. A quiet pre-market session with 50,000 ticks compresses to 3 segments. The opening cross with rapid regime changes retains full temporal resolution.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">FIX Protocol</div>
+        <div class="card-title">FIX 4.4 / 5.0 Adapter</div>
+        <div class="card-description">Native FIX protocol adapter for direct market data feed ingestion. Execution reports (tag 35=8), market data snapshots (tag 35=W), and incremental refreshes (tag 35=X) are parsed into temporal vectors. Supports session-level and application-level message types.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">CSV</div>
+        <div class="card-title">Adaptive CSV Detection</div>
+        <div class="card-description">Point VectorScaleDB at any market data CSV. Column detection automatically identifies symbol, timestamp, price, bid, ask, volume, and derived fields. No schema definition required. Supports millions of rows with streaming ingestion and on-the-fly compression.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Supported Formats -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Supported Formats &amp; Protocols</h2>
+    <div class="card fade-in">
+      <div class="card-label">Entity Types</div>
+      <div class="card-title">Native Financial Entity Types</div>
+      <div class="card-description" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">MarketTick</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">OrderFlow</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">PortfolioState</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">MarketRegime</span>
+      </div>
+    </div>
+    <div class="grid-3 fade-in" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="card-label">Protocol</div>
+        <div class="card-title">FIX 4.4 / 5.0</div>
+        <div class="card-description">Native FIX adapter for execution reports, market data snapshots, and order flow. Tag-level parsing with configurable field mapping.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">File</div>
+        <div class="card-title">CSV (Adaptive)</div>
+        <div class="card-description">Auto-detected columns for symbol, price, bid, ask, volume, timestamp. Streaming ingestion with on-the-fly compression for bulk historical loads.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">API</div>
+        <div class="card-title">REST / gRPC</div>
+        <div class="card-description">Full REST API with optional gRPC for low-latency tick ingestion. SDKs available in Rust, Python, and Node.js for strategy integration.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Example Workflow</h2>
+    <p class="section-subtitle fade-in">Ingest market data, detect the current regime, and replay similar historical patterns.</p>
+    <div class="fade-in">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="code-tabs">
+          <button class="code-tab active" onclick="document.querySelectorAll('.fin-panel').forEach(p=>p.classList.remove('active'));document.getElementById('fin-ingest').classList.add('active');document.querySelectorAll('.fin-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">1. Ingest Market Data</button>
+          <button class="code-tab fin-tab" onclick="document.querySelectorAll('.fin-panel').forEach(p=>p.classList.remove('active'));document.getElementById('fin-regime').classList.add('active');document.querySelectorAll('.fin-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">2. Detect Regime</button>
+          <button class="code-tab fin-tab" onclick="document.querySelectorAll('.fin-panel').forEach(p=>p.classList.remove('active'));document.getElementById('fin-replay').classList.add('active');document.querySelectorAll('.fin-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">3. Pattern Replay</button>
+        </div>
+        <div id="fin-ingest" class="code-panel fin-panel active"><pre>
+# Ingest tick data from a CSV file
+curl -X POST http://localhost:8080/v1/ingest/csv \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source": "/data/market/SPX_ticks_2026Q1.csv",
+    "entity_type": "MarketTick",
+    "entity_id": "SPX",
+    "column_detection": "adaptive",
+    "expected_columns": ["timestamp", "price", "bid", "ask", "volume"],
+    "compression": {
+      "enabled": true,
+      "drift_threshold": 0.04,
+      "min_segment_duration": "5s"
+    }
+  }'
+
+# Response:
+# {
+#   "entity_id": "SPX",
+#   "rows_ingested": 14832947,
+#   "segments_created": 8421,
+#   "compression_ratio": 1761.2,
+#   "time_range": {
+#     "start": "2026-01-02T09:30:00Z",
+#     "end": "2026-03-08T16:00:00Z"
+#   },
+#   "regimes_detected": 47,
+#   "ingestion_time_ms": 12340
+# }</pre></div>
+        <div id="fin-regime" class="code-panel fin-panel"><pre>
+# Detect current market regime for SPX
+curl -X POST http://localhost:8080/v1/query/market-regime \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_id": "SPX",
+    "time_range": {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-03-09T16:00:00Z"
+    },
+    "granularity": "1d"
+  }'
+
+# Response:
+# {
+#   "entity_id": "SPX",
+#   "current_regime": "Trending",
+#   "confidence": 0.84,
+#   "regime_duration": "12d",
+#   "transitions": [
+#     {
+#       "timestamp": "2026-02-14T00:00:00Z",
+#       "from": "LowVol",
+#       "to": "MeanReverting",
+#       "confidence": 0.71
+#     },
+#     {
+#       "timestamp": "2026-02-25T00:00:00Z",
+#       "from": "MeanReverting",
+#       "to": "Trending",
+#       "confidence": 0.84
+#     }
+#   ],
+#   "latency_ms": 18.7
+# }</pre></div>
+        <div id="fin-replay" class="code-panel fin-panel"><pre>
+# Replay: find historical periods most similar to the last 7 trading days
+curl -X POST http://localhost:8080/v1/query/pattern-replay \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_id": "SPX",
+    "pattern_window": {
+      "start": "2026-02-28T00:00:00Z",
+      "end": "2026-03-09T00:00:00Z"
+    },
+    "search_range": "5y",
+    "top_k": 5,
+    "include_cross_asset_context": true,
+    "context_entities": ["TLT", "GLD", "VIX", "DXY"]
+  }'
+
+# Response:
+# {
+#   "matches": [
+#     {
+#       "period": {
+#         "start": "2024-11-12T00:00:00Z",
+#         "end": "2024-11-21T00:00:00Z"
+#       },
+#       "similarity": 0.934,
+#       "subsequent_return_5d": 0.023,
+#       "subsequent_return_20d": 0.041,
+#       "cross_asset_context": {
+#         "TLT": { "regime": "HighVol", "correlation_with_SPX": -0.42 },
+#         "GLD": { "regime": "Trending", "correlation_with_SPX": 0.18 },
+#         "VIX": { "regime": "LowVol", "correlation_with_SPX": -0.81 },
+#         "DXY": { "regime": "MeanReverting", "correlation_with_SPX": -0.31 }
+#       }
+#     },
+#     {
+#       "period": {
+#         "start": "2023-07-03T00:00:00Z",
+#         "end": "2023-07-14T00:00:00Z"
+#       },
+#       "similarity": 0.891,
+#       "subsequent_return_5d": 0.017,
+#       "subsequent_return_20d": -0.008
+#     }
+#   ],
+#   "latency_ms": 94.1
+# }</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Capabilities -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related Capabilities</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">Compress years of tick data into behavioral regimes. Retain the ability to replay any historical period while reducing storage by 1000x.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Trajectory Analysis</div>
+        <div class="card-description">FastDTW pattern matching, change-point detection for regime transitions, and behavioral forecasting for anticipating market state changes.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Security</div>
+        <div class="card-title">Enterprise Security</div>
+        <div class="card-description">AES-256-GCM encryption for market data at rest, per-tenant key isolation for multi-strategy deployments, and SHA-256 audit chains for regulatory compliance.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to add temporal-semantic intelligence to your trading infrastructure?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB detect regimes, replay patterns, and compress tick data with your market data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Finance%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Finance Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temporal-Semantic Index | VectorScaleDB</title>
+  <meta name="description" content="Deep dive into VectorScaleDB's Temporal-Semantic Tree (TST) index: HNSW per time-chunk, temporal continuity edges, sub-millisecond KNN, and unified temporal-semantic query planning.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Indexing</div>
+      <h1 class="hero-title">Temporal-Semantic Index</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">The first index structure that fuses time-series ordering with vector similarity into a single queryable graph. Neither a time index nor a vector index &mdash; both.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HNSW Per Time-Chunk -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">HNSW Per Time-Chunk Architecture</h2>
+    <p class="section-subtitle fade-in">Traditional vector indexes treat all data as a flat collection. VectorScaleDB partitions vectors into temporal chunks, each with its own HNSW graph, enabling time-bounded search without scanning irrelevant history.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Chunk Creation</div>
+        <div class="card-title">Automatic time-based partitioning</div>
+        <div class="card-description">
+          Incoming vectors are routed to the active chunk based on their timestamp. When a chunk reaches its configured time window or vector count threshold, it is sealed and a new chunk opens. Sealed chunks are immutable and optimized for read performance.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Configurable chunk duration (minutes, hours, days)</li>
+            <li>Automatic sealing when thresholds are reached</li>
+            <li>Sealed chunks become read-optimized with compacted HNSW layers</li>
+            <li>Active chunk accepts concurrent writes with lock-free insertion</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Graph Construction</div>
+        <div class="card-title">Per-chunk HNSW with tunable parameters</div>
+        <div class="card-description">
+          Each chunk maintains its own HNSW graph with independently tunable construction parameters. This means hot data (recent chunks) can use higher M values for faster search, while cold chunks use lower M values for better memory efficiency.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Independent M and ef_construction per chunk</li>
+            <li>Hot/warm/cold tiering with automatic parameter adjustment</li>
+            <li>In-memory graph for active chunks, memory-mapped for sealed</li>
+            <li>Parallel construction across CPU cores during seal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Temporal Continuity Edges -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Temporal Continuity Edges</h2>
+    <p class="section-subtitle fade-in">The innovation that makes the TST more than a collection of independent HNSW graphs. Cross-chunk edges link behavioral trajectories across time boundaries, enabling queries that span arbitrary time ranges without merging results post-hoc.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Behavioral Linking</div>
+        <div class="card-title">Cross-chunk entity continuity</div>
+        <div class="card-description">When a chunk seals, the TST identifies entities whose vectors appear in both the sealing chunk and the next. Continuity edges are created between these anchor points, preserving the entity's behavioral trajectory across the chunk boundary.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Query Traversal</div>
+        <div class="card-title">Follow trajectories across time</div>
+        <div class="card-description">Continuity edges allow the query planner to traverse from a match in one chunk to related vectors in adjacent chunks without re-searching. This turns multi-chunk queries from O(k * chunks) into O(k + edges), dramatically reducing latency for wide time ranges.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Edge Maintenance</div>
+        <div class="card-title">Automatic pruning and rebalancing</div>
+        <div class="card-description">Continuity edges are pruned when chunks are compacted or archived. The TST maintains a configurable maximum edge count per entity per chunk boundary, keeping memory usage bounded while preserving the most behaviorally significant connections.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sub-Millisecond KNN -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Sub-Millisecond KNN Search</h2>
+    <p class="section-subtitle fade-in">Time-bounded nearest neighbor search that returns results faster than a single network round-trip.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Performance</div>
+        <div class="card-title">Parallel chunk search with early termination</div>
+        <div class="card-description">
+          The query planner identifies which chunks overlap the requested time range and searches them in parallel. Results are merged using a bounded priority queue with early termination &mdash; once enough high-quality results are found, remaining chunks are skipped.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Parallel search across all matching chunks</li>
+            <li>Early termination when result quality converges</li>
+            <li>Chunk-level bloom filters skip chunks with no relevant entities</li>
+            <li>SIMD-accelerated distance computation (AVX2/NEON)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Accuracy</div>
+        <div class="card-title">Tunable recall vs. latency tradeoff</div>
+        <div class="card-description">
+          The ef_search parameter controls how many candidates are evaluated during search. Higher values improve recall at the cost of latency. VectorScaleDB exposes this as a per-query parameter, letting applications choose the right tradeoff for each request.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Per-query ef_search override</li>
+            <li>Default ef_search tuned for 99%+ recall at sub-ms latency</li>
+            <li>Exact KNN fallback for small chunk sizes</li>
+            <li>Recall metrics exposed via <code>/v1/metrics</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Snapshot & Restore -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Snapshot & Restore</h2>
+    <p class="section-subtitle fade-in">Full index durability with point-in-time recovery. Never rebuild an index from scratch again.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Snapshots</div>
+        <div class="card-title">Incremental, non-blocking snapshots</div>
+        <div class="card-description">Snapshots capture the full state of every chunk, including HNSW graphs, continuity edges, and metadata. Only sealed chunks are included &mdash; the active chunk is protected by the WAL. Snapshots are incremental: only chunks modified since the last snapshot are written.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Recovery</div>
+        <div class="card-title">Fast restore with WAL replay</div>
+        <div class="card-description">On restart, the TST loads the latest snapshot and replays the WAL to recover any writes that occurred after the snapshot. This brings the index back to its exact pre-crash state in seconds, regardless of total index size.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Unified Query Planning -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Unified Temporal + Semantic Query Planning</h2>
+    <p class="section-subtitle fade-in">The query planner understands both temporal predicates and vector similarity natively, optimizing across both dimensions simultaneously rather than treating them as separate filter steps.</p>
+    <div class="solution-card fade-in">
+      <div class="card-label">How It Works</div>
+      <div class="card-title">Temporal-semantic query planning in action</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">When a query specifies both a time range and a target vector, the planner doesn't simply filter by time and then search by vector (or vice versa). Instead, it selects an optimal execution strategy based on the query shape: narrow time ranges use chunk-direct search, wide ranges use continuity-edge traversal, and point queries use the entity index for O(1) lookup.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Python: Temporal KNN query with the VectorScaleDB SDK</span>
+<span style="color: #7c3aed;">import</span> vectorscaledb
+
+client = vectorscaledb.Client(<span style="color: #22c55e;">"https://your-instance.vectorscaledb.com"</span>)
+
+<span style="color: var(--text-muted);"># Find the 10 most similar entities within the last 24 hours</span>
+results = client.query.temporal_knn(
+    embedding=[<span style="color: #f59e0b;">0.12</span>, <span style="color: #f59e0b;">-0.34</span>, <span style="color: #f59e0b;">0.56</span>, <span style="color: #f59e0b;">0.78</span>, <span style="color: #f59e0b;">-0.91</span>, <span style="color: #f59e0b;">0.23</span>],
+    k=<span style="color: #f59e0b;">10</span>,
+    time_range={
+        <span style="color: #22c55e;">"start"</span>: <span style="color: #22c55e;">"2026-03-08T00:00:00Z"</span>,
+        <span style="color: #22c55e;">"end"</span>: <span style="color: #22c55e;">"2026-03-09T00:00:00Z"</span>
+    },
+    entity_type=<span style="color: #22c55e;">"VEHICLE"</span>,
+    ef_search=<span style="color: #f59e0b;">200</span>  <span style="color: var(--text-muted);"># Higher recall for this query</span>
+)
+
+<span style="color: #7c3aed;">for</span> result <span style="color: #7c3aed;">in</span> results:
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Entity: {result.entity_id}"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  Similarity: {result.similarity:.4f}"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  Timestamp:  {result.timestamp}"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  Chunk:      {result.chunk_id}"</span>)
+    <span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"  Latency:    {result.latency_ms}ms"</span>)
+
+<span style="color: var(--text-muted);"># Example output:</span>
+<span style="color: var(--text-muted);"># Entity: vehicle-0042</span>
+<span style="color: var(--text-muted);">#   Similarity: 0.9714</span>
+<span style="color: var(--text-muted);">#   Timestamp:  2026-03-08T14:22:01Z</span>
+<span style="color: var(--text-muted);">#   Chunk:      chunk-2026-03-08-14</span>
+<span style="color: var(--text-muted);">#   Latency:    0.82ms</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related API Endpoints -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related API Endpoints</h2>
+    <p class="section-subtitle fade-in">Explore the full API reference for temporal-semantic indexing and querying.</p>
+    <div class="grid-2 fade-in">
+      <a href="../docs/api-queries.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/query/temporal-knn</code>
+        </div>
+        <div class="card-description">Time-bounded K-nearest neighbors search. Finds the K most similar vectors within a specified time window, combining temporal proximity with semantic similarity.</div>
+      </a>
+      <a href="../docs/api-queries.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/query/trajectory-similarity</code>
+        </div>
+        <div class="card-description">DTW-based trajectory similarity comparison. Leverages the TST's continuity edges to efficiently compare behavioral trajectories across time chunks.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">See the Temporal-Semantic Index in action</h2>
+    <p class="cta-subtitle fade-in">Schedule a technical demo and run temporal KNN queries against your own data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20TST%20Index" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

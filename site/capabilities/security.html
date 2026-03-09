@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enterprise Security | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB enterprise security: AES-256-GCM envelope encryption, per-tenant key management, RBAC, SHA-256 audit chains, GDPR compliance, and differential privacy.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Enterprise Security | VectorScaleDB">
+  <meta property="og:description" content="Defense-in-depth security for temporal-semantic data: envelope encryption, per-tenant isolation, audit chains, and differential privacy.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/capabilities/security.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Enterprise Security | VectorScaleDB">
+  <meta name="twitter:description" content="Defense-in-depth security for temporal-semantic data: envelope encryption, per-tenant isolation, audit chains, and differential privacy.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Security</div>
+      <h1 class="hero-title">Enterprise Security</h1>
+      <p class="hero-subtitle">Defense-in-depth security designed for regulated industries. Every byte encrypted, every access audited, every query privacy-preserving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Envelope Encryption -->
+<section class="section" id="encryption">
+  <div class="container">
+    <h2 class="section-title fade-in">AES-256-GCM Envelope Encryption</h2>
+    <p class="section-subtitle fade-in">Two-tier key hierarchy ensures that compromising a single key never exposes your entire dataset.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Data Encryption Keys</div>
+        <div class="card-title">Per-Record DEKs</div>
+        <div class="card-description">Each data record is encrypted with a unique Data Encryption Key (DEK) using AES-256-GCM authenticated encryption. The DEK is generated at write time, used once, and never stored in plaintext. GCM mode provides both confidentiality and tamper detection through its authentication tag.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Key Encryption Keys</div>
+        <div class="card-title">KEK Hierarchy</div>
+        <div class="card-description">Each DEK is itself encrypted by a Key Encryption Key (KEK) before storage. KEKs are managed separately from data, enabling key rotation without re-encrypting the underlying data. Rotate the KEK, re-wrap the DEKs, and the data never moves.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Authenticated Encryption</div>
+        <div class="card-title">Tamper Detection Built In</div>
+        <div class="card-description">AES-256-GCM produces an authentication tag alongside every ciphertext. Any modification to encrypted data &mdash; even a single flipped bit &mdash; is detected at decryption time. No silent corruption, no undetected tampering.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Per-Tenant Key Management -->
+<section class="section" id="tenant-isolation" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Per-Tenant Key Management</h2>
+    <p class="section-subtitle fade-in">Cryptographic isolation between tenants. Each tenant's data is encrypted with tenant-specific keys that no other tenant can access.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Isolation</div>
+        <div class="card-title">Tenant-Scoped KEKs</div>
+        <div class="card-description">Every tenant receives a dedicated KEK. Even in a shared deployment, one tenant's data is cryptographically inaccessible to another. A compromised tenant key affects only that tenant &mdash; blast radius is contained by design.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Rotation</div>
+        <div class="card-title">Automated Key Rotation</div>
+        <div class="card-description">Schedule key rotation per tenant on configurable intervals. When a rotation fires, the system generates a new KEK, re-wraps all active DEKs under the new key, and retires the old KEK &mdash; all without downtime or data re-encryption.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Compliance</div>
+        <div class="card-title">Rotation Audit Trail</div>
+        <div class="card-description">Every key rotation event is recorded in the audit chain with the rotation timestamp, key version, and operator identity. Compliance teams can prove rotation adherence without accessing the keys themselves.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RBAC -->
+<section class="section" id="rbac" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Role-Based Access Control</h2>
+    <p class="section-subtitle fade-in">Fine-grained permissions enforced at the API layer. Every request is authenticated, authorized, and logged.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Roles</div>
+        <div class="card-title">Predefined + Custom Roles</div>
+        <div class="card-description">Ship with built-in roles &mdash; Admin, Operator, Analyst, ReadOnly &mdash; or define custom roles with granular permission sets. Roles map to specific API endpoints and operations, ensuring least-privilege access by default.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Scoping</div>
+        <div class="card-title">Tenant + Entity Scoping</div>
+        <div class="card-description">Permissions can be scoped to specific tenants, entity types, or even individual entities. An analyst in the finance domain sees only financial entities; a fleet operator sees only vehicle telemetry.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Enforcement</div>
+        <div class="card-title">Middleware-Level Enforcement</div>
+        <div class="card-description">Authorization checks happen in the middleware layer before any query reaches the engine. Unauthorized requests are rejected with zero data exposure &mdash; the engine never sees them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Audit Chain -->
+<section class="section" id="audit" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">SHA-256 Audit Chain</h2>
+    <p class="section-subtitle fade-in">Every action produces a cryptographically chained audit event. Tamper with one record and the entire chain breaks.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Chaining</div>
+        <div class="card-title">Hash-Linked Events</div>
+        <div class="card-description">Each audit event includes a SHA-256 hash of the previous event, forming an append-only chain. Inserting, deleting, or modifying any event invalidates all subsequent hashes. The chain is verified on every read via <code>/v1/admin/audit</code>.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Coverage</div>
+        <div class="card-title">Full Operation Logging</div>
+        <div class="card-description">Data ingestion, queries, deletions, key rotations, role changes, configuration updates &mdash; every operation that touches data or security state produces an audit event with actor identity, timestamp, resource, and outcome.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Verification</div>
+        <div class="card-title">Chain Integrity Checks</div>
+        <div class="card-description">The <code>chain_verified</code> field in audit responses confirms the integrity of the entire chain up to that point. Automated background verification runs continuously, surfacing any inconsistency before it reaches compliance reports.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GDPR & Differential Privacy -->
+<section class="section" id="privacy" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Privacy by Design</h2>
+    <p class="section-subtitle fade-in">GDPR-compliant entity deletion and differential privacy on query results &mdash; built into the engine, not bolted on.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">GDPR</div>
+        <div class="card-title">Right-to-Erasure Compliance</div>
+        <div class="card-description">A single <code>DELETE /v1/admin/entity/{id}</code> call purges all records, compressed segments, index entries, and cached data for that entity. The response confirms record counts, segment counts, and generates an audit event proving deletion.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Differential Privacy</div>
+        <div class="card-title">Laplacian Noise on Centroids</div>
+        <div class="card-description">Query results that return aggregate centroid vectors have calibrated Laplacian noise applied before response. This prevents reconstruction of individual entity behavior from cluster-level queries &mdash; mathematical privacy guarantees, not policy alone.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Data Sovereignty</div>
+        <div class="card-title">Tenant Data Boundaries</div>
+        <div class="card-description">Per-tenant encryption keys, scoped RBAC, and entity-level deletion ensure that tenant data never leaks across boundaries. Federated deployments respect data locality &mdash; segments stay in their jurisdiction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" id="code-example" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">See It in Action</h2>
+    <p class="section-subtitle fade-in">Query the audit trail, verify chain integrity, and perform GDPR-compliant deletion &mdash; all through the REST API.</p>
+    <div class="fade-in" style="max-width: 800px;">
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-audit').classList.add('active');this.classList.add('active');">Audit Trail</button>
+        <button class="code-tab" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-gdpr').classList.add('active');this.classList.add('active');">GDPR Deletion</button>
+        <button class="code-tab" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-response').classList.add('active');this.classList.add('active');">Audit Response</button>
+      </div>
+      <div class="code-panel active" id="code-audit">
+<pre># Query audit trail for a specific time range and action type
+curl "https://your-instance.vectorscaledb.com/v1/admin/audit?\
+start=2026-03-08T00:00:00Z&amp;\
+end=2026-03-08T23:59:59Z&amp;\
+action=data_access&amp;\
+limit=100" \
+  -H "Authorization: Bearer $ADMIN_TOKEN"</pre>
+      </div>
+      <div class="code-panel" id="code-gdpr">
+<pre># GDPR right-to-erasure: delete all data for an entity
+curl -X DELETE \
+  "https://your-instance.vectorscaledb.com/v1/admin/entity/user-eu-12847" \
+  -H "Authorization: Bearer $ADMIN_TOKEN"
+
+# Response confirms complete purge
+# {
+#   "entity_id": "user-eu-12847",
+#   "records_deleted": 84291,
+#   "segments_purged": 127,
+#   "audit_event_id": "evt-del-3c4d5e",
+#   "completed_at": "2026-03-08T16:00:01Z"
+# }</pre>
+      </div>
+      <div class="code-panel" id="code-response">
+<pre>{
+  "events": [
+    {
+      "event_id": "evt-9f8a7b6c",
+      "timestamp": "2026-03-08T14:22:01Z",
+      "action": "data_access",
+      "actor": "user:jdoe",
+      "resource": "entity:vehicle-0042",
+      "chain_hash": "sha256:a1b2c3d4e5f6..."
+    },
+    {
+      "event_id": "evt-8e7d6c5b",
+      "timestamp": "2026-03-08T14:21:58Z",
+      "action": "data_access",
+      "actor": "user:analyst-03",
+      "resource": "entity:sensor-fleet-17",
+      "chain_hash": "sha256:f6e5d4c3b2a1..."
+    }
+  ],
+  "total": 247,
+  "chain_verified": true
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Security that scales with your compliance requirements</h2>
+    <p class="cta-subtitle fade-in">See how VectorScaleDB meets your security and regulatory needs.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Security%20Demo" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Security Review</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Spatial Computing & Digital Twins | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB for spatial computing: 4D Gaussian Splatting persistence, scene differencing, LOD streaming, spatial anchor clustering, IoT sensor fusion, and digital twin lifecycle management.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="3D Spatial Computing & Digital Twins | VectorScaleDB">
+  <meta property="og:description" content="Persist 4D Gaussian Splatting scenes, detect spatial changes over time, stream LODs for bandwidth-efficient AR/VR, and manage digital twin lifecycles.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/industries/spatial.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="3D Spatial Computing & Digital Twins | VectorScaleDB">
+  <meta name="twitter:description" content="Persist 4DGS scenes, detect spatial changes, stream LODs, and manage digital twin lifecycles.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Spatial Computing</div>
+      <h1 class="hero-title">3D Spatial Computing &amp; Digital Twins</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Persist 4D Gaussian Splatting scenes with temporal evolution, detect spatial changes through scene differencing, stream level-of-detail representations for AR/VR, and manage digital twin lifecycles with IoT sensor fusion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4D Gaussian Splatting -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">4D Gaussian Splatting Persistence</h2>
+    <p class="section-subtitle fade-in">The first database with native 4DGS storage. Gaussians are not blobs in an object store. They are indexed, queryable, temporally evolving entities.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Static</div>
+        <div class="card-title">GaussianStatic</div>
+        <div class="card-description">Persistent environmental Gaussians: buildings, terrain, infrastructure. Ingested from SPZ or glTF captures, each Gaussian stores position (x, y, z), covariance matrix, spherical harmonic coefficients, and opacity. Static Gaussians compress at extreme ratios since they rarely change, making long-term scene archival efficient.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Dynamic</div>
+        <div class="card-title">GaussianDynamic</div>
+        <div class="card-description">Gaussians that evolve over time: vehicles, people, seasonal vegetation, construction progress. Each dynamic Gaussian has a temporal trajectory of position, covariance, and appearance parameters. VectorScaleDB's compression captures the behavioral regimes of spatial evolution: a tree's appearance compresses across seasons into four regime segments.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Transient</div>
+        <div class="card-title">GaussianTransient</div>
+        <div class="card-description">Short-lived Gaussians: weather effects, temporary objects, lighting changes. Transient Gaussians have explicit lifespans and are automatically pruned from active indices after expiration. Query "what transient objects appeared in this spatial region during the last 24 hours?" for security and monitoring use cases.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scene Differencing -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Scene Differencing for Change Detection</h2>
+    <p class="section-subtitle fade-in">Compare scene snapshots across time. VectorScaleDB computes spatial diffs at the Gaussian level, identifying exactly what changed, where, and when.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Gaussian-Level Diff</div>
+        <div class="card-description">Scene differencing operates on individual Gaussians: added Gaussians (new objects), removed Gaussians (demolished structures), modified Gaussians (appearance changes, position shifts). Each diff is localized in 3D space and timestamped. The diff itself is a queryable entity, enabling searches like "find all structural changes within 100m of this coordinate in the last month."</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Applications</div>
+        <div class="card-title">Change Detection Workflows</div>
+        <div class="card-description">Construction progress monitoring: diff weekly scene captures to track building progress. Facility security: diff hourly captures to detect unauthorized modifications. Environmental monitoring: diff seasonal captures to track vegetation changes, erosion, and land use. Each workflow uses the same scene differencing API with different temporal resolution.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOD Streaming -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">LOD Streaming for AR/VR</h2>
+    <p class="section-subtitle fade-in">Deliver the right level of detail to each client based on distance, bandwidth, and device capability. VectorScaleDB manages the full LOD hierarchy.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Streaming</div>
+        <div class="card-title">Bandwidth-Adaptive Delivery</div>
+        <div class="card-description">LOD streaming sends coarse Gaussians first for immediate scene rendering, then progressively refines with higher-detail representations. VectorScaleDB manages LOD levels per spatial region, enabling clients to request "give me LOD-2 for everything within 50m and LOD-0 for everything beyond 200m" in a single query.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Spatial</div>
+        <div class="card-title">View-Frustum Culling</div>
+        <div class="card-description">Spatial indexing enables server-side view-frustum culling. Only Gaussians visible from the client's current position and orientation are transmitted. As the user moves, VectorScaleDB streams delta updates: newly visible regions at appropriate LOD, deactivation signals for out-of-view regions.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Temporal</div>
+        <div class="card-title">Temporal LOD</div>
+        <div class="card-description">Beyond spatial LOD, VectorScaleDB provides temporal LOD: request the scene state at any past timestamp with configurable temporal resolution. A facility manager reviewing last week's digital twin gets LOD-0 (daily snapshots). An incident investigator gets LOD-3 (per-minute resolution) for a specific 2-hour window.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Spatial Anchor Clustering -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Spatial Anchor Clustering &amp; IoT Fusion</h2>
+    <p class="section-subtitle fade-in">Cluster spatial anchors for persistent AR experiences and fuse IoT sensor data with spatial context for living digital twins.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Anchors</div>
+        <div class="card-title">Persistent Spatial Anchors</div>
+        <div class="card-description">AnchorPoint entities store 6DoF poses with uncertainty ellipsoids. DBSCAN clustering groups co-located anchors into stable reference frames. Anchor-relative offset storage ensures that AR content placed by one user appears correctly for another user, even when individual anchor detections vary. Anchor drift is detected through temporal trajectory analysis.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">IoT Fusion</div>
+        <div class="card-title">Sensor-Spatial Context Binding</div>
+        <div class="card-description">Bind IoT sensor streams to spatial locations within the digital twin. A temperature sensor at coordinate (12.4, 3.1, 2.8) becomes a temporal vector stream anchored in 3D space. Query "show me all sensor readings within 5m of this Gaussian cluster" to correlate environmental conditions with spatial observations. VectorScaleDB unifies the spatial and temporal dimensions natively.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Digital Twin Lifecycle -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Digital Twin Lifecycle Management</h2>
+    <p class="section-subtitle fade-in">From initial capture to decommissioning. VectorScaleDB manages the complete lifecycle of spatial digital twins.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Capture</div>
+        <div class="card-title">Initial Scene Capture</div>
+        <div class="card-description">Ingest the initial 4DGS scene from a LiDAR scan, photogrammetry pipeline, or NeRF-to-3DGS conversion. VectorScaleDB classifies each Gaussian as static, dynamic, or transient based on capture metadata and establishes the baseline scene state for future differencing.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Evolution</div>
+        <div class="card-title">Continuous Update Pipeline</div>
+        <div class="card-description">As the physical environment changes, incremental scene captures are diffed against the stored twin. Only changed Gaussians are updated. IoT sensors provide continuous telemetry. The digital twin evolves in real time, with full temporal history preserved through compressed regime segments.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Query</div>
+        <div class="card-title">Temporal-Spatial Queries</div>
+        <div class="card-description">Query the digital twin at any point in its lifecycle: "show me the facility as it was 6 months ago." "What changed on the 3rd floor between January and March?" "Which IoT sensors in Building A detected anomalous readings during the same period that construction was detected in the scene diff?" One database, one query language.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Supported Formats -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Supported Formats &amp; Protocols</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Gaussian Splatting</div>
+        <div class="card-title">SPZ</div>
+        <div class="card-description">Native SPZ format for compressed Gaussian Splatting scenes. Direct ingestion with automatic Gaussian classification (static/dynamic/transient) and spatial indexing. Sub-second scene loads for millions of Gaussians.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">3D Standard</div>
+        <div class="card-title">glTF 2.0</div>
+        <div class="card-description">Industry-standard glTF format for mesh-based digital twins. Scene graph decomposition maps glTF nodes to VectorScaleDB entities with temporal tracking per node. Extensions supported for PBR materials and animation.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Point Clouds</div>
+        <div class="card-title">LAS / PCD / E57</div>
+        <div class="card-description">LiDAR point cloud formats for raw spatial capture. Automatic voxelization, coordinate system alignment, and conversion to Gaussian representations for unified scene management.</div>
+      </div>
+    </div>
+    <div class="card fade-in" style="margin-top: 1.5rem;">
+      <div class="card-label">Entity Types</div>
+      <div class="card-title">Native Spatial Entity Types</div>
+      <div class="card-description" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GaussianStatic</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GaussianDynamic</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GaussianTransient</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">AnchorPoint</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Example Workflow</h2>
+    <p class="section-subtitle fade-in">Ingest a 4DGS scene and query for spatial changes over time.</p>
+    <div class="fade-in">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="code-tabs">
+          <button class="code-tab active" onclick="document.querySelectorAll('.spatial-panel').forEach(p=>p.classList.remove('active'));document.getElementById('spatial-ingest').classList.add('active');document.querySelectorAll('.spatial-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">1. Ingest 4DGS Scene</button>
+          <button class="code-tab spatial-tab" onclick="document.querySelectorAll('.spatial-panel').forEach(p=>p.classList.remove('active'));document.getElementById('spatial-diff').classList.add('active');document.querySelectorAll('.spatial-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">2. Query Scene Diff</button>
+          <button class="code-tab spatial-tab" onclick="document.querySelectorAll('.spatial-panel').forEach(p=>p.classList.remove('active'));document.getElementById('spatial-response').classList.add('active');document.querySelectorAll('.spatial-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">3. Response</button>
+        </div>
+        <div id="spatial-ingest" class="code-panel spatial-panel active"><pre>
+# Ingest a 4DGS scene capture of a facility
+curl -X POST http://localhost:8080/v1/ingest/gaussian-scene \
+  -H "Content-Type: application/json" \
+  -d '{
+    "source": "/captures/facility-north/2026-03-09-scan.spz",
+    "scene_id": "facility-north",
+    "capture_timestamp": "2026-03-09T08:00:00Z",
+    "classification": {
+      "method": "auto",
+      "static_threshold": 0.95,
+      "transient_ttl": "24h"
+    },
+    "spatial_index": {
+      "grid_resolution": 1.0,
+      "lod_levels": 4
+    },
+    "anchor_registration": {
+      "existing_anchors": ["anchor_north_entry", "anchor_north_loading"],
+      "alignment_method": "icp"
+    },
+    "metadata": {
+      "facility": "north-campus",
+      "building": "warehouse-3",
+      "scan_device": "leica-rtc360",
+      "operator": "survey-team-b"
+    }
+  }'
+
+# Response:
+# {
+#   "scene_id": "facility-north",
+#   "snapshot_id": "snap_2026_03_09_08",
+#   "gaussians_ingested": 2847291,
+#   "classification": {
+#     "static": 2614830,
+#     "dynamic": 218744,
+#     "transient": 13717
+#   },
+#   "lod_levels_generated": 4,
+#   "anchors_registered": 2,
+#   "alignment_residual_cm": 0.8,
+#   "storage_bytes": 184729600,
+#   "ingestion_time_ms": 12840
+# }</pre></div>
+        <div id="spatial-diff" class="code-panel spatial-panel"><pre>
+# Query scene diff: what changed in the last 30 days?
+curl -X POST http://localhost:8080/v1/query/scene-diff \
+  -H "Content-Type: application/json" \
+  -d '{
+    "scene_id": "facility-north",
+    "baseline": {
+      "timestamp": "2026-02-07T08:00:00Z"
+    },
+    "current": {
+      "timestamp": "2026-03-09T08:00:00Z"
+    },
+    "filters": {
+      "min_change_magnitude": 0.1,
+      "gaussian_types": ["static", "dynamic"],
+      "spatial_bounds": {
+        "center": [45.2, 12.8, 0.0],
+        "radius_meters": 50.0
+      }
+    },
+    "include_gaussian_details": true,
+    "lod": 2
+  }'</pre></div>
+        <div id="spatial-response" class="code-panel spatial-panel"><pre>
+{
+  "scene_id": "facility-north",
+  "baseline_snapshot": "snap_2026_02_07_08",
+  "current_snapshot": "snap_2026_03_09_08",
+  "diff_summary": {
+    "gaussians_added": 4218,
+    "gaussians_removed": 891,
+    "gaussians_modified": 12047,
+    "total_changed": 17156,
+    "change_percentage": 0.6
+  },
+  "change_regions": [
+    {
+      "region_id": "chg_001",
+      "center": [42.1, 14.3, 3.2],
+      "radius_meters": 8.4,
+      "change_type": "addition",
+      "gaussians_affected": 3847,
+      "description_hint": "new_structure",
+      "first_detected": "2026-02-18T08:00:00Z",
+      "confidence": 0.97
+    },
+    {
+      "region_id": "chg_002",
+      "center": [51.8, 11.2, 0.5],
+      "radius_meters": 3.1,
+      "change_type": "removal",
+      "gaussians_affected": 891,
+      "description_hint": "demolished_structure",
+      "first_detected": "2026-02-24T08:00:00Z",
+      "confidence": 0.94
+    },
+    {
+      "region_id": "chg_003",
+      "center": [44.9, 13.0, 6.1],
+      "radius_meters": 12.7,
+      "change_type": "modification",
+      "gaussians_affected": 12047,
+      "description_hint": "appearance_change",
+      "first_detected": "2026-02-12T08:00:00Z",
+      "confidence": 0.89
+    }
+  ],
+  "iot_correlations": [
+    {
+      "sensor_id": "temp_wh3_zone_b",
+      "distance_to_change_m": 4.2,
+      "anomaly_during_period": true,
+      "anomaly_timestamp": "2026-02-18T06:14:00Z"
+    }
+  ],
+  "latency_ms": 234.7
+}</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Capabilities -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related Capabilities</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Spatial</div>
+        <div class="card-title">4D Scene Intelligence</div>
+        <div class="card-description">Native 4DGS storage, scene differencing, LOD streaming, and anchor-relative offset storage for spatial consistency across devices and time.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">Static Gaussians compress at extreme ratios. Dynamic Gaussians compress through behavioral regime detection on their spatial trajectories.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Distributed</div>
+        <div class="card-title">Distributed Architecture</div>
+        <div class="card-description">Deploy scene data at the edge for low-latency AR/VR delivery. IPFS archival for content-addressed scene versioning. Peer-to-peer scene exchange.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to build persistent spatial intelligence?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB persist 4DGS scenes, detect spatial changes, and power your digital twin infrastructure.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Spatial%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Spatial Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

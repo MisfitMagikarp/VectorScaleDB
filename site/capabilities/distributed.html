@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distributed Intelligence | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB distributed architecture: jump consistent hashing, SWIM gossip protocol, CRDTs, scatter-gather queries, entity migration, and federated template exchange.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Distributed Intelligence | VectorScaleDB">
+  <meta property="og:description" content="Production-grade distributed coordination: consistent hashing, gossip protocol, CRDTs, and federated template exchange across clusters.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/capabilities/distributed.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Distributed Intelligence | VectorScaleDB">
+  <meta name="twitter:description" content="Production-grade distributed coordination: consistent hashing, gossip protocol, CRDTs, and federated template exchange across clusters.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Distributed</div>
+      <h1 class="hero-title">Distributed Intelligence</h1>
+      <p class="hero-subtitle">Scale horizontally without sacrificing query semantics. Consistent hashing, gossip protocol, conflict-free replication, and federated template exchange &mdash; all production-ready.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Shard Placement -->
+<section class="section" id="hashing">
+  <div class="container">
+    <h2 class="section-title fade-in">Jump Consistent Hashing</h2>
+    <p class="section-subtitle fade-in">Deterministic shard placement with minimal redistribution when the cluster topology changes.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Deterministic</div>
+        <div class="card-title">Zero-Coordination Placement</div>
+        <div class="card-description">Given an entity ID and shard count, every node in the cluster independently computes the same shard assignment. No coordination service, no consensus round, no single point of failure for placement decisions.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Minimal Disruption</div>
+        <div class="card-title">O(1/n) Redistribution</div>
+        <div class="card-description">When a node joins or leaves, only 1/n of keys need to migrate &mdash; the theoretical minimum. Traditional consistent hashing with virtual nodes achieves similar bounds but with higher memory overhead. Jump hashing uses zero memory.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Performance</div>
+        <div class="card-title">Constant-Time Lookups</div>
+        <div class="card-description">Shard assignment runs in O(ln n) time with zero memory allocation &mdash; no hash ring, no virtual node table. At 1,000 shards, placement takes under 100 nanoseconds. The algorithm fits entirely in CPU registers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SWIM Gossip -->
+<section class="section" id="gossip" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">SWIM Gossip Protocol</h2>
+    <p class="section-subtitle fade-in">Scalable failure detection and membership management without a centralized coordinator.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Detection</div>
+        <div class="card-title">Sub-Second Failure Detection</div>
+        <div class="card-description">SWIM (Scalable Weakly-consistent Infection-style Membership) detects node failures through randomized probe-and-gossip rounds. When a direct probe fails, indirect probes through other members confirm the failure before declaring the node suspect.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Propagation</div>
+        <div class="card-title">Epidemic Dissemination</div>
+        <div class="card-description">Membership changes propagate via piggybacked gossip messages &mdash; no dedicated protocol messages needed. Information reaches all N nodes in O(log N) protocol rounds, keeping bandwidth overhead constant regardless of cluster size.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Convergence</div>
+        <div class="card-title">Consistent Cluster View</div>
+        <div class="card-description">Every node maintains a local membership list that converges to the same state. Suspect nodes go through a configurable grace period before removal, preventing flapping in networks with transient partitions. Incarnation numbers resolve conflicting state.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRDTs -->
+<section class="section" id="crdts" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">CRDTs for Conflict-Free Replication</h2>
+    <p class="section-subtitle fade-in">Replicate state across nodes without coordination. Merge any two replicas and get the correct result &mdash; mathematically guaranteed.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">GSet</div>
+        <div class="card-title">Grow-Only Sets</div>
+        <div class="card-description">Track entity membership, active tenant lists, and registered entity types using grow-only sets. Elements can be added from any node; the merge operation is set union. Simple, fast, and guaranteed to converge.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LWWRegister</div>
+        <div class="card-title">Last-Writer-Wins Registers</div>
+        <div class="card-description">Configuration values, threshold settings, and per-entity metadata use LWW registers with logical timestamps. Concurrent writes resolve deterministically &mdash; the write with the higher timestamp wins, ties broken by node ID.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">ORSet</div>
+        <div class="card-title">Observed-Remove Sets</div>
+        <div class="card-description">When elements need both add and remove semantics &mdash; like dynamic shard assignments or active query subscriptions &mdash; ORSets track add/remove pairs with unique tags. Concurrent add and remove of the same element resolves to "add wins."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Scatter-Gather & Migration -->
+<section class="section" id="coordination" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Query Coordination &amp; Entity Migration</h2>
+    <p class="section-subtitle fade-in">Distributed queries feel like local queries. Topology changes happen without downtime.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Queries</div>
+        <div class="card-title">Scatter-Gather Coordination</div>
+        <div class="card-description">A query arrives at any node. The coordinator scatters sub-queries to all relevant shards in parallel, gathers partial results, and merges them into a unified response. KNN queries merge by distance; anomaly queries merge by score. The client sees a single result.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Migration</div>
+        <div class="card-title">Live Entity Migration</div>
+        <div class="card-description">When the cluster topology changes, entities are rebalanced across the new shard configuration. Migration happens in the background &mdash; reads continue from the source shard until the entity is fully transferred, then the routing table updates atomically.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Federation</div>
+        <div class="card-title">Federated Template Exchange</div>
+        <div class="card-description">Clusters can share behavioral templates discovered via DBSCAN clustering. A template describes a behavioral pattern without exposing raw data. Remote clusters match incoming entities against shared templates, enabling cross-cluster intelligence without data centralization.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" id="code-example" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">See It in Action</h2>
+    <p class="section-subtitle fade-in">Check cluster health, membership, and shard distribution through a single API call.</p>
+    <div class="fade-in" style="max-width: 800px;">
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-status').classList.add('active');this.classList.add('active');">Cluster Status</button>
+        <button class="code-tab" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-response').classList.add('active');this.classList.add('active');">Response</button>
+      </div>
+      <div class="code-panel active" id="code-status">
+<pre># Check cluster membership, shard distribution, and node health
+curl "https://your-instance.vectorscaledb.com/v1/cluster/status" \
+  -H "Authorization: Bearer $TOKEN"</pre>
+      </div>
+      <div class="code-panel" id="code-response">
+<pre>{
+  "cluster_id": "prod-us-east-1",
+  "node_count": 5,
+  "shard_count": 32,
+  "status": "healthy",
+  "members": [
+    {
+      "node_id": "node-01",
+      "address": "10.0.1.10:8080",
+      "state": "alive",
+      "shards": [0, 1, 6, 7, 12, 13, 25],
+      "entities": 284019,
+      "uptime_seconds": 1847293
+    },
+    {
+      "node_id": "node-02",
+      "address": "10.0.1.11:8080",
+      "state": "alive",
+      "shards": [2, 3, 8, 9, 14, 15, 26],
+      "entities": 291847,
+      "uptime_seconds": 1847290
+    },
+    {
+      "node_id": "node-03",
+      "address": "10.0.1.12:8080",
+      "state": "alive",
+      "shards": [4, 5, 10, 11, 16, 17, 27],
+      "entities": 278432
+    }
+  ],
+  "replication": {
+    "crdt_types": ["GSet", "LWWRegister", "ORSet"],
+    "gossip_interval_ms": 500,
+    "convergence_status": "converged"
+  },
+  "federation": {
+    "connected_clusters": 2,
+    "shared_templates": 47,
+    "last_sync": "2026-03-09T12:00:01Z"
+  }
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Scale your temporal-semantic workloads horizontally</h2>
+    <p class="cta-subtitle fade-in">See how VectorScaleDB distributes across your infrastructure.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Distributed%20Demo" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

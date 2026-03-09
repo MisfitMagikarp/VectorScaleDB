@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Networking API | VectorScaleDB Docs</title>
+  <meta name="description" content="Network topology analysis, route optimization, traffic anomaly detection, and CDN behavioral profiling.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Networking</li>
+      </ul>
+      <h1>Networking</h1>
+      <p class="docs-intro">Network topology analysis, route optimization, traffic anomaly detection, and CDN behavioral profiling.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Networking',
+        id: 'networking',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/query/route-recommend',
+            description: 'DTW-based route optimization. Analyzes historical traffic patterns to recommend optimal network paths.',
+            request: '{\n  "src": "router-edge-01",\n  "dst": "router-edge-12",\n  "constraints": {\n    "max_latency_ms": 5,\n    "min_bandwidth_gbps": 10\n  },\n  "time_range": {\n    "start": "2026-03-08T00:00:00Z",\n    "end": "2026-03-08T12:00:00Z"\n  }\n}',
+            response: '{\n  "recommended_path": ["router-edge-01", "router-core-03", "router-core-07", "router-edge-12"],\n  "estimated_latency_ms": 2.8,\n  "confidence": 0.94,\n  "alternatives": 3,\n  "latency_ms": 6.1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/route-recommend \\\n  -H "Content-Type: application/json" \\\n  -d \'{"src": "router-edge-01", "dst": "router-edge-12", "constraints": {"max_latency_ms": 5}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/network-anomaly',
+            description: 'Topology-aware traffic anomaly detection.',
+            request: '{\n  "entity_id": "spine-sw-02",\n  "time_range": {\n    "start": "2026-03-08T10:00:00Z",\n    "end": "2026-03-08T11:00:00Z"\n  },\n  "include_neighbors": true\n}',
+            response: '{\n  "anomalies": [\n    {\n      "entity_id": "spine-sw-02",\n      "timestamp": "2026-03-08T10:32:14Z",\n      "score": 0.92,\n      "type": "traffic_spike",\n      "affected_interfaces": ["eth1/1", "eth1/2"]\n    }\n  ],\n  "topology_context": { "neighbors_affected": 4 },\n  "latency_ms": 11.2\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/network-anomaly \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "spine-sw-02", "time_range": {"start": "2026-03-08T10:00:00Z", "end": "2026-03-08T11:00:00Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/cdn-profile',
+            description: 'CDN edge behavioral profiling.',
+            request: '{\n  "entity_id": "cdn-edge-us-west-04",\n  "time_range": {\n    "start": "2026-03-08T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  }\n}',
+            response: '{\n  "entity_id": "cdn-edge-us-west-04",\n  "profile": {\n    "cache_hit_rate": 0.94,\n    "peak_throughput_gbps": 42.7,\n    "behavioral_regime": "normal_peak"\n  },\n  "regime_changes": [\n    { "timestamp": "2026-03-08T18:30:00Z", "from": "off_peak", "to": "normal_peak" }\n  ],\n  "latency_ms": 7.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/cdn-profile \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "cdn-edge-us-west-04", "time_range": {"start": "2026-03-08T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/topology-trace',
+            description: 'Network path tracing and impact analysis.',
+            request: '{\n  "entity_id": "router-core-03",\n  "trace_type": "failure_impact",\n  "depth": 3\n}',
+            response: '{\n  "entity_id": "router-core-03",\n  "impact": {\n    "directly_affected": 12,\n    "indirectly_affected": 47,\n    "critical_paths_disrupted": 3\n  },\n  "affected_entities": ["router-edge-01", "router-edge-05", "..."],\n  "latency_ms": 14.8\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/topology-trace \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "router-core-03", "trace_type": "failure_impact", "depth": 3}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-networking');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

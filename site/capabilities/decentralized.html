@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decentralized Architecture | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB decentralized architecture: libp2p transport, IPFS segment archival, CID-based retrieval, differential privacy, and edge-native deployment.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Decentralized Architecture | VectorScaleDB">
+  <meta property="og:description" content="Edge-native decentralized deployment with libp2p, IPFS archival, content-addressed retrieval, and differential privacy on shared segments.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/capabilities/decentralized.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Decentralized Architecture | VectorScaleDB">
+  <meta name="twitter:description" content="Edge-native decentralized deployment with libp2p, IPFS archival, and differential privacy.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Decentralized</div>
+      <h1 class="hero-title">Decentralized Architecture</h1>
+      <p class="hero-subtitle">Deploy at the edge, archive to content-addressed storage, and share behavioral intelligence across peers &mdash; all without a central authority.</p>
+    </div>
+  </div>
+</section>
+
+<!-- libp2p Transport -->
+<section class="section" id="libp2p">
+  <div class="container">
+    <h2 class="section-title fade-in">libp2p Transport Layer</h2>
+    <p class="section-subtitle fade-in">Peer-to-peer communication without centralized infrastructure. Nodes discover, connect, and exchange data directly.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Discovery</div>
+        <div class="card-title">Peer Discovery</div>
+        <div class="card-description">Nodes discover peers through mDNS on local networks and Kademlia DHT across the internet. No bootstrap server required for LAN deployments. For WAN, a minimal set of bootstrap peers seeds the DHT &mdash; after initial contact, the network is self-organizing.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Transport</div>
+        <div class="card-title">Multi-Transport Support</div>
+        <div class="card-description">libp2p negotiates the best available transport: TCP for data center deployments, QUIC for mobile and edge nodes, WebSocket for browser-based dashboards. Encryption is mandatory &mdash; every connection uses Noise protocol for authenticated key exchange.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Abstraction</div>
+        <div class="card-title">Unified Transport Layer</div>
+        <div class="card-description">The query engine and ingestion pipeline do not know whether they are talking to a peer over HTTP or libp2p. The transport abstraction layer presents a uniform interface &mdash; switch from centralized to decentralized by changing configuration, not code.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IPFS Archival -->
+<section class="section" id="ipfs" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">IPFS Segment Archival</h2>
+    <p class="section-subtitle fade-in">Compressed segments are archived to IPFS with content-addressed CIDs. Immutable, verifiable, and retrievable from any IPFS node worldwide.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Content Addressing</div>
+        <div class="card-title">CID-Based Identity</div>
+        <div class="card-description">Every archived segment receives a Content Identifier (CID) derived from its cryptographic hash. The CID is the data &mdash; if two nodes archive the same segment, they produce the same CID. Deduplication is automatic and verifiable.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Integrity</div>
+        <div class="card-title">Verifiable Retrieval</div>
+        <div class="card-description">When a segment is retrieved by CID, the recipient recomputes the hash and verifies it matches. Any corruption &mdash; in transit, at rest, or through tampering &mdash; is detected immediately. No trust required in the storage provider.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Durability</div>
+        <div class="card-title">Distributed Persistence</div>
+        <div class="card-description">Pinned segments are replicated across IPFS nodes. Even if the originating VectorScaleDB instance goes offline, archived segments remain available from any IPFS gateway. Cold storage with built-in geographic redundancy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Differential Privacy -->
+<section class="section" id="privacy" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Differential Privacy on Shared Segments</h2>
+    <p class="section-subtitle fade-in">Share behavioral intelligence without exposing raw data. Laplacian noise is applied before any segment leaves the node.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Mechanism</div>
+        <div class="card-title">Laplacian Noise Injection</div>
+        <div class="card-description">Before a segment is shared via IPFS or federated exchange, calibrated Laplacian noise is added to centroid vectors and metadata. The noise magnitude is tuned to a configurable epsilon parameter &mdash; lower epsilon means stronger privacy, higher noise.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Guarantees</div>
+        <div class="card-title">Mathematical Privacy Bounds</div>
+        <div class="card-description">Differential privacy provides a formal guarantee: an observer cannot determine whether any individual entity's data was included in the shared segment. This holds even against adversaries with unlimited computational power &mdash; it is an information-theoretic bound.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Utility</div>
+        <div class="card-title">Preserved Pattern Fidelity</div>
+        <div class="card-description">At typical epsilon values (1.0-3.0), shared segments retain enough behavioral signal for cross-cluster pattern matching and template exchange. The noise obscures individual contributions while preserving aggregate behavioral structure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Edge Deployment -->
+<section class="section" id="edge" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Edge-Native Deployment</h2>
+    <p class="section-subtitle fade-in">Run VectorScaleDB on edge hardware with full compression, indexing, and query capabilities. Sync to the cloud when connectivity allows.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Footprint</div>
+        <div class="card-title">Minimal Resource Requirements</div>
+        <div class="card-description">The Rust engine compiles to a single binary with no runtime dependencies. Edge deployments run on ARM or x86 hardware with as little as 512MB RAM. Vector-aware compression means local storage requirements are 100-1000x smaller than raw data.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Autonomy</div>
+        <div class="card-title">Offline-Capable Operation</div>
+        <div class="card-description">Edge nodes ingest, compress, index, and query data independently. No cloud connectivity required for core operations. When connectivity is available, segments sync to central clusters or IPFS &mdash; when it is not, the edge node operates fully autonomously.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Sync</div>
+        <div class="card-title">Selective Segment Sync</div>
+        <div class="card-description">Edge nodes do not sync everything. Configurable sync policies determine which segments upload based on anomaly score, regime type, entity priority, or time window. An edge node on a vehicle might only sync anomalous segments and daily summaries.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" id="code-example" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">See It in Action</h2>
+    <p class="section-subtitle fade-in">Inspect cluster topology including P2P peers, IPFS archival status, and transport configuration.</p>
+    <div class="fade-in" style="max-width: 800px;">
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-status').classList.add('active');this.classList.add('active');">Cluster Status</button>
+        <button class="code-tab" onclick="document.querySelectorAll('#code-example .code-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('#code-example .code-tab').forEach(t=>t.classList.remove('active'));document.getElementById('code-response').classList.add('active');this.classList.add('active');">Response</button>
+      </div>
+      <div class="code-panel active" id="code-status">
+<pre># Query cluster topology with P2P node details
+curl "https://your-instance.vectorscaledb.com/v1/cluster/status" \
+  -H "Authorization: Bearer $TOKEN"</pre>
+      </div>
+      <div class="code-panel" id="code-response">
+<pre>{
+  "cluster_id": "edge-fleet-west",
+  "topology": "hybrid",
+  "node_count": 8,
+  "members": [
+    {
+      "node_id": "cloud-us-west-01",
+      "transport": "tcp",
+      "address": "10.0.1.10:8080",
+      "state": "alive",
+      "role": "coordinator",
+      "entities": 1847293,
+      "shards": [0, 1, 2, 3, 4, 5, 6, 7]
+    },
+    {
+      "node_id": "edge-vehicle-042",
+      "transport": "libp2p",
+      "peer_id": "QmYwAPJzv5CZsnEf18gnKJRv5bKF7...",
+      "state": "alive",
+      "role": "edge",
+      "entities": 4219,
+      "last_sync": "2026-03-09T11:58:22Z",
+      "sync_policy": "anomalous_only"
+    },
+    {
+      "node_id": "edge-drone-17",
+      "transport": "libp2p",
+      "peer_id": "QmT5NvUtoM5nX3FVGa7Lq4kGTlN...",
+      "state": "alive",
+      "role": "edge",
+      "entities": 891,
+      "last_sync": "2026-03-09T12:01:07Z",
+      "sync_policy": "daily_summary"
+    }
+  ],
+  "ipfs": {
+    "archived_segments": 284019,
+    "total_cids": 284019,
+    "pinned_nodes": 3,
+    "last_archive": "2026-03-09T12:00:00Z"
+  },
+  "privacy": {
+    "differential_privacy_enabled": true,
+    "epsilon": 2.0,
+    "shared_segments_noised": 47291
+  }
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Deploy temporal-semantic intelligence at the edge</h2>
+    <p class="cta-subtitle fade-in">See how VectorScaleDB runs on your edge infrastructure with full P2P capabilities.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Decentralized%20Demo" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

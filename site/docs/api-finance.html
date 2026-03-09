@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Markets API | VectorScaleDB Docs</title>
+  <meta name="description" content="Market regime detection, cross-asset correlation analysis, and historical pattern replay.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Financial Markets</li>
+      </ul>
+      <h1>Financial Markets</h1>
+      <p class="docs-intro">Market regime detection, cross-asset correlation analysis, and historical pattern replay.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Financial Markets',
+        id: 'finance',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/query/market-regime',
+            description: 'Detect bull/bear/sideways/crisis market regimes.',
+            request: '{\n  "entity_id": "SPX",\n  "time_range": {\n    "start": "2026-01-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "granularity": "1d"\n}',
+            response: '{\n  "entity_id": "SPX",\n  "current_regime": "bull",\n  "confidence": 0.88,\n  "transitions": [\n    { "timestamp": "2026-02-14T00:00:00Z", "from": "sideways", "to": "bull", "confidence": 0.91 }\n  ],\n  "latency_ms": 22.1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/market-regime \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "SPX", "time_range": {"start": "2026-01-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/correlation-regime',
+            description: 'Cross-asset correlation change detection.',
+            request: '{\n  "entities": ["SPX", "TLT", "GLD", "DXY"],\n  "time_range": {\n    "start": "2026-01-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "window": "30d"\n}',
+            response: '{\n  "correlation_matrix": {\n    "SPX-TLT": -0.42,\n    "SPX-GLD": 0.18,\n    "SPX-DXY": -0.31\n  },\n  "regime_breaks": [\n    { "timestamp": "2026-02-20T00:00:00Z", "pair": "SPX-TLT", "shift": 0.67 }\n  ],\n  "latency_ms": 34.7\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/correlation-regime \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entities": ["SPX", "TLT", "GLD", "DXY"], "time_range": {"start": "2026-01-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/pattern-replay',
+            description: 'Historical pattern matching via DTW.',
+            request: '{\n  "entity_id": "SPX",\n  "pattern_window": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "search_range": "5y",\n  "top_k": 5\n}',
+            response: '{\n  "matches": [\n    {\n      "period": { "start": "2024-11-12T00:00:00Z", "end": "2024-11-19T00:00:00Z" },\n      "similarity": 0.934,\n      "subsequent_return_5d": 0.023\n    }\n  ],\n  "latency_ms": 87.3\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/pattern-replay \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "SPX", "pattern_window": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "top_k": 5}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-finance');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

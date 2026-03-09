@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vector-Aware Compression | VectorScaleDB</title>
+  <meta name="description" content="Deep dive into VectorScaleDB's vector-aware compression engine: drift-based regime detection, 100-1000x compression ratios, WAL crash recovery, and adaptive threshold tuning.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Compression</div>
+      <h1 class="hero-title">Vector-Aware Compression</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Store behavioral regimes instead of individual data points. 100-1000x compression beyond columnar approaches, without losing the ability to query, compare, and analyze.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Drift-Based Regime Detection -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Drift-Based Regime Detection</h2>
+    <p class="section-subtitle fade-in">Traditional compression treats each value independently. VectorScaleDB understands that entity behavior exists in regimes &mdash; long periods of stability punctuated by meaningful transitions.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Cosine Drift</div>
+        <div class="card-title">Measuring behavioral change in real time</div>
+        <div class="card-description">
+          As each new vector arrives, the compression engine computes the cosine distance between the incoming vector and the current segment's centroid. When this drift exceeds the configured threshold, the engine recognizes a regime change and seals the current segment.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Cosine distance between incoming vector and segment centroid</li>
+            <li>Running drift accumulator with exponential decay</li>
+            <li>Configurable drift threshold per entity type</li>
+            <li>Sub-microsecond per-vector evaluation overhead</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Regime Boundaries</div>
+        <div class="card-title">Semantically meaningful segmentation</div>
+        <div class="card-description">
+          Unlike fixed-window compression that splits data at arbitrary time boundaries, drift-based detection creates segments that align with actual behavioral transitions. A vehicle cruising on a highway for 3 hours produces one segment. The moment it exits and enters city traffic, a new segment begins.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Segments align with real behavioral changes</li>
+            <li>No information loss at arbitrary window boundaries</li>
+            <li>Variable-length segments adapt to data characteristics</li>
+            <li>Regime boundaries become queryable events themselves</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Compression Ratios -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">100-1000x Compression Ratios</h2>
+    <p class="section-subtitle fade-in">How VectorScaleDB achieves compression ratios that seem impossible &mdash; by exploiting the structure of real-world behavioral data.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">The Insight</div>
+        <div class="card-title">Most data points are redundant</div>
+        <div class="card-description">In real-world temporal data, entities spend 95-99% of their time in stable behavioral regimes. A sensor reporting 1,000 vectors per second during a stable period is generating 1,000 near-identical data points. VectorScaleDB stores one segment instead.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">The Math</div>
+        <div class="card-title">Segment vs. raw storage</div>
+        <div class="card-description">A 128-dim vector at float32 is 512 bytes. At 10 Hz over 1 hour of stable behavior, that is 36,000 vectors (18 MB). VectorScaleDB stores this as one segment: centroid (512 bytes) + start/end vectors (1,024 bytes) + metadata (256 bytes) = 1,792 bytes. Ratio: 10,000x.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Real-World</div>
+        <div class="card-title">Conservative 100-1000x in production</div>
+        <div class="card-description">Real entities exhibit regime changes, so actual compression varies. Highly dynamic entities (trading algorithms) see 100x. Stable entities (infrastructure sensors) see 1,000x+. The average across diverse workloads is 300-500x.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Segment Representation -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Segment Representation</h2>
+    <p class="section-subtitle fade-in">Each compressed segment captures the full behavioral signature of a regime, preserving everything needed for downstream queries.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Segment Fields</div>
+        <div class="card-title">What a segment contains</div>
+        <div class="card-description">
+          <ul style="padding-left: 1.25rem;">
+            <li><strong>Centroid vector:</strong> Mean of all vectors in the regime</li>
+            <li><strong>Start vector:</strong> First vector in the regime</li>
+            <li><strong>End vector:</strong> Last vector in the regime</li>
+            <li><strong>Time range:</strong> Start and end timestamps</li>
+            <li><strong>Point count:</strong> Number of raw vectors compressed</li>
+            <li><strong>Max drift:</strong> Maximum cosine distance observed</li>
+            <li><strong>Mean drift:</strong> Average drift across the regime</li>
+            <li><strong>Variance:</strong> Behavioral stability metric</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Query Compatibility</div>
+        <div class="card-title">Segments are first-class query targets</div>
+        <div class="card-description">
+          Compressed segments are not just storage artifacts &mdash; they are indexed in the TST and participate in all query types. KNN search matches against segment centroids. Trajectory similarity uses start/end vectors for alignment. Anomaly scoring uses drift metrics as features.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Segment centroids indexed in the TST for similarity search</li>
+            <li>Start/end vectors enable trajectory reconstruction</li>
+            <li>Drift metrics power anomaly detection</li>
+            <li>Point counts inform confidence scoring</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAL + Crash Recovery -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">WAL + Crash Recovery</h2>
+    <p class="section-subtitle fade-in">Every write is durable before acknowledgment. The compression engine never loses data, even during unexpected failures.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Write-Ahead Log</div>
+        <div class="card-title">Durability before compression</div>
+        <div class="card-description">Raw vectors are appended to a write-ahead log before entering the compression pipeline. The WAL is fsync'd to disk on configurable intervals (per-write, per-batch, or timed). Only after WAL persistence does the ingest endpoint acknowledge the write.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Recovery</div>
+        <div class="card-title">Replay and resume</div>
+        <div class="card-description">On restart, the compression engine reads the WAL from the last checkpoint, replays un-compressed vectors through the drift detector, and resumes normal operation. In-progress segments are reconstructed from the WAL entries, ensuring no data loss and no duplicate segments.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Adaptive Threshold Tuning -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Adaptive Threshold Tuning</h2>
+    <p class="section-subtitle fade-in">Different entity types have fundamentally different behavioral characteristics. A single drift threshold does not fit all.</p>
+    <div class="solution-card fade-in">
+      <div class="card-label">How It Works</div>
+      <div class="card-title">Per-entity-type adaptive thresholds</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">VectorScaleDB maintains per-entity-type drift statistics and automatically adjusts compression thresholds to achieve a target compression ratio. High-variance entity types (e.g., financial instruments) get wider thresholds to avoid over-segmentation. Low-variance types (e.g., infrastructure sensors) get tighter thresholds to capture subtle anomalies. You set the target; the engine tunes itself.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Python: Ingest vectors and check compression stats</span>
+<span style="color: #7c3aed;">import</span> vectorscaledb
+
+client = vectorscaledb.Client(<span style="color: #22c55e;">"https://your-instance.vectorscaledb.com"</span>)
+
+<span style="color: var(--text-muted);"># Ingest a batch of temporal vectors</span>
+response = client.ingest(
+    entity_id=<span style="color: #22c55e;">"sensor-north-wing-03"</span>,
+    entity_type=<span style="color: #22c55e;">"INFRASTRUCTURE"</span>,
+    vectors=[
+        {
+            <span style="color: #22c55e;">"timestamp"</span>: <span style="color: #22c55e;">"2026-03-09T10:00:00.000Z"</span>,
+            <span style="color: #22c55e;">"embedding"</span>: [<span style="color: #f59e0b;">0.11</span>, <span style="color: #f59e0b;">-0.22</span>, <span style="color: #f59e0b;">0.33</span>, <span style="color: #f59e0b;">0.44</span>, <span style="color: #f59e0b;">-0.55</span>, <span style="color: #f59e0b;">0.66</span>],
+            <span style="color: #22c55e;">"metadata"</span>: {<span style="color: #22c55e;">"source"</span>: <span style="color: #22c55e;">"vibration"</span>}
+        },
+        {
+            <span style="color: #22c55e;">"timestamp"</span>: <span style="color: #22c55e;">"2026-03-09T10:00:00.100Z"</span>,
+            <span style="color: #22c55e;">"embedding"</span>: [<span style="color: #f59e0b;">0.12</span>, <span style="color: #f59e0b;">-0.21</span>, <span style="color: #f59e0b;">0.34</span>, <span style="color: #f59e0b;">0.43</span>, <span style="color: #f59e0b;">-0.54</span>, <span style="color: #f59e0b;">0.67</span>],
+            <span style="color: #22c55e;">"metadata"</span>: {<span style="color: #22c55e;">"source"</span>: <span style="color: #22c55e;">"vibration"</span>}
+        }
+        <span style="color: var(--text-muted);"># ... thousands more vectors</span>
+    ]
+)
+
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Ingested: {response.vectors_accepted} vectors"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Active segments: {response.active_segments}"</span>)
+
+<span style="color: var(--text-muted);"># Check compression statistics for this entity type</span>
+stats = client.compression.stats(entity_type=<span style="color: #22c55e;">"INFRASTRUCTURE"</span>)
+
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Compression ratio:     {stats.compression_ratio}x"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Total vectors ingested: {stats.total_vectors}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Total segments stored:  {stats.total_segments}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Current drift threshold: {stats.drift_threshold:.4f}"</span>)
+<span style="color: #7c3aed;">print</span>(<span style="color: #7c3aed;">f</span><span style="color: #22c55e;">"Avg segment duration:  {stats.avg_segment_duration}"</span>)
+
+<span style="color: var(--text-muted);"># Example output:</span>
+<span style="color: var(--text-muted);"># Compression ratio:     847x</span>
+<span style="color: var(--text-muted);"># Total vectors ingested: 12,400,000</span>
+<span style="color: var(--text-muted);"># Total segments stored:  14,639</span>
+<span style="color: var(--text-muted);"># Current drift threshold: 0.0312</span>
+<span style="color: var(--text-muted);"># Avg segment duration:  4m 22s</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related API Endpoints -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related API Endpoints</h2>
+    <p class="section-subtitle fade-in">Explore the full API reference for ingestion and compression-aware queries.</p>
+    <div class="grid-2 fade-in">
+      <a href="../docs/api-ingestion.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/ingest</code>
+        </div>
+        <div class="card-description">Ingest temporal vectors for an entity. Vectors flow through the compression pipeline automatically, with WAL durability before acknowledgment.</div>
+      </a>
+      <a href="../docs/api-queries.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/query/anomaly-score</code>
+        </div>
+        <div class="card-description">Behavioral anomaly scoring powered by compression drift metrics. Computes how much current behavior deviates from the entity's historical baseline segments.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">See 1000x compression on your own data</h2>
+    <p class="cta-subtitle fade-in">Schedule a technical demo and watch your temporal vectors compress in real time.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Compression" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
