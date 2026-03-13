@@ -68,7 +68,7 @@
 <section class="section" id="architecture">
   <div class="container">
     <h2 class="section-title fade-in">System Architecture</h2>
-    <p class="section-subtitle fade-in">Six layers from API surface to distributed storage, each independently scalable. 12 crates, 780+ tests, zero clippy warnings.</p>
+    <p class="section-subtitle fade-in">Six layers from API surface to distributed storage, each independently scalable. 13 crates, 2,650+ tests, zero clippy warnings.</p>
 
     <div class="arch-stack fade-in">
 
@@ -80,6 +80,7 @@
           <span class="arch-chip">gRPC</span>
           <span class="arch-chip">GraphQL</span>
           <span class="arch-chip">SSE Streaming</span>
+          <span class="arch-chip">WebSocket Subscriptions</span>
           <span class="arch-chip">Webhooks</span>
           <span class="arch-chip">MCP (AI Agents)</span>
         </div>
@@ -96,6 +97,7 @@
           <span class="arch-chip">Cloud Platform</span>
           <span class="arch-chip">Envelope Encryption</span>
           <span class="arch-chip">Differential Privacy</span>
+          <span class="arch-chip">WASM Reducers</span>
         </div>
       </div>
 
@@ -105,7 +107,7 @@
         <div class="arch-layer-inner">
           <div class="arch-block">
             <div class="arch-block-title">Ingestion</div>
-            <div class="arch-block-detail">21 endpoints, MCAP, FIX, NetFlow, NWB, SPZ/glTF, Prometheus, LAS/PCD, multi-modal alignment</div>
+            <div class="arch-block-detail">30+ ingestion adapters supporting MCAP, FIX, NetFlow, NWB, SPZ/glTF, Prometheus, MQTT, BVH/C3D, ADS-B, AIS, and more</div>
           </div>
           <div class="arch-block">
             <div class="arch-block-title">Compression</div>
@@ -117,7 +119,7 @@
           </div>
           <div class="arch-block">
             <div class="arch-block-title">Query Engine</div>
-            <div class="arch-block-detail">15+ operations, anomaly scoring, pattern matching, forecasting, DBSCAN clustering, cascade detection</div>
+            <div class="arch-block-detail">67+ operations, anomaly scoring, pattern matching, forecasting, DBSCAN clustering, cascade detection</div>
           </div>
         </div>
       </div>
@@ -126,10 +128,10 @@
       <div class="arch-layer arch-layer--storage">
         <div class="arch-layer-label">Storage</div>
         <div class="arch-layer-chips">
-          <span class="arch-chip">Time Series Collections</span>
-          <span class="arch-chip">Atlas Vector Search</span>
-          <span class="arch-chip">Change Streams</span>
-          <span class="arch-chip">Sharding</span>
+          <span class="arch-chip">Embedded RocksDB</span>
+          <span class="arch-chip">Tiered Storage (Hot / Warm / Cold)</span>
+          <span class="arch-chip">Column Families</span>
+          <span class="arch-chip">Snapshot / Restore</span>
         </div>
       </div>
 

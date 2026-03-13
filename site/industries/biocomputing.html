@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bio-Computing & Neural Interfaces | VectorScaleDB</title>
-  <meta name="description" content="VectorScaleDB for bio-computing: multi-electrode array analysis, learning onset detection, stimulus-response correlation, organoid fleet comparison, and closed-loop control pipelines.">
+  <meta name="description" content="VectorScaleDB for bio-computing: connectome storage with graph queries, multi-species neural emulation, multi-electrode array analysis, learning onset detection, stimulus-response correlation, organoid fleet comparison, and closed-loop control pipelines.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="apple-touch-icon" href="../favicon.svg">
   <meta property="og:title" content="Bio-Computing & Neural Interfaces | VectorScaleDB">
-  <meta property="og:description" content="Detect learning onset, correlate stimulus-response at millisecond precision, compare organoid behaviors via DTW, and run closed-loop neural control pipelines.">
+  <meta property="og:description" content="Store connectomes, run multi-species neural emulations, detect learning onset, compare organoid behaviors via DTW, and orchestrate closed-loop neural control pipelines.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vectorscaledb.com/industries/biocomputing.html">
   <meta property="og:site_name" content="VectorScaleDB">
   <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Bio-Computing & Neural Interfaces | VectorScaleDB">
-  <meta name="twitter:description" content="Detect learning onset, compare organoid behaviors, and run closed-loop neural control pipelines.">
+  <meta name="twitter:description" content="Store connectomes, run multi-species emulations, detect learning onset, and orchestrate closed-loop neural control.">
   <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
   <meta name="theme-color" content="#09090b">
   <link rel="stylesheet" href="../style.css">
@@ -62,7 +62,7 @@
     <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
       <div class="card-label" style="margin-bottom: 1rem;">Life Sciences</div>
       <h1 class="hero-title">Bio-Computing &amp; Neural Interfaces</h1>
-      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Detect learning onset in neural organoids, correlate stimulus-response at millisecond precision, compare organoid behaviors via DTW, and orchestrate closed-loop control pipelines. From multi-electrode arrays to fleet-scale organoid ranking.</p>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Detect learning onset in neural organoids, store and query entire connectomes, run multi-species neural emulations with five simulation modes, correlate stimulus-response at millisecond precision, and orchestrate closed-loop control pipelines. From multi-electrode arrays to connectome-scale graph queries.</p>
     </div>
   </div>
 </section>
@@ -157,6 +157,51 @@
   </div>
 </section>
 
+<!-- Connectome Storage & Queries -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Connectome Storage &amp; Graph Queries</h2>
+    <p class="section-subtitle fade-in">Store entire connectomes as indexed neural graphs. Trace neural pathways, compute neuropil connectivity matrices, analyze excitatory/inhibitory balance, and simulate circuit activation spread.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Storage</div>
+        <div class="card-title">Full Connectome Ingestion</div>
+        <div class="card-description">Ingest connectome datasets with hundreds of thousands of neurons and their synaptic connections. Each neuron becomes a NeuralUnit entity with signed synaptic weights, neuropil assignments, and cell-type annotations. VectorScaleDB indexes the graph structure for sub-second pathway queries across the entire connectome.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Queries</div>
+        <div class="card-title">Nine Connectome Query Functions</div>
+        <div class="card-description">Trace neural pathways via graph traversal with signed weights. Compute neuropil connectivity matrices. Analyze excitatory/inhibitory balance per brain region. Simulate circuit activation spread from arbitrary seed neurons. Measure sensorimotor latency, compare cross-model agreement, and run ablation analysis -- all as single API calls returning structured results.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Integration</div>
+        <div class="card-title">GNN &amp; Spike Train Adapters</div>
+        <div class="card-description">Ingest graph neural network hidden states alongside the structural connectome. Compare computational model predictions against biological measurements. Spike train adapters accept data from major simulation frameworks, converting spike times and rates into temporal vectors for unified analysis across in-silico and in-vitro data.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Multi-Species Neural Emulation -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Multi-Species Neural Emulation</h2>
+    <p class="section-subtitle fade-in">A unified emulation engine with five simulation modes spanning multiple species and neural architectures. Compare neural computation across organisms and modeling approaches.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Emulation</div>
+        <div class="card-title">Five Simulation Modes</div>
+        <div class="card-description">Run neural emulations across five modes: connectome replay (structural graph activation), LIF spiking networks (leaky integrate-and-fire), GNN inference (learned hidden state propagation), swarm dynamics (multi-agent emergent behavior), and hybrid mode combining structural and computational approaches. Each mode produces temporal vectors stored and queried identically.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Multi-Species</div>
+        <div class="card-title">Species Registry &amp; Cross-Species Analysis</div>
+        <div class="card-description">A species registry manages neural architectures across organisms. Gap junction models capture electrical synapses alongside chemical transmission. Compare circuit motifs across species: does a sensory processing pathway in one organism share behavioral signatures with an analogous circuit in another? VectorScaleDB's cross-domain analysis makes inter-species comparison a single query.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Closed-Loop Control -->
 <section class="section" style="padding-top: 0;">
   <div class="container">
@@ -200,7 +245,7 @@
       <div class="card">
         <div class="card-label">Integration</div>
         <div class="card-title">SpikeInterface / MEA Streams</div>
-        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via REST, GraphQL subscriptions, or gRPC. MCP server enables AI agents to automate organoid analysis workflows with 30+ tools.</div>
+        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via REST, GraphQL subscriptions, or gRPC. MCP server with 53 tools enables AI agents to automate organoid analysis, connectome queries, and multi-species emulation workflows.</div>
       </div>
     </div>
     <div class="card fade-in" style="margin-top: 1.5rem;">
@@ -404,7 +449,7 @@ curl -X POST http://localhost:8080/v1/query/trajectory-similarity \
 <section class="cta-section">
   <div class="container">
     <h2 class="cta-title fade-in">Ready to accelerate your neural computing research?</h2>
-    <p class="cta-subtitle fade-in">See VectorScaleDB detect learning onset, compare organoid trajectories, and run closed-loop experiments.</p>
+    <p class="cta-subtitle fade-in">See VectorScaleDB store connectomes, run multi-species emulations, detect learning onset, and orchestrate closed-loop experiments.</p>
     <div class="fade-in">
       <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20BioComputing%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Bio-Computing Demo</a>
     </div>

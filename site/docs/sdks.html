@@ -448,16 +448,18 @@ stream.on(<span class="s">'error'</span>, (err) =&gt; {
 
       <!-- MCP Server -->
       <h2 id="mcp-server">MCP Server (AI Agent Integration)</h2>
-      <p>The VectorScaleDB MCP server exposes 54 tools via the Model Context Protocol, enabling AI agents like Claude to interact with your database directly. The server connects to VectorScaleDB via the client SDK and communicates with AI agents over stdio transport.</p>
+      <p>The VectorScaleDB MCP server exposes 53 tools across 8 categories via the Model Context Protocol, enabling AI agents like Claude to interact with your database directly. The server connects to VectorScaleDB via the client SDK and communicates with AI agents over stdio transport.</p>
 
       <h3 id="mcp-capabilities">Capabilities</h3>
       <ul>
-        <li><strong>Insight tools</strong> -- Health checks, statistics, compression metrics, cluster status</li>
-        <li><strong>Analysis tools</strong> -- Anomaly scoring, trajectory similarity, regime detection, pattern matching</li>
+        <li><strong>Ingest tools</strong> -- Vector ingestion, batch operations, entity management</li>
+        <li><strong>Query tools</strong> -- Temporal KNN, trajectory similarity, anomaly scoring</li>
+        <li><strong>Analysis tools</strong> -- Regime detection, pattern matching, compression metrics</li>
         <li><strong>Exploration tools</strong> -- Entity search, history browsing, segment inspection</li>
-        <li><strong>Data tools</strong> -- Vector ingestion, batch operations, entity management</li>
         <li><strong>Cross-domain tools</strong> -- Cascade detection, domain composition, cross-domain alerting</li>
-        <li><strong>Health tools</strong> -- Readiness, liveness, and startup probes</li>
+        <li><strong>Health tools</strong> -- Readiness, liveness, startup probes, and cluster status</li>
+        <li><strong>IoT tools</strong> -- Sensor anomaly detection, predictive maintenance, fleet health</li>
+        <li><strong>NPC / Social tools</strong> -- NPC response prediction, faction cohesion, social cascades</li>
       </ul>
 
       <h3 id="mcp-configuration">Configuration</h3>
