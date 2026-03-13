@@ -86,7 +86,7 @@
         <div class="card-label">13-Dim State Vector</div>
         <div class="card-title">Compact, queryable representation</div>
         <div class="card-description">
-          Each Gaussian is encoded as a 13-dimensional state vector: [x, y, z, sx, sy, sz, qw, qx, qy, qz, opacity, sh_dc_r, sh_dc_g]. This representation is compact enough for efficient storage and indexing, while preserving all geometric and appearance properties needed for rendering and spatial queries.
+          Each Gaussian is encoded as a compact 13-dimensional state vector capturing position, scale, rotation, opacity, and color &mdash; optimized for temporal-semantic indexing. This representation is compact enough for efficient storage and indexing, while preserving all geometric and appearance properties needed for rendering and spatial queries.
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
             <li>13-dim vector fits naturally into the TST index</li>
             <li>Spatial KNN queries find nearby Gaussians</li>

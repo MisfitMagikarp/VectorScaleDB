@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entity Types | VectorScaleDB Docs</title>
-  <meta name="description" content="Complete reference for all 38 VectorScaleDB entity types organized by industry vertical — autonomous vehicles, finance, networking, bio-computing, and more.">
+  <meta name="description" content="Complete reference for all 51 VectorScaleDB entity types across 12 domains — IoT, NPC AI, neural emulation, social dynamics, geospatial, finance, networking, and more.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <meta name="theme-color" content="#09090b">
   <link rel="stylesheet" href="../style.css">
@@ -289,8 +289,8 @@
         </tbody>
       </table>
 
-      <!-- Gaming -->
-      <h2 id="gaming">Gaming</h2>
+      <!-- Gaming / NPC AI -->
+      <h2 id="gaming">Gaming &amp; NPC AI</h2>
       <table class="docs-table">
         <thead>
           <tr>
@@ -304,8 +304,123 @@
             <td>Player input and state telemetry vectors</td>
           </tr>
           <tr>
-            <td><code>NPC_BEHAVIOR</code></td>
-            <td>NPC behavioral state and decision vectors</td>
+            <td><code>NPC_AGENT</code></td>
+            <td>NPC state with OCEAN personality, emotional state, and neural output (32-dim)</td>
+          </tr>
+          <tr>
+            <td><code>NPC_FACTION</code></td>
+            <td>Faction-level state: cohesion, resources, power structure</td>
+          </tr>
+          <tr>
+            <td><code>SOCIAL_BOND</code></td>
+            <td>Relationship state between two NPCs: trust, familiarity, loyalty</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- IoT -->
+      <h2 id="iot">IoT &amp; Sensors</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>SENSOR_READING</code></td>
+            <td>Sensor measurement with signal quality and metadata (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>DEVICE_STATE</code></td>
+            <td>Device status: online/offline, firmware, battery, signal strength (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>TELEMETRY_AGGREGATE</code></td>
+            <td>Aggregated telemetry summary per gateway or zone (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>ACTUATOR_COMMAND</code></td>
+            <td>Valve, motor, relay control commands (4-dim)</td>
+          </tr>
+          <tr>
+            <td><code>DEVICE_ALERT</code></td>
+            <td>Threshold breach, device failure, geofence violation (4-dim)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Social Dynamics -->
+      <h2 id="social-dynamics">Social Dynamics</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>SOCIAL_AGENT</code></td>
+            <td>Individual social agent with personality, emotions, and social drives (48-dim)</td>
+          </tr>
+          <tr>
+            <td><code>SOCIAL_GROUP</code></td>
+            <td>Group-level health, resources, power structure, culture (24-dim)</td>
+          </tr>
+          <tr>
+            <td><code>SOCIAL_INTERACTION</code></td>
+            <td>Pairwise interaction with outcome and context (12-dim)</td>
+          </tr>
+          <tr>
+            <td><code>CULTURAL_MEME</code></td>
+            <td>Cultural norm or strategy with spread and fitness metrics (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>SOCIAL_PRESSURE</code></td>
+            <td>Environmental or resource pressure on social dynamics (8-dim)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Geospatial -->
+      <h2 id="geospatial">Geospatial</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>AIRCRAFT</code></td>
+            <td>ADS-B aircraft position: lat, lon, altitude, speed, heading (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>VESSEL</code></td>
+            <td>AIS vessel tracking: lat, lon, speed, course, heading (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>SATELLITE</code></td>
+            <td>Orbital element state: lat, lon, altitude, velocity, inclination (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>WEATHER_STATION</code></td>
+            <td>Weather observation: temperature, humidity, pressure, wind (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>EARTHQUAKE</code></td>
+            <td>Seismic event: lat, lon, depth, magnitude (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>FIRE</code></td>
+            <td>Fire detection: lat, lon, area, intensity, spread rate (8-dim)</td>
+          </tr>
+          <tr>
+            <td><code>TRANSIT_VEHICLE</code></td>
+            <td>Public transit position: lat, lon, speed, heading, route (8-dim)</td>
           </tr>
         </tbody>
       </table>

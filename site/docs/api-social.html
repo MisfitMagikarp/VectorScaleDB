@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Dynamics API | VectorScaleDB Docs</title>
+  <meta name="description" content="Social dynamics API: agent registration, interaction recording, cascade prediction, group fragmentation, cultural evolution, cooperation equilibrium, influence mapping, and Dunbar layer analysis.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Social Dynamics</li>
+      </ul>
+      <h1>Social Dynamics</h1>
+      <p class="docs-intro">Model social networks with agent registration and interaction recording. Analyze cascades, fragmentation risk, cultural evolution, cooperation equilibria, influence maps, and Dunbar relationship layers.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Social Dynamics',
+        id: 'social',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/social/agent',
+            description: 'Register a social agent with personality traits, group memberships, and initial relationship vectors.',
+            request: '{\n  "agent_id": "agent-alice",\n  "traits": {\n    "cooperativeness": 0.8,\n    "influence": 0.6,\n    "conformity": 0.4,\n    "assertiveness": 0.7,\n    "empathy": 0.85\n  },\n  "groups": ["research-lab", "book-club"],\n  "metadata": {\n    "role": "team-lead",\n    "location": "building-A"\n  }\n}',
+            response: '{\n  "entity_id": "agent-alice",\n  "entity_type": "SocialAgent",\n  "vector_dim": 5,\n  "groups_joined": 2,\n  "created": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/social/agent \\\n  -H "Content-Type: application/json" \\\n  -d \'{"agent_id": "agent-alice", "traits": {"cooperativeness": 0.8, "influence": 0.6, "conformity": 0.4, "assertiveness": 0.7, "empathy": 0.85}, "groups": ["research-lab", "book-club"]}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/social/interaction',
+            description: 'Record a social interaction between agents. Updates relationship vectors and group dynamics automatically.',
+            request: '{\n  "from": "agent-alice",\n  "to": "agent-bob",\n  "interaction_type": "collaboration",\n  "sentiment": 0.85,\n  "context": "research-lab",\n  "duration_minutes": 45,\n  "outcome": "positive",\n  "timestamp": "2026-03-13T10:00:00Z"\n}',
+            response: '{\n  "interaction_id": "int-20260313-001",\n  "entity_type": "SocialInteraction",\n  "relationship_updated": true,\n  "bond_strength": {\n    "previous": 0.62,\n    "current": 0.68,\n    "delta": 0.06\n  },\n  "dunbar_layer": {\n    "previous": "acquaintance",\n    "current": "acquaintance"\n  }\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/social/interaction \\\n  -H "Content-Type: application/json" \\\n  -d \'{"from": "agent-alice", "to": "agent-bob", "interaction_type": "collaboration", "sentiment": 0.85, "context": "research-lab", "duration_minutes": 45, "outcome": "positive", "timestamp": "2026-03-13T10:00:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/social-cascade',
+            description: 'Predict how information, behaviors, or influence will cascade through the social network from a seed event.',
+            request: '{\n  "seed_agent": "agent-alice",\n  "cascade_type": "information",\n  "content": "policy_change_announcement",\n  "virality": 0.7,\n  "max_hops": 4\n}',
+            response: '{\n  "cascade_waves": [\n    {\n      "hop": 1,\n      "reached": [\n        {"agent_id": "agent-bob", "probability": 0.92, "delay_hours": 0.5},\n        {"agent_id": "agent-carol", "probability": 0.85, "delay_hours": 1.0}\n      ]\n    },\n    {\n      "hop": 2,\n      "reached": [\n        {"agent_id": "agent-dave", "probability": 0.68, "delay_hours": 3.0},\n        {"agent_id": "agent-eve", "probability": 0.55, "delay_hours": 4.5}\n      ]\n    },\n    {\n      "hop": 3,\n      "reached": [\n        {"agent_id": "agent-frank", "probability": 0.32, "delay_hours": 12.0}\n      ]\n    }\n  ],\n  "total_reach": 5,\n  "network_penetration_pct": 41.6,\n  "estimated_saturation_hours": 24.0\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/social-cascade \\\n  -H "Content-Type: application/json" \\\n  -d \'{"seed_agent": "agent-alice", "cascade_type": "information", "content": "policy_change_announcement", "virality": 0.7, "max_hops": 4}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/group-fragmentation',
+            description: 'Assess the fragmentation risk of a social group by analyzing internal cohesion, sub-clique formation, and relationship decay trends.',
+            request: '{\n  "group_id": "research-lab",\n  "window": "90d"\n}',
+            response: '{\n  "group_id": "research-lab",\n  "member_count": 8,\n  "fragmentation_risk": 0.35,\n  "risk_level": "moderate",\n  "cohesion_score": 0.72,\n  "sub_cliques": [\n    {\n      "members": ["agent-alice", "agent-bob", "agent-carol"],\n      "internal_cohesion": 0.91\n    },\n    {\n      "members": ["agent-dave", "agent-eve"],\n      "internal_cohesion": 0.85\n    }\n  ],\n  "bridge_agents": ["agent-carol"],\n  "weakest_bonds": [\n    {"pair": ["agent-bob", "agent-dave"], "strength": 0.18, "trend": "declining"}\n  ],\n  "predicted_split_probability": 0.22,\n  "mitigation_suggestions": [\n    "Increase cross-clique collaboration between alice-group and dave-group"\n  ]\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/group-fragmentation \\\n  -H "Content-Type: application/json" \\\n  -d \'{"group_id": "research-lab", "window": "90d"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/cultural-evolution',
+            description: 'Track how cultural memes, norms, or practices spread and evolve across a social network over time.',
+            request: '{\n  "meme_id": "remote-work-norm",\n  "window": "180d",\n  "include_mutations": true\n}',
+            response: '{\n  "meme_id": "remote-work-norm",\n  "entity_type": "CulturalMeme",\n  "adoption_timeline": [\n    {"date": "2025-10-01", "adopters": 2, "total_pct": 16.6},\n    {"date": "2025-11-01", "adopters": 5, "total_pct": 41.6},\n    {"date": "2025-12-01", "adopters": 8, "total_pct": 66.6},\n    {"date": "2026-01-01", "adopters": 10, "total_pct": 83.3},\n    {"date": "2026-03-01", "adopters": 11, "total_pct": 91.6}\n  ],\n  "current_prevalence": 0.916,\n  "mutations": [\n    {\n      "variant": "hybrid-work-norm",\n      "first_seen": "2025-12-15",\n      "adopters": 4,\n      "drift_from_original": 0.32\n    }\n  ],\n  "resistance_agents": ["agent-frank"],\n  "spread_velocity": 0.15\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/cultural-evolution \\\n  -H "Content-Type: application/json" \\\n  -d \'{"meme_id": "remote-work-norm", "window": "180d", "include_mutations": true}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/cooperation-equilibrium',
+            description: 'Detect stable cooperation equilibria in the social network where agents have converged on mutually beneficial strategies.',
+            request: '{\n  "group_id": "research-lab",\n  "strategy_dimensions": ["effort", "knowledge_sharing", "credit_attribution"],\n  "convergence_threshold": 0.05\n}',
+            response: '{\n  "group_id": "research-lab",\n  "equilibria_found": 1,\n  "equilibria": [\n    {\n      "type": "cooperative",\n      "stability": 0.88,\n      "participants": ["agent-alice", "agent-bob", "agent-carol"],\n      "strategy_centroid": {\n        "effort": 0.82,\n        "knowledge_sharing": 0.90,\n        "credit_attribution": 0.78\n      },\n      "convergence_rate": 0.03,\n      "stable_since": "2026-02-15T00:00:00Z"\n    }\n  ],\n  "non_converged_agents": [\n    {"agent_id": "agent-dave", "deviation": 0.18, "dimension": "knowledge_sharing"}\n  ],\n  "network_cooperation_index": 0.76\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/cooperation-equilibrium \\\n  -H "Content-Type: application/json" \\\n  -d \'{"group_id": "research-lab", "strategy_dimensions": ["effort", "knowledge_sharing", "credit_attribution"], "convergence_threshold": 0.05}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/social-influence',
+            description: 'Map the influence topology of the social network, identifying key influencers, gatekeepers, and isolated nodes.',
+            request: '{\n  "scope": "all",\n  "metrics": ["centrality", "reach", "persuasion"],\n  "top_k": 5\n}',
+            response: '{\n  "top_influencers": [\n    {\n      "agent_id": "agent-alice",\n      "influence_score": 0.92,\n      "centrality": 0.88,\n      "reach": 10,\n      "persuasion_rate": 0.75\n    },\n    {\n      "agent_id": "agent-carol",\n      "influence_score": 0.78,\n      "centrality": 0.82,\n      "reach": 8,\n      "persuasion_rate": 0.68\n    }\n  ],\n  "gatekeepers": [\n    {"agent_id": "agent-carol", "bridges_groups": ["research-lab", "book-club"]}\n  ],\n  "isolated_nodes": [\n    {"agent_id": "agent-grace", "connections": 1, "last_interaction": "2026-02-28T14:00:00Z"}\n  ],\n  "network_density": 0.45,\n  "avg_path_length": 2.1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/social-influence \\\n  -H "Content-Type: application/json" \\\n  -d \'{"scope": "all", "metrics": ["centrality", "reach", "persuasion"], "top_k": 5}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/dunbar-layers',
+            description: 'Analyze an agent\'s relationships organized by Dunbar number layers (5 intimate, 15 close, 50 friends, 150 acquaintances).',
+            request: '{\n  "agent_id": "agent-alice",\n  "include_history": true\n}',
+            response: '{\n  "agent_id": "agent-alice",\n  "layers": {\n    "intimate_5": {\n      "capacity": 5,\n      "occupied": 3,\n      "members": [\n        {"agent_id": "agent-bob", "bond_strength": 0.95, "interactions_30d": 42},\n        {"agent_id": "agent-carol", "bond_strength": 0.91, "interactions_30d": 38},\n        {"agent_id": "agent-dave", "bond_strength": 0.88, "interactions_30d": 31}\n      ]\n    },\n    "close_15": {\n      "capacity": 15,\n      "occupied": 5,\n      "members": [\n        {"agent_id": "agent-eve", "bond_strength": 0.72, "interactions_30d": 15},\n        {"agent_id": "agent-frank", "bond_strength": 0.65, "interactions_30d": 10}\n      ]\n    },\n    "friends_50": {\n      "capacity": 50,\n      "occupied": 3,\n      "members": [\n        {"agent_id": "agent-grace", "bond_strength": 0.40, "interactions_30d": 4}\n      ]\n    },\n    "acquaintances_150": {\n      "capacity": 150,\n      "occupied": 1,\n      "members": [\n        {"agent_id": "agent-heidi", "bond_strength": 0.15, "interactions_30d": 1}\n      ]\n    }\n  },\n  "total_connections": 12,\n  "layer_transitions_30d": [\n    {"agent_id": "agent-dave", "from": "close_15", "to": "intimate_5", "date": "2026-03-05"}\n  ],\n  "social_capacity_utilization": 0.08\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/dunbar-layers \\\n  -H "Content-Type: application/json" \\\n  -d \'{"agent_id": "agent-alice", "include_history": true}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-social');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

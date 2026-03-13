@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT Platform | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB IoT platform: MQTT protocol adapters, 1000x+ compression for idle sensors, fleet analytics, edge deployment, and real-time subscriptions.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">IoT</div>
+      <h1 class="hero-title">From Sensor to Insight in Milliseconds</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Purpose-built for IoT at scale. Ingest millions of sensor readings per second, compress idle devices at 1000x+, and run fleet analytics without moving data to a separate system.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20IoT" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Protocol Adapters -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Protocol Adapters</h2>
+    <p class="section-subtitle fade-in">Native support for IoT protocols. No middleware translation layer, no schema mapping &mdash; publish sensor data and VectorScaleDB handles the rest.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">MQTT</div>
+        <div class="card-title">JSON and CBOR payloads</div>
+        <div class="card-description">
+          Subscribe to MQTT topics and automatically ingest sensor telemetry. Supports both JSON and CBOR binary payloads for bandwidth-constrained environments. Entity IDs are extracted from topic hierarchy or payload fields.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Automatic entity ID extraction from MQTT topics</li>
+            <li>JSON and CBOR payload decoding</li>
+            <li>Configurable field-to-dimension mapping</li>
+            <li>QoS-aware acknowledgment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Industrial Protocols</div>
+        <div class="card-title">OPC UA, Modbus, CoAP</div>
+        <div class="card-description">
+          Built-in adapters for industrial automation protocols. Connect directly to PLCs, SCADA systems, and industrial gateways without an intermediate broker. Each adapter normalizes readings into temporal vectors with consistent dimensionality.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>OPC UA subscription with node browsing</li>
+            <li>Modbus TCP/RTU register polling</li>
+            <li>CoAP observe for constrained devices</li>
+            <li>Prometheus metric scraping</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Compression for IoT -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">IoT-Optimized Compression</h2>
+    <p class="section-subtitle fade-in">IoT data is uniquely compressible. Most sensors report stable readings most of the time. VectorScaleDB exploits this with drift-based compression that understands sensor behavior.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Idle Sensors</div>
+        <div class="card-title">1,000x+ compression</div>
+        <div class="card-description">A temperature sensor reporting 25.1&deg;C every second for 8 hours generates 28,800 readings. VectorScaleDB stores this as a single compressed segment. Only genuine state changes create new segments.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Active Sensors</div>
+        <div class="card-title">50-100x during drift</div>
+        <div class="card-description">When a sensor enters a changing regime &mdash; a motor spinning up, a valve opening &mdash; compression adapts automatically. Drift-based segmentation captures the transition faithfully while still achieving 50-100x over raw storage.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Predictive Coding</div>
+        <div class="card-title">Zero writes for predictable entities</div>
+        <div class="card-description">A pre-filter predicts the next reading from recent history. If the actual value matches the prediction, the write is suppressed entirely. Stationary sensors generate zero storage I/O during steady state.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fleet Analytics -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Fleet Analytics</h2>
+    <p class="section-subtitle fade-in">Five built-in query functions designed for IoT fleet management. No ETL pipelines, no data warehouses &mdash; analytics run directly on compressed sensor data.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Anomaly Detection</div>
+        <div class="card-title">Sensor anomaly scoring</div>
+        <div class="card-description">
+          Automatically detect sensors behaving outside their historical baseline. Anomaly scores are computed from compression drift metrics, so detection improves as more data flows in. No training step required.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/iot/sensor-anomaly</code></li>
+            <li>Baseline computed from historical compressed segments</li>
+            <li>Severity scoring with configurable thresholds</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Predictive Maintenance</div>
+        <div class="card-title">Failure prediction from behavioral drift</div>
+        <div class="card-description">
+          Track how sensor behavior evolves over time. Rising drift rates often precede equipment failure. VectorScaleDB correlates behavioral changes across sensor fleets to identify maintenance needs before failures occur.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/iot/predictive-maintenance</code></li>
+            <li>Drift trend analysis across device populations</li>
+            <li>Remaining useful life estimation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Fleet Health</div>
+        <div class="card-title">Dashboard-ready fleet overview</div>
+        <div class="card-description">
+          Get a single-call summary of fleet health: device counts by status, top anomalies, compression statistics, and behavioral distribution across the entire device population.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/iot/fleet-health</code></li>
+            <li>Aggregated health scores across all devices</li>
+            <li>Top-N anomalous devices with context</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Correlation &amp; Geofence</div>
+        <div class="card-title">Cross-sensor analysis</div>
+        <div class="card-description">
+          Discover correlations between sensors using DTW and Pearson analysis. Run geofence queries to find devices within spatial boundaries and analyze their behavioral patterns.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/iot/sensor-correlation</code></li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/iot/geofence</code></li>
+            <li>DTW + Pearson for temporal alignment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Edge Deployment -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Edge Deployment</h2>
+    <p class="section-subtitle fade-in">A single binary with no external dependencies. Deploy VectorScaleDB at the edge alongside your devices &mdash; no JVM, no Python runtime, no database server to manage.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Single Binary</div>
+        <div class="card-title">Zero dependencies</div>
+        <div class="card-description">Compiled Rust binary with embedded storage. No PostgreSQL, no Redis, no Kafka. Copy the binary to an edge gateway and start ingesting. Runs on ARM64 and x86_64.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Resource Efficient</div>
+        <div class="card-title">Minimal footprint</div>
+        <div class="card-description">Compression happens at the edge, reducing bandwidth to the cloud by 100-1000x. The compression engine auto-sizes to available memory &mdash; runs on 256 MB devices or 256 GB servers.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Docker Profiles</div>
+        <div class="card-title">Pre-built edge containers</div>
+        <div class="card-description">Docker Compose profiles for single-node edge deployment. Health checks, graceful shutdown, and automatic WAL recovery on restart. Production-ready out of the box.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Real-Time Subscriptions -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Real-Time Subscriptions</h2>
+    <p class="section-subtitle fade-in">Push notifications when sensor behavior changes. Subscribe to entities or entity types and receive events as they happen &mdash; no polling required.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">WebSocket</div>
+        <div class="card-title">Per-entity and per-type subscriptions</div>
+        <div class="card-description">
+          Open a WebSocket connection and subscribe to specific devices or entire device classes. Receive push events for new vectors, regime changes, and anomaly detections in real time.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Subscribe by entity ID or entity type</li>
+            <li>Filter events by severity or event type</li>
+            <li>Multiple subscriptions per connection</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Reconnection</div>
+        <div class="card-title">Replay buffer for catch-up</div>
+        <div class="card-description">
+          If a client disconnects and reconnects, VectorScaleDB replays missed events from a server-side buffer. No data loss during network interruptions &mdash; critical for remote IoT deployments with intermittent connectivity.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Server-side replay buffer for reconnection catch-up</li>
+            <li>Automatic sequence tracking per subscription</li>
+            <li>Graceful overflow handling with RESET notification</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to simplify your IoT data stack?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB compress your sensor fleet in a live technical demo.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20IoT" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

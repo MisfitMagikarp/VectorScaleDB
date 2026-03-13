@@ -74,12 +74,12 @@
       <div class="card">
         <div class="card-label">Data Encryption Keys</div>
         <div class="card-title">Per-Record DEKs</div>
-        <div class="card-description">Each data record is encrypted with a unique Data Encryption Key (DEK) using AES-256-GCM authenticated encryption. The DEK is generated at write time, used once, and never stored in plaintext. GCM mode provides both confidentiality and tamper detection through its authentication tag.</div>
+        <div class="card-description">Each data record is encrypted with a unique Data Encryption Key (DEK) using AES-256-GCM authenticated encryption. Each record receives a unique encryption key that is never stored in plaintext. GCM mode provides both confidentiality and tamper detection through its authentication tag.</div>
       </div>
       <div class="card">
         <div class="card-label">Key Encryption Keys</div>
         <div class="card-title">KEK Hierarchy</div>
-        <div class="card-description">Each DEK is itself encrypted by a Key Encryption Key (KEK) before storage. KEKs are managed separately from data, enabling key rotation without re-encrypting the underlying data. Rotate the KEK, re-wrap the DEKs, and the data never moves.</div>
+        <div class="card-description">Each DEK is itself encrypted by a Key Encryption Key (KEK) before storage. KEKs are managed separately from data, enabling key rotation without re-encrypting the underlying data. Key rotation completes without re-encrypting stored data.</div>
       </div>
       <div class="card">
         <div class="card-label">Authenticated Encryption</div>
@@ -179,7 +179,7 @@
       <div class="card">
         <div class="card-label">Differential Privacy</div>
         <div class="card-title">Laplacian Noise on Centroids</div>
-        <div class="card-description">Query results that return aggregate centroid vectors have calibrated Laplacian noise applied before response. This prevents reconstruction of individual entity behavior from cluster-level queries &mdash; mathematical privacy guarantees, not policy alone.</div>
+        <div class="card-description">Query results that return aggregate centroid vectors have mathematically calibrated noise applied to aggregate results. This prevents reconstruction of individual entity behavior from cluster-level queries &mdash; mathematical privacy guarantees, not policy alone.</div>
       </div>
       <div class="card">
         <div class="card-label">Data Sovereignty</div>

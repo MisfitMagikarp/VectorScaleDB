@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPC AI API | VectorScaleDB Docs</title>
+  <meta name="description" content="NPC AI API: game world ticks, NPC state queries, response prediction, personality evolution, faction cohesion, social cascades, and emergent behavior detection.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>NPC AI</li>
+      </ul>
+      <h1>NPC AI</h1>
+      <p class="docs-intro">Advance game world simulations, query NPC states, predict behavioral responses, track personality drift, analyze faction health, and detect emergent behaviors.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'NPC AI',
+        id: 'npc-ai',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/npc/world/{id}/tick',
+            description: 'Advance the game world by one simulation tick. Processes NPC decisions, faction updates, and social bond changes atomically.',
+            request: '{\n  "delta_time": 0.016,\n  "events": [\n    {\n      "type": "player_action",\n      "actor": "player-1",\n      "action": "attack",\n      "target": "npc-guard-07",\n      "position": [120.5, 0.0, 45.3]\n    }\n  ]\n}',
+            response: '{\n  "world_id": "medieval-realm-01",\n  "tick": 84521,\n  "npcs_updated": 24,\n  "factions_updated": 2,\n  "bonds_changed": 3,\n  "events_generated": [\n    {\n      "type": "npc_reaction",\n      "npc_id": "npc-guard-07",\n      "action": "flee",\n      "reason": "fear_threshold_exceeded"\n    },\n    {\n      "type": "faction_alert",\n      "faction": "town-guard",\n      "alert_level": "hostile",\n      "toward": "player-1"\n    }\n  ]\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/npc/world/medieval-realm-01/tick \\\n  -H "Content-Type: application/json" \\\n  -d \'{"delta_time": 0.016, "events": [{"type": "player_action", "actor": "player-1", "action": "attack", "target": "npc-guard-07", "position": [120.5, 0.0, 45.3]}]}\''
+          },
+          {
+            method: 'GET',
+            path: '/v1/npc/{id}/state',
+            description: 'Get the current state of an NPC, including personality vector (OCEAN model), emotional state, faction memberships, and active goals.',
+            response: '{\n  "npc_id": "npc-guard-07",\n  "entity_type": "NpcAgent",\n  "brain_tier": "T2",\n  "personality": {\n    "openness": 0.35,\n    "conscientiousness": 0.82,\n    "extraversion": 0.45,\n    "agreeableness": 0.60,\n    "neuroticism": 0.28\n  },\n  "emotional_state": {\n    "fear": 0.72,\n    "anger": 0.15,\n    "joy": 0.05\n  },\n  "faction": "town-guard",\n  "faction_loyalty": 0.88,\n  "active_goals": ["patrol_market", "report_threat"],\n  "position": [118.2, 0.0, 44.8],\n  "last_updated": "2026-03-13T10:00:00Z"\n}',
+            curl: 'curl http://localhost:8080/v1/npc/npc-guard-07/state'
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/npc-response',
+            description: 'Predict how an NPC will respond to a given stimulus based on their personality vector, emotional state, and relationship history.',
+            request: '{\n  "npc_id": "npc-merchant-03",\n  "stimulus": {\n    "type": "bribe",\n    "actor": "player-1",\n    "value": 500,\n    "context": "reduce_price"\n  }\n}',
+            response: '{\n  "npc_id": "npc-merchant-03",\n  "predicted_response": "refuse",\n  "confidence": 0.78,\n  "reasoning": [\n    "high_conscientiousness (0.85) resists bribery",\n    "neutral relationship with player-1 (0.50)",\n    "faction_merchant_guild discourages price manipulation"\n  ],\n  "alternative_responses": [\n    {"action": "accept", "probability": 0.15},\n    {"action": "report_to_guard", "probability": 0.07}\n  ],\n  "personality_factors": {\n    "conscientiousness": -0.42,\n    "agreeableness": 0.18,\n    "neuroticism": -0.05\n  }\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/npc-response \\\n  -H "Content-Type: application/json" \\\n  -d \'{"npc_id": "npc-merchant-03", "stimulus": {"type": "bribe", "actor": "player-1", "value": 500, "context": "reduce_price"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/personality-evolution',
+            description: 'Track how an NPC\'s personality vector has drifted over time due to experiences and social interactions.',
+            request: '{\n  "npc_id": "npc-guard-07",\n  "window": "30d"\n}',
+            response: '{\n  "npc_id": "npc-guard-07",\n  "snapshots": 45,\n  "total_drift": 0.142,\n  "dimension_changes": {\n    "openness": {"start": 0.40, "current": 0.35, "delta": -0.05},\n    "conscientiousness": {"start": 0.78, "current": 0.82, "delta": 0.04},\n    "extraversion": {"start": 0.50, "current": 0.45, "delta": -0.05},\n    "agreeableness": {"start": 0.65, "current": 0.60, "delta": -0.05},\n    "neuroticism": {"start": 0.20, "current": 0.28, "delta": 0.08}\n  },\n  "significant_events": [\n    {\n      "timestamp": "2026-03-01T14:30:00Z",\n      "event": "witnessed_attack",\n      "drift_magnitude": 0.06,\n      "affected_traits": ["neuroticism", "agreeableness"]\n    }\n  ],\n  "archetype": "hardened_veteran"\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/personality-evolution \\\n  -H "Content-Type: application/json" \\\n  -d \'{"npc_id": "npc-guard-07", "window": "30d"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/faction-cohesion',
+            description: 'Analyze the internal health of a faction by measuring personality alignment, loyalty distribution, and internal conflict indicators.',
+            request: '{\n  "faction": "town-guard",\n  "include_members": true\n}',
+            response: '{\n  "faction": "town-guard",\n  "member_count": 12,\n  "cohesion_score": 0.74,\n  "loyalty_distribution": {\n    "mean": 0.81,\n    "std_dev": 0.12,\n    "min": 0.52,\n    "max": 0.97\n  },\n  "personality_alignment": 0.68,\n  "internal_conflicts": [\n    {\n      "members": ["npc-guard-03", "npc-guard-11"],\n      "tension": 0.65,\n      "cause": "loyalty_divergence"\n    }\n  ],\n  "risk_level": "moderate",\n  "at_risk_members": [\n    {"npc_id": "npc-guard-03", "loyalty": 0.52, "defection_risk": 0.35}\n  ]\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/faction-cohesion \\\n  -H "Content-Type: application/json" \\\n  -d \'{"faction": "town-guard", "include_members": true}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/social-cascade',
+            description: 'Predict how an event will ripple through the NPC social network, estimating which NPCs and factions will be affected and when.',
+            request: '{\n  "trigger_event": {\n    "type": "assassination",\n    "target": "npc-mayor-01",\n    "actor": "player-1"\n  },\n  "max_hops": 3,\n  "min_confidence": 0.3\n}',
+            response: '{\n  "cascade_steps": [\n    {\n      "hop": 1,\n      "affected": [\n        {"npc_id": "npc-guard-captain", "reaction": "hunt_player", "confidence": 0.95, "delay_seconds": 5},\n        {"npc_id": "npc-advisor-01", "reaction": "flee_city", "confidence": 0.82, "delay_seconds": 30}\n      ]\n    },\n    {\n      "hop": 2,\n      "affected": [\n        {"faction": "town-guard", "reaction": "lockdown", "confidence": 0.88, "delay_seconds": 60},\n        {"faction": "merchant-guild", "reaction": "close_shops", "confidence": 0.65, "delay_seconds": 120}\n      ]\n    },\n    {\n      "hop": 3,\n      "affected": [\n        {"faction": "thieves-guild", "reaction": "opportunity_exploit", "confidence": 0.45, "delay_seconds": 300}\n      ]\n    }\n  ],\n  "total_affected_npcs": 38,\n  "total_affected_factions": 3\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/social-cascade \\\n  -H "Content-Type: application/json" \\\n  -d \'{"trigger_event": {"type": "assassination", "target": "npc-mayor-01", "actor": "player-1"}, "max_hops": 3, "min_confidence": 0.3}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/emergent-behavior',
+            description: 'Detect unprogrammed emergent behaviors in the NPC population using null-space anomaly detection across personality and action vectors.',
+            request: '{\n  "world_id": "medieval-realm-01",\n  "window": "7d",\n  "sensitivity": 0.8\n}',
+            response: '{\n  "world_id": "medieval-realm-01",\n  "emergent_behaviors": [\n    {\n      "pattern": "spontaneous_market_formation",\n      "npcs_involved": ["npc-farmer-02", "npc-farmer-05", "npc-merchant-08"],\n      "description": "NPCs independently converged on an undesignated area to trade goods",\n      "anomaly_score": 3.45,\n      "first_observed": "2026-03-10T08:15:00Z",\n      "recurring": true,\n      "frequency": "daily"\n    },\n    {\n      "pattern": "cross_faction_alliance",\n      "npcs_involved": ["npc-guard-03", "npc-thief-11"],\n      "description": "Opposing faction members developed cooperative behavior despite hostile faction stance",\n      "anomaly_score": 4.12,\n      "first_observed": "2026-03-12T22:30:00Z",\n      "recurring": false\n    }\n  ],\n  "population_analyzed": 150,\n  "null_space_dimensions_checked": 8\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/emergent-behavior \\\n  -H "Content-Type: application/json" \\\n  -d \'{"world_id": "medieval-realm-01", "window": "7d", "sensitivity": 0.8}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-npc');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

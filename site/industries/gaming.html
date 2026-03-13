@@ -176,8 +176,8 @@
     <div class="grid-3 fade-in" style="margin-top: 1.5rem;">
       <div class="card">
         <div class="card-label">Telemetry</div>
-        <div class="card-title">REST / gRPC Batch</div>
-        <div class="card-description">High-throughput game-tick ingestion via REST batches or gRPC streaming. SDKs for Rust, Python, and Node.js with built-in batching and backpressure handling.</div>
+        <div class="card-title">REST / GraphQL / gRPC</div>
+        <div class="card-description">High-throughput game-tick ingestion via REST batches (120+ endpoints), GraphQL subscriptions for real-time dashboards, or gRPC streaming. SDKs for Rust, Python, and Node.js with built-in batching and backpressure handling.</div>
       </div>
       <div class="card">
         <div class="card-label">Motion Capture</div>
@@ -229,9 +229,7 @@ curl -X POST http://localhost:8080/v1/ingest/batch \
       }
     ],
     "compression": {
-      "enabled": true,
-      "drift_threshold": 0.08,
-      "min_segment_duration": "100ms"
+      "enabled": true
     },
     "metadata": {
       "game": "arena-shooter-v3",

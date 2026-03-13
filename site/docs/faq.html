@@ -42,7 +42,7 @@
 
       <details class="docs-faq-item">
         <summary>What languages/protocols are supported?</summary>
-        <p>REST API (80+ endpoints), gRPC, and GraphQL. SDKs for Python, Rust, and Node.js.</p>
+        <p>REST API (120+ endpoints), gRPC, and GraphQL. SDKs for Python, Rust, and Node.js.</p>
       </details>
 
       <details class="docs-faq-item">
@@ -55,7 +55,7 @@
 
       <details class="docs-faq-item">
         <summary>What's the maximum vector dimensionality?</summary>
-        <p>Configurable up to 2,048 dimensions by default.</p>
+        <p>Up to 4,096 dimensions by default, configurable via environment variable.</p>
       </details>
 
       <details class="docs-faq-item">
@@ -119,22 +119,40 @@
 
       <details class="docs-faq-item">
         <summary>What are the system requirements?</summary>
-        <p>VectorScaleDB requires MongoDB 6+ as a storage backend. The Rust engine has minimal resource requirements -- 512MB RAM minimum for small deployments, 4GB+ recommended for production.</p>
+        <p>VectorScaleDB uses an embedded RocksDB storage engine with tiered hot/warm/cold architecture. Minimal resource requirements -- 512MB RAM minimum for small deployments, 4GB+ recommended for production.</p>
       </details>
 
       <details class="docs-faq-item">
         <summary>Can I run it on-premises?</summary>
-        <p>Yes. VectorScaleDB deploys as a standard container with your own MongoDB instance. No cloud dependency required.</p>
+        <p>Yes. VectorScaleDB deploys as a single binary with embedded storage — no external database required. Just the container and a data directory.</p>
       </details>
 
       <details class="docs-faq-item">
-        <summary>Is a managed cloud version available?</summary>
-        <p>VectorScaleDB Cloud is on our roadmap. Contact <a href="mailto:sales@vectorscaledb.com">sales@vectorscaledb.com</a> for early access.</p>
+        <summary>Is a cloud platform available?</summary>
+        <p>Yes. The VectorScaleDB Cloud Platform provides multi-tenant deployment with JWT authentication, API key management, plan-based quotas (Free, Pro, Enterprise tiers), and a web-based management dashboard. Contact <a href="mailto:sales@vectorscaledb.com">sales@vectorscaledb.com</a> for access.</p>
       </details>
 
       <details class="docs-faq-item">
         <summary>How do I get support?</summary>
         <p>Enterprise support is available via <a href="mailto:sales@vectorscaledb.com">sales@vectorscaledb.com</a>. This includes dedicated SLA, priority issues, and direct engineering support.</p>
+      </details>
+
+      <!-- AI & Integrations -->
+      <h2 id="ai-integrations">AI &amp; Integrations</h2>
+
+      <details class="docs-faq-item">
+        <summary>Can AI agents interact with VectorScaleDB?</summary>
+        <p>Yes. The MCP server provides 54 tools that AI agents can use to query, ingest, analyze, and manage data in VectorScaleDB. It works with any MCP-compatible client, including Claude Code and Claude Desktop.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>Is a GraphQL API available?</summary>
+        <p>Yes. VectorScaleDB provides a full GraphQL API with 15 queries, 3 mutations, and real-time subscriptions. It is available alongside the REST and gRPC interfaces and can be enabled via a feature flag.</p>
+      </details>
+
+      <details class="docs-faq-item">
+        <summary>What Docker deployment options are available?</summary>
+        <p>VectorScaleDB ships with Docker Compose profiles for single-node, multi-node cluster, full-stack (with monitoring), edge deployment, and cloud platform (single and cluster). All profiles are self-contained.</p>
       </details>
 
     </main>

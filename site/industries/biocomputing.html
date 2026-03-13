@@ -200,7 +200,7 @@
       <div class="card">
         <div class="card-label">Integration</div>
         <div class="card-title">SpikeInterface / MEA Streams</div>
-        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via WebSocket or gRPC endpoints.</div>
+        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via REST, GraphQL subscriptions, or gRPC. MCP server enables AI agents to automate organoid analysis workflows with 30+ tools.</div>
       </div>
     </div>
     <div class="card fade-in" style="margin-top: 1.5rem;">
@@ -245,14 +245,10 @@ curl -X POST http://localhost:8080/v1/ingest/nwb \
       "stimulation": "StimulationEvent"
     },
     "population_state": {
-      "bin_size_ms": 10,
-      "synchrony_window_ms": 50,
       "connectivity_method": "cross_correlation"
     },
     "compression": {
-      "enabled": true,
-      "drift_threshold": 0.06,
-      "min_segment_duration": "500ms"
+      "enabled": true
     }
   }'
 

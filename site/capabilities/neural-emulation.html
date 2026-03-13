@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Emulation | VectorScaleDB</title>
+  <meta name="description" content="Multi-species neural emulation platform: connectome ingestion, 9 connectome query functions, 5 emulation modes, and cross-model comparison for computational neuroscience.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Neural Emulation</div>
+      <h1 class="hero-title">Multi-Species Neural Emulation Platform</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Ingest connectomes, run neural emulations across species, and query circuit dynamics &mdash; all in a unified temporal-vector framework. From 302 neurons to 139,000+.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Neural%20Emulation" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Three-Layer Architecture -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Three-Layer Architecture</h2>
+    <p class="section-subtitle fade-in">A unified stack for neural data: connectome structure at the bottom, dynamic emulation in the middle, and cross-model comparison at the top.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Layer 1</div>
+        <div class="card-title">Connectome Storage</div>
+        <div class="card-description">Ingest neuron-level connectome data with synapse weights, neuropil assignments, and neurotransmitter types. Neurons are stored as temporal vectors with structural features. Synaptic connections form a queryable weighted graph.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Layer 2</div>
+        <div class="card-title">Emulation Engine</div>
+        <div class="card-description">Run neural dynamics on stored connectomes. Five emulation modes from simple rate-coding to biophysically detailed spiking models. Emulation state is captured as temporal vectors, enabling behavioral compression and time-travel queries.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Layer 3</div>
+        <div class="card-title">Cross-Model Comparison</div>
+        <div class="card-description">Compare outputs from different models running on the same connectome. Quantify agreement between neural network approaches, detect where models diverge, and correlate neural activity with behavioral outcomes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Species Support -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Multi-Species Support</h2>
+    <p class="section-subtitle fade-in">A species registry manages connectome definitions, neuron models, and gap junction configurations. Each species has its own neural parameters while sharing the same query and emulation infrastructure.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Nematode</div>
+        <div class="card-title">C. elegans &mdash; 302 neurons</div>
+        <div class="card-description">
+          The most completely mapped nervous system in biology. Full connectome with chemical synapses and gap junctions. Ideal for whole-organism neural emulation and validation of emulation accuracy against decades of experimental data.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>302 neurons, ~7,000 synaptic connections</li>
+            <li>Complete sensory-to-motor pathway tracing</li>
+            <li>Gap junction support for electrical coupling</li>
+            <li>Behavioral correlation with locomotion data</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Fruit Fly</div>
+        <div class="card-title">Drosophila &mdash; 139,000+ neurons</div>
+        <div class="card-description">
+          The FlyWire connectome: 139,000+ neurons with millions of synaptic connections across 78 neuropils. Ingest directly from FlyWire CSV exports. Query neural pathways, compute neuropil connectivity matrices, and analyze circuit activation patterns.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>139,000+ neurons from FlyWire dataset</li>
+            <li>78 neuropil regions with typed connections</li>
+            <li>Excitatory/inhibitory balance analysis</li>
+            <li>Sensorimotor latency estimation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Connectome Queries -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Connectome Query Functions</h2>
+    <p class="section-subtitle fade-in">Nine built-in query functions for structural and functional connectome analysis.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Structural</div>
+        <div class="card-title">Circuit topology</div>
+        <div class="card-description">
+          <ul style="margin-top: 0; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/trace-pathway</code> &mdash; trace neural pathways with signed weights</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/neuropil-connectivity</code> &mdash; connectivity matrix between brain regions</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/ei-balance</code> &mdash; excitatory/inhibitory ratio analysis</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Functional</div>
+        <div class="card-title">Dynamic analysis</div>
+        <div class="card-description">
+          <ul style="margin-top: 0; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/circuit-activation</code> &mdash; activation spread through circuits</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/neuropil-activity</code> &mdash; activity summary per brain region</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/sensorimotor-latency</code> &mdash; estimated latency from sensor to motor</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Comparative</div>
+        <div class="card-title">Cross-model analysis</div>
+        <div class="card-description">
+          <ul style="margin-top: 0; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/cross-model-agreement</code> &mdash; quantify model convergence</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/ablation-analysis</code> &mdash; predict effects of neuron removal</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.8rem;">POST /v1/connectome/behavioral-correlation</code> &mdash; correlate neural activity with behavior</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Emulation Modes -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Five Emulation Modes</h2>
+    <p class="section-subtitle fade-in">Choose the right fidelity-performance tradeoff for your research question. All modes produce temporal vectors that flow through the same compression, indexing, and query pipeline.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Mode 1</div>
+        <div class="card-title">Rate Coding</div>
+        <div class="card-description">Fastest mode. Neurons represented by firing rates. Suitable for large-scale population dynamics and rapid parameter sweeps across entire connectomes.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Mode 2</div>
+        <div class="card-title">Leaky Integrate-and-Fire</div>
+        <div class="card-description">Classic spiking neuron model with membrane potential dynamics. Captures spike timing and basic temporal coding. Good balance of fidelity and computational cost.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Mode 3</div>
+        <div class="card-title">Conductance-Based</div>
+        <div class="card-description">Ion channel dynamics with excitatory and inhibitory conductances. Captures synaptic integration, shunting inhibition, and dendritic processing effects.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Mode 4</div>
+        <div class="card-title">GNN-Accelerated</div>
+        <div class="card-description">Graph neural network acceleration for connectome-scale dynamics. Trained on biophysical simulations, runs orders of magnitude faster while preserving key dynamical properties.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Mode 5</div>
+        <div class="card-title">Hybrid</div>
+        <div class="card-description">Mixed-fidelity emulation: high-fidelity models for neurons of interest, simplified models for the surrounding network. Automatically routes computation based on region of focus.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">All Modes</div>
+        <div class="card-title">Unified output format</div>
+        <div class="card-description">Every emulation mode produces temporal vectors in the same format. Switch between modes without changing downstream queries, dashboards, or analysis pipelines. Compare mode outputs side-by-side.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-Model Comparison -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cross-Model Comparison</h2>
+    <p class="section-subtitle fade-in">Run multiple emulation approaches on the same connectome and quantify where they agree and diverge. Essential for validating computational models against each other and experimental data.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Agreement Metrics</div>
+        <div class="card-title">Quantified model convergence</div>
+        <div class="card-description">
+          Compare outputs from different emulation modes or entirely different modeling frameworks. VectorScaleDB computes agreement scores per neuron, per neuropil, and across the whole connectome. Identify which circuits are model-sensitive and which are robust across approaches.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Behavioral Correlation</div>
+        <div class="card-title">Neural activity meets behavior</div>
+        <div class="card-description">
+          Correlate emulated neural activity with observed behavioral data. Import locomotion traces, stimulus responses, or decision outcomes and find which neural circuits predict which behaviors. Temporal alignment handles different sampling rates automatically.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Compression -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Neural Data Compression</h2>
+    <p class="section-subtitle fade-in">Neural emulation generates enormous data volumes. Drift-based compression exploits the structure of neural activity &mdash; long quiescent periods punctuated by bursts &mdash; to achieve extreme compression ratios.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Quiescent Neurons</div>
+        <div class="card-title">1,000x+ compression for silent circuits</div>
+        <div class="card-description">Most neurons in a large connectome are silent at any given time. Predictive coding suppresses writes for quiescent neurons entirely. A 139,000-neuron emulation where 95% of neurons are silent stores only the active 5% at full resolution.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Spike Trains</div>
+        <div class="card-title">Regime-aligned segmentation</div>
+        <div class="card-description">Active neurons produce spike trains with natural regime structure: bursting periods, tonic firing, and silence. Compression segments align with these neural regimes, preserving firing rate statistics, burst boundaries, and inter-spike interval distributions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Emulate, compress, and query entire connectomes</h2>
+    <p class="cta-subtitle fade-in">See the neural emulation platform running on real connectome data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Neural%20Emulation" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

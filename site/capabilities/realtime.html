@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Platform | VectorScaleDB</title>
+  <meta name="description" content="Real-time subscriptions at scale: WebSocket push events, reconnection replay buffer, WASM reducers, custom entity types, auto-identity auth, and SDK support.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Real-Time</div>
+      <h1 class="hero-title">Real-Time Subscriptions at Scale</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Push subscriptions, reconnection replay, server-side WASM reducers, custom entity types, and zero-config authentication. Build reactive applications on temporal data.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Real-Time" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Push Subscriptions -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Push Subscriptions</h2>
+    <p class="section-subtitle fade-in">Subscribe to entities or entity types and receive push events over WebSocket. No polling, no message queues, no external infrastructure.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Per-Entity</div>
+        <div class="card-title">Watch specific entities</div>
+        <div class="card-description">
+          Subscribe to a specific entity by ID and receive events whenever new vectors are ingested, segments are finalized, or anomalies are detected. Ideal for dashboards, alerting, and real-time monitoring of critical assets.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>New vector ingestion events</li>
+            <li>Segment finalization (regime change) events</li>
+            <li>Anomaly detection alerts</li>
+            <li>Entity deletion notifications</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Per-Type</div>
+        <div class="card-title">Watch entire entity classes</div>
+        <div class="card-description">
+          Subscribe to an entity type (e.g., all SensorReading entities) and receive events from every entity of that type. Perfect for fleet-wide monitoring, population analytics, and cross-entity pattern detection.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Fleet-wide event streaming</li>
+            <li>Multiple subscriptions per connection</li>
+            <li>Server-side event filtering</li>
+            <li>JSON event format with metadata</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reconnection Protocol -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Reconnection Protocol</h2>
+    <p class="section-subtitle fade-in">Network disconnections are inevitable. VectorScaleDB maintains a server-side replay buffer so clients never miss events, even after extended outages.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Replay Buffer</div>
+        <div class="card-title">Server-side event retention</div>
+        <div class="card-description">
+          The server retains recent events in a bounded replay buffer. When a client reconnects, it provides its last-seen sequence number and receives all events that occurred during the disconnection. No client-side state management required.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Configurable buffer capacity (default: 10,000 events)</li>
+            <li>Automatic sequence numbering per subscription</li>
+            <li>Efficient binary replay for large catch-ups</li>
+            <li>Zero duplicate events via sequence tracking</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Overflow Handling</div>
+        <div class="card-title">Graceful degradation</div>
+        <div class="card-description">
+          If a client is disconnected longer than the replay buffer covers, the server sends a RESET notification indicating the gap. The client can then perform a full state sync via REST API before resuming the subscription. No silent data loss &mdash; the client always knows its state.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Explicit RESET signal on buffer overflow</li>
+            <li>Client-driven full sync after extended outage</li>
+            <li>Subscription state preserved across reconnections</li>
+            <li>No silent gaps in event streams</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WASM Reducers -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">WASM Reducers</h2>
+    <p class="section-subtitle fade-in">Deploy custom server-side logic as WebAssembly modules. Transform, filter, or aggregate data at the database level &mdash; no round trips to application servers.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Server-Side Logic</div>
+        <div class="card-title">Code at the data layer</div>
+        <div class="card-description">Upload WASM modules that execute inside VectorScaleDB. Reducers run on ingested vectors before storage, enabling custom validation, transformation, enrichment, and derived calculations without external services.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Sandboxed Execution</div>
+        <div class="card-title">Safe and metered</div>
+        <div class="card-description">WASM reducers execute in a sandboxed runtime with fuel metering. Set compute budgets per reducer to prevent runaway execution. Reducers cannot access the filesystem, network, or other tenants' data.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Hot Reload</div>
+        <div class="card-title">Deploy without downtime</div>
+        <div class="card-description">Update reducer logic by uploading a new WASM module. The new version takes effect immediately for subsequent ingestions. No server restart, no connection interruption, no deployment pipeline.</div>
+      </div>
+    </div>
+    <div class="solution-card fade-in" style="margin-top: 2rem;">
+      <div class="card-label">API</div>
+      <div class="card-title">Reducer management endpoints</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">Upload, list, update, and delete WASM reducers via the REST API. Each reducer is associated with an entity type and executes on every ingest for that type.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Upload a WASM reducer for SensorReading entities</span>
+curl -X POST https://your-instance.vectorscaledb.com/v1/reducers \
+  -H <span style="color: #22c55e;">"Content-Type: application/wasm"</span> \
+  -H <span style="color: #22c55e;">"X-Reducer-Name: validate-temperature"</span> \
+  -H <span style="color: #22c55e;">"X-Entity-Type: SensorReading"</span> \
+  -H <span style="color: #22c55e;">"X-Fuel-Limit: 100000"</span> \
+  --data-binary @validate_temperature.wasm
+
+<span style="color: var(--text-muted);"># List active reducers</span>
+curl https://your-instance.vectorscaledb.com/v1/reducers
+
+<span style="color: var(--text-muted);"># Delete a reducer</span>
+curl -X DELETE https://your-instance.vectorscaledb.com/v1/reducers/validate-temperature</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom Entity Types -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Custom Entity Types</h2>
+    <p class="section-subtitle fade-in">Go beyond the 51 built-in entity types. Define custom types at runtime via the REST API &mdash; no schema migrations, no server restarts.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Runtime Definition</div>
+        <div class="card-title">Create types via API</div>
+        <div class="card-description">
+          Define new entity types with a name and optional metadata. Custom types participate in all VectorScaleDB features: compression, indexing, subscriptions, cross-domain queries, and anomaly detection. They are first-class citizens of the system.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/entity-types</code> &mdash; register a custom type</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">GET /v1/entity-types</code> &mdash; list all types (built-in + custom)</li>
+            <li>Adaptive compression thresholds auto-tune per type</li>
+            <li>Full query compatibility with built-in types</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Flexibility</div>
+        <div class="card-title">Your domain, your types</div>
+        <div class="card-description">
+          Model any domain with purpose-built entity types. Custom types are especially useful for niche verticals, research applications, and multi-tenant deployments where different tenants track different kinds of entities.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>No schema migration or deployment required</li>
+            <li>Types persist across server restarts</li>
+            <li>Cross-type queries work with custom types</li>
+            <li>MCP tools support custom types automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Auto-Identity -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Auto-Identity Authentication</h2>
+    <p class="section-subtitle fade-in">Zero-configuration authentication for development and edge deployments. Devices authenticate by presenting their identity &mdash; no token provisioning, no certificate management.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">How It Works</div>
+        <div class="card-title">Identity-based access</div>
+        <div class="card-description">
+          In auto-identity mode, clients authenticate by declaring their entity ID. The server creates a session scoped to that identity, allowing the client to ingest data and subscribe to events for its own entities. Ideal for IoT devices, game clients, and development environments.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Production Auth</div>
+        <div class="card-title">Full auth when you need it</div>
+        <div class="card-description">
+          Auto-identity is one authentication mode alongside JWT tokens, API keys, and platform-managed tenant authentication. Start with auto-identity during development, switch to JWT or API keys for production. The application code does not change &mdash; only the server configuration.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SDK Support -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">SDK &amp; Integration Support</h2>
+    <p class="section-subtitle fade-in">Client libraries, AI agent integration, and OpenAPI specification for code generation in any language.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Python SDK</div>
+        <div class="card-title">Native Python bindings</div>
+        <div class="card-description">PyO3-based Python package with type hints. Ingest vectors, run queries, and manage subscriptions from Python. Install via pip, compatible with NumPy arrays for zero-copy vector ingestion.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MCP Server</div>
+        <div class="card-title">AI agent integration</div>
+        <div class="card-description">Model Context Protocol server with 54 tools for AI agent integration. Connect Claude, GPT, or any MCP-compatible agent directly to VectorScaleDB for autonomous data exploration and analysis.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">OpenAPI</div>
+        <div class="card-title">Code generation for any language</div>
+        <div class="card-description">Full OpenAPI 3.0 specification exported from the running server. Generate TypeScript, Go, C#, Java, or any language client from the spec. Interactive Swagger UI available for API exploration.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related API Endpoints -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related API Endpoints</h2>
+    <p class="section-subtitle fade-in">Key endpoints for the real-time platform.</p>
+    <div class="grid-2 fade-in">
+      <a href="../docs/api.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-get" style="background: #22c55e; color: #000; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">WS</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/subscribe</code>
+        </div>
+        <div class="card-description">WebSocket endpoint for push subscriptions. Subscribe to entities by ID or by type. Supports reconnection with replay buffer catch-up.</div>
+      </a>
+      <a href="../docs/api.html" class="card" style="text-decoration: none;">
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+          <span class="method-post">POST</span>
+          <code style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text);">/v1/reducers</code>
+        </div>
+        <div class="card-description">Upload, manage, and delete WASM reducers. Reducers execute server-side on ingested vectors with sandboxed execution and fuel metering.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Build reactive applications on temporal data</h2>
+    <p class="cta-subtitle fade-in">See real-time subscriptions and WASM reducers in action.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Real-Time" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

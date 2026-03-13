@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time API | VectorScaleDB Docs</title>
+  <meta name="description" content="Real-time subscription API: WebSocket entity/type subscriptions, reconnection with replay buffer, WASM reducer management, and diagnostics.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Real-Time</li>
+      </ul>
+      <h1>Real-Time &amp; Subscriptions</h1>
+      <p class="docs-intro">WebSocket push subscriptions, reconnection with catch-up replay, WASM reducer lifecycle, and system diagnostics.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Subscriptions',
+        id: 'subscriptions',
+        open: true,
+        endpoints: [
+          {
+            method: 'GET',
+            path: '/v1/subscribe/entity/{entity_id}',
+            description: 'Upgrade to WebSocket. Receives JSON events when the entity\'s state changes. Optional <code>?last_seen={seq}</code> for reconnection catch-up.',
+            response: '{\n  "type": "update",\n  "entity_id": "sensor-42",\n  "vector": [0.1, 0.2, 0.3],\n  "timestamp": "2026-03-13T10:00:00Z",\n  "sequence": 42\n}',
+            curl: 'curl --include \\\n  --no-buffer \\\n  --header "Connection: Upgrade" \\\n  --header "Upgrade: websocket" \\\n  http://localhost:8080/v1/subscribe/entity/sensor-42?last_seen=40'
+          },
+          {
+            method: 'GET',
+            path: '/v1/subscribe/type/{entity_type}',
+            description: 'Upgrade to WebSocket. Receives events for all entities of the given type.',
+            response: '{\n  "type": "update",\n  "entity_id": "sensor-42",\n  "vector": [0.1, 0.2, 0.3],\n  "timestamp": "2026-03-13T10:00:00Z",\n  "sequence": 108\n}',
+            curl: 'curl --include \\\n  --no-buffer \\\n  --header "Connection: Upgrade" \\\n  --header "Upgrade: websocket" \\\n  http://localhost:8080/v1/subscribe/type/SensorReading'
+          },
+          {
+            method: 'GET',
+            path: '/v1/subscriptions',
+            description: 'List active subscriptions.',
+            response: '{\n  "entity_subscriptions": 15,\n  "type_subscriptions": 3,\n  "entities_watched": 15,\n  "types_watched": 3\n}',
+            curl: 'curl http://localhost:8080/v1/subscriptions'
+          }
+        ]
+      },
+      {
+        title: 'Reducers',
+        id: 'reducers',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/reducers',
+            description: 'Register a WASM reducer.',
+            request: '{\n  "name": "my-reducer",\n  "wasm_base64": "AGFzbQ...",\n  "version": "1.0.0"\n}',
+            response: '{\n  "name": "my-reducer",\n  "version": "1.0.0",\n  "status": "active"\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/reducers \\\n  -H "Content-Type: application/json" \\\n  -d \'{"name": "my-reducer", "wasm_base64": "AGFzbQ...", "version": "1.0.0"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/reducers/{name}/invoke',
+            description: 'Invoke a reducer.',
+            request: '{\n  "args": {\n    "entity_id": "sensor-42",\n    "action": "calibrate"\n  }\n}',
+            response: '{\n  "result": "ok",\n  "writes": 3,\n  "fuel_consumed": 1500\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/reducers/my-reducer/invoke \\\n  -H "Content-Type: application/json" \\\n  -d \'{"args": {"entity_id": "sensor-42", "action": "calibrate"}}\''
+          },
+          {
+            method: 'GET',
+            path: '/v1/reducers',
+            description: 'List registered reducers.',
+            response: '{\n  "reducers": [\n    {\n      "name": "my-reducer",\n      "version": "1.0.0",\n      "status": "active"\n    }\n  ]\n}',
+            curl: 'curl http://localhost:8080/v1/reducers'
+          }
+        ]
+      },
+      {
+        title: 'Diagnostics',
+        id: 'diagnostics',
+        open: true,
+        endpoints: [
+          {
+            method: 'GET',
+            path: '/v1/diagnostics/compression-stats',
+            description: 'Compression engine statistics.',
+            response: '{\n  "active_segments": 42,\n  "segments_written": 15000,\n  "compression_ratio": 85.3,\n  "vectors_ingested": 1280000,\n  "predictive_suppressed": 950000\n}',
+            curl: 'curl http://localhost:8080/v1/diagnostics/compression-stats'
+          },
+          {
+            method: 'GET',
+            path: '/v1/diagnostics/storage-health',
+            description: 'Storage backend health check.',
+            response: '{\n  "backend": "RocksDB",\n  "healthy": true,\n  "error": null\n}',
+            curl: 'curl http://localhost:8080/v1/diagnostics/storage-health'
+          },
+          {
+            method: 'GET',
+            path: '/v1/diagnostics/subscription-stats',
+            description: 'Active subscription statistics.',
+            response: '{\n  "entity_subscriptions": 15,\n  "type_subscriptions": 3,\n  "entities_watched": 15,\n  "types_watched": 3\n}',
+            curl: 'curl http://localhost:8080/v1/diagnostics/subscription-stats'
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-realtime');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

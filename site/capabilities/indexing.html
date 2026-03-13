@@ -86,8 +86,8 @@
         <div class="card-description">
           Each chunk maintains its own HNSW graph with independently tunable construction parameters. This means hot data (recent chunks) can use higher M values for faster search, while cold chunks use lower M values for better memory efficiency.
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
-            <li>Independent M and ef_construction per chunk</li>
-            <li>Hot/warm/cold tiering with automatic parameter adjustment</li>
+            <li>Tunable index parameters per data temperature tier</li>
+            <li>Automatic parameter optimization across data tiers</li>
             <li>In-memory graph for active chunks, memory-mapped for sealed</li>
             <li>Parallel construction across CPU cores during seal</li>
           </ul>
@@ -106,17 +106,17 @@
       <div class="card">
         <div class="card-label">Behavioral Linking</div>
         <div class="card-title">Cross-chunk entity continuity</div>
-        <div class="card-description">When a chunk seals, the TST identifies entities whose vectors appear in both the sealing chunk and the next. Continuity edges are created between these anchor points, preserving the entity's behavioral trajectory across the chunk boundary.</div>
+        <div class="card-description">When a chunk seals, the TST identifies entities whose vectors appear in both the sealing chunk and the next. Entities are automatically linked across time boundaries for seamless cross-chunk trajectory queries.</div>
       </div>
       <div class="card">
         <div class="card-label">Query Traversal</div>
         <div class="card-title">Follow trajectories across time</div>
-        <div class="card-description">Continuity edges allow the query planner to traverse from a match in one chunk to related vectors in adjacent chunks without re-searching. This turns multi-chunk queries from O(k * chunks) into O(k + edges), dramatically reducing latency for wide time ranges.</div>
+        <div class="card-description">Continuity edges allow the query planner to traverse from a match in one chunk to related vectors in adjacent chunks without re-searching. This dramatically reducing multi-chunk query latency.</div>
       </div>
       <div class="card">
         <div class="card-label">Edge Maintenance</div>
         <div class="card-title">Automatic pruning and rebalancing</div>
-        <div class="card-description">Continuity edges are pruned when chunks are compacted or archived. The TST maintains a configurable maximum edge count per entity per chunk boundary, keeping memory usage bounded while preserving the most behaviorally significant connections.</div>
+        <div class="card-description">Continuity edges are pruned when chunks are compacted or archived. The TST maintains a automatic memory management keeps overhead bounded while preserving the most behaviorally significant connections.</div>
       </div>
     </div>
   </div>
@@ -136,7 +136,7 @@
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
             <li>Parallel search across all matching chunks</li>
             <li>Early termination when result quality converges</li>
-            <li>Chunk-level bloom filters skip chunks with no relevant entities</li>
+            <li>Intelligent chunk-level filtering eliminates irrelevant data before search</li>
             <li>SIMD-accelerated distance computation (AVX2/NEON)</li>
           </ul>
         </div>
@@ -145,10 +145,10 @@
         <div class="card-label">Accuracy</div>
         <div class="card-title">Tunable recall vs. latency tradeoff</div>
         <div class="card-description">
-          The ef_search parameter controls how many candidates are evaluated during search. Higher values improve recall at the cost of latency. VectorScaleDB exposes this as a per-query parameter, letting applications choose the right tradeoff for each request.
+          Per-query accuracy vs. latency tradeoff control lets applications choose the right balance for each request. VectorScaleDB exposes this as a simple per-query parameter, from fast approximate results to exhaustive exact search.
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
-            <li>Per-query ef_search override</li>
-            <li>Default ef_search tuned for 99%+ recall at sub-ms latency</li>
+            <li>Per-query accuracy tuning</li>
+            <li>Default parameters tuned for 99%+ recall at sub-millisecond latency</li>
             <li>Exact KNN fallback for small chunk sizes</li>
             <li>Recall metrics exposed via <code>/v1/metrics</code></li>
           </ul>
@@ -167,7 +167,7 @@
       <div class="card">
         <div class="card-label">Snapshots</div>
         <div class="card-title">Incremental, non-blocking snapshots</div>
-        <div class="card-description">Snapshots capture the full state of every chunk, including HNSW graphs, continuity edges, and metadata. Only sealed chunks are included &mdash; the active chunk is protected by the WAL. Snapshots are incremental: only chunks modified since the last snapshot are written.</div>
+        <div class="card-description">Incremental snapshots capture the full index state. Only sealed chunks are included &mdash; active writes are protected by the write-ahead log. Snapshots are incremental: only chunks modified since the last snapshot are written.</div>
       </div>
       <div class="card">
         <div class="card-label">Recovery</div>
@@ -202,7 +202,7 @@ results = client.query.temporal_knn(
         <span style="color: #22c55e;">"end"</span>: <span style="color: #22c55e;">"2026-03-09T00:00:00Z"</span>
     },
     entity_type=<span style="color: #22c55e;">"VEHICLE"</span>,
-    ef_search=<span style="color: #f59e0b;">200</span>  <span style="color: var(--text-muted);"># Higher recall for this query</span>
+    accuracy=<span style="color: #f59e0b;">200</span>  <span style="color: var(--text-muted);"># Higher recall for this query</span>
 )
 
 <span style="color: #7c3aed;">for</span> result <span style="color: #7c3aed;">in</span> results:

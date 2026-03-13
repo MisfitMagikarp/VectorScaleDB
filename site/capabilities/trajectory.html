@@ -71,7 +71,7 @@
         <div class="card-label">Algorithm</div>
         <div class="card-title">FastDTW with adaptive radius</div>
         <div class="card-description">
-          Classical DTW is O(n^2), making it impractical for long trajectories. VectorScaleDB uses FastDTW with an adaptive radius parameter that provides near-optimal alignments in O(n) time. The radius automatically adjusts based on trajectory length and variance, balancing accuracy and performance.
+          Classical DTW is O(n^2), making it impractical for long trajectories. An optimized DTW implementation provides near-optimal alignments in linear time. The radius automatically adjusts based on trajectory length and variance, balancing accuracy and performance.
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
             <li>O(n) time complexity with adaptive radius</li>
             <li>Handles trajectories of different lengths and speeds</li>
@@ -168,11 +168,11 @@
         <div class="card-label">Detection</div>
         <div class="card-title">Multi-scale regime transition identification</div>
         <div class="card-description">
-          Change-point detection operates at multiple scales simultaneously. Micro-scale detects brief behavioral spikes (seconds). Meso-scale detects regime transitions (minutes to hours). Macro-scale detects long-term behavioral shifts (days to weeks). All three scales run in parallel on the compressed segment stream.
+          Change-point detection operates at multiple temporal scales simultaneously, from sub-second spikes to long-term behavioral evolution. All scales run in parallel on the compressed segment stream.
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
-            <li>Micro-scale: sudden behavioral spikes or drops</li>
-            <li>Meso-scale: regime transitions (the primary use case)</li>
-            <li>Macro-scale: long-term behavioral evolution</li>
+            <li>Short-term: sudden behavioral spikes or drops</li>
+            <li>Medium-term: regime transitions (the primary use case)</li>
+            <li>Long-term: gradual behavioral evolution</li>
             <li>Configurable sensitivity per scale</li>
           </ul>
         </div>
@@ -209,7 +209,7 @@
             <li>No need to specify cluster count in advance</li>
             <li>Automatically identifies outlier entities</li>
             <li>Cosine distance for behavioral similarity</li>
-            <li>Configurable eps (neighborhood radius) and min_samples</li>
+            <li>Configurable density parameters</li>
           </ul>
         </div>
       </div>

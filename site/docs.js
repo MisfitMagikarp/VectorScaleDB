@@ -26,6 +26,11 @@ const VsdbDocs = {
         { label: 'Biocomputing',     href: 'docs/api-biocomputing.html' },
         { label: 'Patterns',         href: 'docs/api-patterns.html' },
         { label: 'Gaussian / Scene', href: 'docs/api-gaussian.html' },
+        { label: 'IoT',              href: 'docs/api-iot.html' },
+        { label: 'NPC AI',           href: 'docs/api-npc.html' },
+        { label: 'Geospatial',      href: 'docs/api-geospatial.html' },
+        { label: 'Social Dynamics',  href: 'docs/api-social.html' },
+        { label: 'Real-Time',       href: 'docs/api-realtime.html' },
         { label: 'Streaming',        href: 'docs/api-streaming.html' },
         { label: 'Enterprise',       href: 'docs/api-enterprise.html' },
         { label: 'GraphQL',          href: 'docs/api-graphql.html' }

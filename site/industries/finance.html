@@ -184,8 +184,8 @@
       </div>
       <div class="card">
         <div class="card-label">API</div>
-        <div class="card-title">REST / gRPC</div>
-        <div class="card-description">Full REST API with optional gRPC for low-latency tick ingestion. SDKs available in Rust, Python, and Node.js for strategy integration.</div>
+        <div class="card-title">REST / GraphQL / gRPC</div>
+        <div class="card-description">Full REST API with 120+ endpoints, GraphQL for flexible querying with subscriptions, and optional gRPC for low-latency tick ingestion. SDKs available in Rust, Python, and Node.js for strategy integration. MCP server enables AI agent workflows for automated market analysis.</div>
       </div>
     </div>
   </div>
@@ -214,9 +214,7 @@ curl -X POST http://localhost:8080/v1/ingest/csv \
     "column_detection": "adaptive",
     "expected_columns": ["timestamp", "price", "bid", "ask", "volume"],
     "compression": {
-      "enabled": true,
-      "drift_threshold": 0.04,
-      "min_segment_duration": "5s"
+      "enabled": true
     }
   }'
 
@@ -339,7 +337,7 @@ curl -X POST http://localhost:8080/v1/query/pattern-replay \
       <div class="card">
         <div class="card-label">Security</div>
         <div class="card-title">Enterprise Security</div>
-        <div class="card-description">AES-256-GCM encryption for market data at rest, per-tenant key isolation for multi-strategy deployments, and SHA-256 audit chains for regulatory compliance.</div>
+        <div class="card-description">AES-256-GCM encryption for market data at rest, per-tenant key isolation for multi-strategy deployments, SHA-256 audit chains for regulatory compliance, and a managed cloud platform with plan-based quotas for SaaS deployments.</div>
         <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
       </div>
     </div>

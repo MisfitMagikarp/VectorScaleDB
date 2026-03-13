@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural NPC AI | VectorScaleDB</title>
+  <meta name="description" content="Biologically-grounded NPC AI with five brain tiers, OCEAN personality model, faction dynamics, and behavioral compression for game engines.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">NPC AI</div>
+      <h1 class="hero-title">Biologically-Grounded Game AI</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Five brain tiers from reactive insects to scheming politicians. Persistent personality evolution, faction dynamics, and emergent social behavior &mdash; all stored as temporal vectors with behavioral compression.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20NPC%20AI" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Brain Tiers -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Five Brain Tiers</h2>
+    <p class="section-subtitle fade-in">Scale NPC cognitive complexity to match their narrative importance. Background crowds use T0 reactive behaviors. Key characters use T4 strategic planning with personality-driven decision making.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">T0 &mdash; Reactive</div>
+        <div class="card-title">Stimulus-response</div>
+        <div class="card-description">Simple state machines for ambient NPCs: wildlife, background crowds, environmental entities. Minimal compute cost, maximum population density. Responds to immediate stimuli with fixed behaviors.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">T1 &mdash; Instinctive</div>
+        <div class="card-title">Need-driven behavior</div>
+        <div class="card-description">Behavioral drives (hunger, fear, curiosity) that create emergent daily routines. NPCs autonomously seek resources, avoid threats, and form basic habits without scripted schedules.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">T2 &mdash; Emotional</div>
+        <div class="card-title">Mood and memory</div>
+        <div class="card-description">Emotional state that persists across interactions and colors future decisions. An NPC insulted by the player remembers the slight and adjusts behavior accordingly. Mood decays naturally over time.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">T3 &mdash; Social</div>
+        <div class="card-title">Relationship-aware</div>
+        <div class="card-description">Tracks relationships with other NPCs and players. Forms alliances, holds grudges, and makes decisions based on social context. Social bonds influence quest availability and dialogue options.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">T4 &mdash; Strategic</div>
+        <div class="card-title">Long-term planning</div>
+        <div class="card-description">Goal-oriented reasoning with multi-step plans. Political NPCs scheme, merchants optimize trade routes, and faction leaders coordinate group strategy. Full OCEAN personality model drives decision-making style.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Resource Scaling</div>
+        <div class="card-title">Automatic tier assignment</div>
+        <div class="card-description">Assign brain tiers based on narrative importance, player proximity, or runtime budget. Thousands of T0 NPCs coexist with dozens of T4 characters. The database handles state persistence for all tiers uniformly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Personality Model -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">OCEAN Personality Model</h2>
+    <p class="section-subtitle fade-in">Each NPC has a five-factor personality profile that evolves through experience. No two NPCs respond identically to the same situation.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Five Factors</div>
+        <div class="card-title">Persistent personality dimensions</div>
+        <div class="card-description">
+          Every NPC carries five personality dimensions that influence behavior across all interactions:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><strong>Openness</strong> &mdash; curiosity, willingness to explore or try new approaches</li>
+            <li><strong>Conscientiousness</strong> &mdash; discipline, reliability, adherence to rules</li>
+            <li><strong>Extraversion</strong> &mdash; social energy, leadership tendency, group preference</li>
+            <li><strong>Agreeableness</strong> &mdash; cooperation, empathy, conflict avoidance</li>
+            <li><strong>Neuroticism</strong> &mdash; stress reactivity, emotional volatility, risk aversion</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Evolution</div>
+        <div class="card-title">Personality shifts through experience</div>
+        <div class="card-description">
+          Personality traits evolve based on the NPC's experiences. A shy NPC forced into repeated combat may become more assertive. A trusting NPC who is betrayed shifts toward suspicion. VectorScaleDB tracks these personality trajectories as temporal vectors, enabling:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Personality evolution queries over time</li>
+            <li>Behavioral archetype classification</li>
+            <li>Emergent personality drift detection</li>
+            <li>Cross-population personality analytics</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Faction Dynamics -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Faction Dynamics</h2>
+    <p class="section-subtitle fade-in">Factions are living organizations with measurable cohesion, internal politics, and inter-faction relationships that evolve based on member actions.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Cohesion Analysis</div>
+        <div class="card-title">Measuring faction unity</div>
+        <div class="card-description">
+          Track how aligned faction members are in their behavior and goals. High cohesion factions act as unified blocs. Low cohesion factions splinter, with members defecting or forming sub-factions. Query faction cohesion scores to drive narrative events.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Social Cascades</div>
+        <div class="card-title">Actions ripple through networks</div>
+        <div class="card-description">
+          When a key NPC changes allegiance or is eliminated, the effects cascade through social bonds. VectorScaleDB predicts which NPCs will be affected and how strongly, enabling the game to trigger appropriate reactions across the faction network.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Compression -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Behavioral Compression</h2>
+    <p class="section-subtitle fade-in">NPC state is inherently compressible. An NPC guarding a door for 8 hours generates one compressed segment. The moment they spot an intruder, a new behavioral regime begins.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Idle NPCs</div>
+        <div class="card-title">1,000x+ compression</div>
+        <div class="card-description">Background NPCs in stable routines &mdash; shopkeepers, guards, farmers &mdash; compress at extreme ratios. Store thousands of idle NPC histories in kilobytes.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Combat</div>
+        <div class="card-title">5-10x compression</div>
+        <div class="card-description">Active combat creates rapid state changes. Compression adapts automatically, capturing every tactical decision while still reducing storage significantly over raw state dumps.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Emergent Events</div>
+        <div class="card-title">Regime boundaries as events</div>
+        <div class="card-description">Compression regime boundaries align with meaningful behavioral transitions. A segment boundary is a detectable event: the moment an NPC changed behavior. Query these transitions directly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Query Functions -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">NPC Query Functions</h2>
+    <p class="section-subtitle fade-in">Seven built-in query functions for NPC AI analytics and runtime decision support.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Prediction &amp; Classification</div>
+        <div class="card-title">Behavioral intelligence</div>
+        <div class="card-description">
+          <ul style="margin-top: 0; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/response-prediction</code> &mdash; predict NPC response to a stimulus based on personality and history</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/personality-evolution</code> &mdash; track how an NPC's personality has shifted over time</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/behavioral-archetype</code> &mdash; classify NPCs into behavioral archetypes from their history</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/emergent-behavior</code> &mdash; detect unexpected behavioral patterns in NPC populations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Social Analysis</div>
+        <div class="card-title">Faction and relationship queries</div>
+        <div class="card-description">
+          <ul style="margin-top: 0; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/faction-cohesion</code> &mdash; measure behavioral alignment within a faction</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/social-cascade</code> &mdash; predict ripple effects of NPC actions through social networks</li>
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/npc/relationship-trajectory</code> &mdash; forecast relationship evolution between NPCs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Game Engine Integration -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Game Engine Integration</h2>
+    <p class="section-subtitle fade-in">Native ingestion adapters for game engine state. Push NPC, faction, and social bond data directly from your engine without format conversion.</p>
+    <div class="solution-card fade-in">
+      <div class="card-label">Integration</div>
+      <div class="card-title">REST API with game engine adapters</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">VectorScaleDB accepts game engine state via REST API with built-in adapters that convert NPC agent state, faction configurations, and social bond updates into temporal vectors. State is compressed and indexed automatically, with sub-millisecond ingest latency.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Ingest NPC state from game engine</span>
+curl -X POST https://your-instance.vectorscaledb.com/v1/ingest/game-engine \
+  -H <span style="color: #22c55e;">"Content-Type: application/json"</span> \
+  -d <span style="color: #22c55e;">'{
+    "npc_agents": [{
+      "entity_id": "guard-captain-01",
+      "brain_tier": 3,
+      "personality": [0.3, 0.8, 0.5, 0.6, 0.2],
+      "mood": [0.7, 0.1, 0.3],
+      "position": [120.5, 45.2, 10.0],
+      "faction": "city-guard",
+      "state": "patrolling"
+    }],
+    "timestamp": "2026-03-13T14:30:00Z"
+  }'</span>
+
+<span style="color: var(--text-muted);"># Query: predict NPC response to player action</span>
+curl -X POST https://your-instance.vectorscaledb.com/v1/npc/response-prediction \
+  -H <span style="color: #22c55e;">"Content-Type: application/json"</span> \
+  -d <span style="color: #22c55e;">'{
+    "entity_id": "guard-captain-01",
+    "stimulus": "player_bribe",
+    "k": 5
+  }'</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Build NPCs that remember, evolve, and surprise</h2>
+    <p class="cta-subtitle fade-in">See biologically-grounded NPC AI running on your game data.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20NPC%20AI" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

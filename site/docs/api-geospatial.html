@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geospatial API | VectorScaleDB Docs</title>
+  <meta name="description" content="Geospatial API: ADS-B, AIS, satellite TLE, weather, earthquake, fire, and transit ingestion plus spatial clustering, trajectory prediction, and proximity alerts.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Geospatial</li>
+      </ul>
+      <h1>Geospatial</h1>
+      <p class="docs-intro">Ingest aviation, maritime, satellite, weather, seismic, fire, and transit data. Query with spatial clustering, trajectory prediction, and proximity alerts.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Ingestion',
+        id: 'geospatial-ingest',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/adsb',
+            description: 'Ingest ADS-B aircraft position reports. Converts to 8-dimensional vectors (lat, lon, altitude, heading, ground_speed, vertical_rate, squawk, on_ground).',
+            request: '{\n  "icao": "A1B2C3",\n  "callsign": "UAL123",\n  "lat": 44.8848,\n  "lon": -93.2223,\n  "altitude_ft": 35000,\n  "heading": 270.5,\n  "ground_speed_kt": 450,\n  "vertical_rate_fpm": 0,\n  "squawk": "1200",\n  "on_ground": false,\n  "timestamp": "2026-03-13T10:00:00Z"\n}',
+            response: '{\n  "entity_id": "A1B2C3",\n  "entity_type": "Aircraft",\n  "vector_dim": 8,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/adsb \\\n  -H "Content-Type: application/json" \\\n  -d \'{"icao": "A1B2C3", "callsign": "UAL123", "lat": 44.8848, "lon": -93.2223, "altitude_ft": 35000, "heading": 270.5, "ground_speed_kt": 450, "vertical_rate_fpm": 0, "squawk": "1200", "on_ground": false, "timestamp": "2026-03-13T10:00:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/ais',
+            description: 'Ingest AIS vessel tracking messages. Converts to 8-dimensional vectors (lat, lon, sog, cog, heading, nav_status, rot, draught).',
+            request: '{\n  "mmsi": "211234567",\n  "vessel_name": "NORDIC STAR",\n  "lat": 55.6761,\n  "lon": 12.5683,\n  "sog_kt": 12.5,\n  "cog": 185.0,\n  "heading": 184,\n  "nav_status": "under_way",\n  "rot": 0.0,\n  "draught_m": 8.5,\n  "timestamp": "2026-03-13T10:00:00Z"\n}',
+            response: '{\n  "entity_id": "211234567",\n  "entity_type": "Vessel",\n  "vector_dim": 8,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/ais \\\n  -H "Content-Type: application/json" \\\n  -d \'{"mmsi": "211234567", "vessel_name": "NORDIC STAR", "lat": 55.6761, "lon": 12.5683, "sog_kt": 12.5, "cog": 185.0, "heading": 184, "nav_status": "under_way", "rot": 0.0, "draught_m": 8.5, "timestamp": "2026-03-13T10:00:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/satellite/tle',
+            description: 'Ingest satellite Two-Line Element (TLE) sets. Computes orbital state vectors from Keplerian elements.',
+            request: '{\n  "norad_id": "25544",\n  "name": "ISS (ZARYA)",\n  "line1": "1 25544U 98067A   26072.50000000  .00016717  00000-0  10270-3 0  9003",\n  "line2": "2 25544  51.6400 208.9163 0006703 161.7105 326.1049 15.49560532    11",\n  "timestamp": "2026-03-13T12:00:00Z"\n}',
+            response: '{\n  "entity_id": "SAT-25544",\n  "entity_type": "Satellite",\n  "vector_dim": 6,\n  "orbital_period_min": 92.87,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/satellite/tle \\\n  -H "Content-Type: application/json" \\\n  -d \'{"norad_id": "25544", "name": "ISS (ZARYA)", "line1": "1 25544U 98067A   26072.50000000  .00016717  00000-0  10270-3 0  9003", "line2": "2 25544  51.6400 208.9163 0006703 161.7105 326.1049 15.49560532    11", "timestamp": "2026-03-13T12:00:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/weather',
+            description: 'Ingest weather station observations with temperature, humidity, pressure, wind, and precipitation measurements.',
+            request: '{\n  "station_id": "KMSP",\n  "lat": 44.8831,\n  "lon": -93.2289,\n  "temperature_c": -2.5,\n  "humidity_pct": 68.0,\n  "pressure_hpa": 1018.5,\n  "wind_speed_ms": 5.2,\n  "wind_dir_deg": 315,\n  "precipitation_mm": 0.0,\n  "visibility_km": 16.0,\n  "timestamp": "2026-03-13T10:00:00Z"\n}',
+            response: '{\n  "entity_id": "KMSP",\n  "entity_type": "WeatherStation",\n  "vector_dim": 8,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/weather \\\n  -H "Content-Type: application/json" \\\n  -d \'{"station_id": "KMSP", "lat": 44.8831, "lon": -93.2289, "temperature_c": -2.5, "humidity_pct": 68.0, "pressure_hpa": 1018.5, "wind_speed_ms": 5.2, "wind_dir_deg": 315, "precipitation_mm": 0.0, "visibility_km": 16.0, "timestamp": "2026-03-13T10:00:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/earthquake',
+            description: 'Ingest seismic event data with location, magnitude, depth, and intensity measurements.',
+            request: '{\n  "event_id": "us7000m1ab",\n  "lat": 35.7796,\n  "lon": -117.6046,\n  "depth_km": 10.5,\n  "magnitude": 4.2,\n  "magnitude_type": "ml",\n  "intensity": "IV",\n  "num_stations": 42,\n  "timestamp": "2026-03-13T09:45:00Z"\n}',
+            response: '{\n  "entity_id": "us7000m1ab",\n  "entity_type": "Earthquake",\n  "vector_dim": 6,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/earthquake \\\n  -H "Content-Type: application/json" \\\n  -d \'{"event_id": "us7000m1ab", "lat": 35.7796, "lon": -117.6046, "depth_km": 10.5, "magnitude": 4.2, "magnitude_type": "ml", "intensity": "IV", "num_stations": 42, "timestamp": "2026-03-13T09:45:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/fire',
+            description: 'Ingest wildfire detection data with location, confidence, fire radiative power, and satellite source.',
+            request: '{\n  "fire_id": "MODIS-2026-03-13-001",\n  "lat": 34.0522,\n  "lon": -118.2437,\n  "confidence_pct": 85,\n  "frp_mw": 42.5,\n  "brightness_k": 325.0,\n  "scan_km": 1.0,\n  "track_km": 1.0,\n  "satellite": "MODIS-Terra",\n  "timestamp": "2026-03-13T08:30:00Z"\n}',
+            response: '{\n  "entity_id": "MODIS-2026-03-13-001",\n  "entity_type": "Fire",\n  "vector_dim": 6,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/fire \\\n  -H "Content-Type: application/json" \\\n  -d \'{"fire_id": "MODIS-2026-03-13-001", "lat": 34.0522, "lon": -118.2437, "confidence_pct": 85, "frp_mw": 42.5, "brightness_k": 325.0, "scan_km": 1.0, "track_km": 1.0, "satellite": "MODIS-Terra", "timestamp": "2026-03-13T08:30:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/geospatial/transit',
+            description: 'Ingest public transit vehicle positions with route, schedule adherence, and occupancy data.',
+            request: '{\n  "vehicle_id": "bus-4521",\n  "route": "Route-5",\n  "lat": 44.9778,\n  "lon": -93.2650,\n  "speed_kmh": 35.0,\n  "heading": 90,\n  "occupancy_pct": 62,\n  "schedule_deviation_sec": -45,\n  "next_stop": "Hennepin-Ave",\n  "timestamp": "2026-03-13T10:00:00Z"\n}',
+            response: '{\n  "entity_id": "bus-4521",\n  "entity_type": "TransitVehicle",\n  "vector_dim": 6,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/geospatial/transit \\\n  -H "Content-Type: application/json" \\\n  -d \'{"vehicle_id": "bus-4521", "route": "Route-5", "lat": 44.9778, "lon": -93.2650, "speed_kmh": 35.0, "heading": 90, "occupancy_pct": 62, "schedule_deviation_sec": -45, "next_stop": "Hennepin-Ave", "timestamp": "2026-03-13T10:00:00Z"}\''
+          }
+        ]
+      },
+      {
+        title: 'Queries',
+        id: 'geospatial-queries',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/query/spatial-cluster',
+            description: 'Cluster entities by geographic proximity using Haversine-based DBSCAN. Groups nearby entities and identifies spatial patterns.',
+            request: '{\n  "entity_type": "Aircraft",\n  "eps_km": 50.0,\n  "min_points": 3,\n  "bounding_box": {\n    "min_lat": 40.0,\n    "max_lat": 50.0,\n    "min_lon": -100.0,\n    "max_lon": -80.0\n  }\n}',
+            response: '{\n  "clusters": [\n    {\n      "cluster_id": 0,\n      "centroid": {"lat": 44.88, "lon": -93.22},\n      "members": [\n        {"entity_id": "A1B2C3", "lat": 44.8848, "lon": -93.2223},\n        {"entity_id": "D4E5F6", "lat": 44.9100, "lon": -93.1800},\n        {"entity_id": "G7H8I9", "lat": 44.8500, "lon": -93.2700}\n      ],\n      "radius_km": 8.2\n    }\n  ],\n  "noise_points": 5,\n  "total_entities": 18\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/spatial-cluster \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "Aircraft", "eps_km": 50.0, "min_points": 3, "bounding_box": {"min_lat": 40.0, "max_lat": 50.0, "min_lon": -100.0, "max_lon": -80.0}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/trajectory-predict',
+            description: 'Predict the future trajectory of a moving entity based on its historical position vectors and motion patterns.',
+            request: '{\n  "entity_id": "A1B2C3",\n  "horizon_minutes": 30,\n  "confidence_interval": 0.95\n}',
+            response: '{\n  "entity_id": "A1B2C3",\n  "entity_type": "Aircraft",\n  "predictions": [\n    {\n      "timestamp": "2026-03-13T10:10:00Z",\n      "lat": 44.8848,\n      "lon": -94.3450,\n      "altitude_ft": 35000,\n      "confidence": 0.97\n    },\n    {\n      "timestamp": "2026-03-13T10:20:00Z",\n      "lat": 44.8850,\n      "lon": -95.4680,\n      "altitude_ft": 35000,\n      "confidence": 0.93\n    },\n    {\n      "timestamp": "2026-03-13T10:30:00Z",\n      "lat": 44.8852,\n      "lon": -96.5910,\n      "altitude_ft": 34800,\n      "confidence": 0.88\n    }\n  ],\n  "model": "linear_extrapolation",\n  "historical_points_used": 24\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/trajectory-predict \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "A1B2C3", "horizon_minutes": 30, "confidence_interval": 0.95}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/proximity-alert',
+            description: 'Detect entities that are within a specified distance of each other, with optional entity type filtering and velocity-based time-to-closest-approach.',
+            request: '{\n  "entity_type": "Aircraft",\n  "threshold_km": 10.0,\n  "include_closing_rate": true\n}',
+            response: '{\n  "alerts": [\n    {\n      "entity_a": "A1B2C3",\n      "entity_b": "J1K2L3",\n      "distance_km": 8.4,\n      "closing_rate_kmh": 120.5,\n      "time_to_closest_sec": 251,\n      "min_predicted_distance_km": 0.3,\n      "severity": "warning",\n      "positions": {\n        "a": {"lat": 44.8848, "lon": -93.2223, "alt_ft": 35000},\n        "b": {"lat": 44.9200, "lon": -93.1500, "alt_ft": 34500}\n      }\n    }\n  ],\n  "pairs_checked": 153,\n  "alerts_generated": 1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/proximity-alert \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "Aircraft", "threshold_km": 10.0, "include_closing_rate": true}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-geospatial');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

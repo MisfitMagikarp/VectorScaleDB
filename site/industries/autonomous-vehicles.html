@@ -86,7 +86,7 @@
       <div class="card">
         <div class="card-label">Scale</div>
         <div class="card-title">Fleet-Scale Batch Ingestion</div>
-        <div class="card-description">Bulk-ingest terabytes of MCAP recordings from overnight fleet uploads. VectorScaleDB's WAL ensures crash-safe writes, and adaptive compression kicks in as each stream stabilizes, achieving 1000x ratios on steady-state sensor telemetry.</div>
+        <div class="card-description">Bulk-ingest terabytes of MCAP recordings from overnight fleet uploads. VectorScaleDB's WAL ensures crash-safe writes, and adaptive compression kicks in as each stream stabilizes, achieving 1000x ratios on steady-state sensor telemetry. Available as a managed cloud platform with multi-tenant fleet isolation and plan-based quotas.</div>
       </div>
     </div>
   </div>
@@ -101,7 +101,7 @@
       <div class="card">
         <div class="card-label">Processing</div>
         <div class="card-title">Spatial Discretization</div>
-        <div class="card-description">LAS and PCD point clouds are voxelized into configurable grid resolutions (0.1m - 1.0m cells). Each voxel grid becomes a VoxelOccupancy entity with an occupancy vector suitable for similarity search. Compare scene structures across time, locations, and vehicles without point-by-point alignment.</div>
+        <div class="card-description">LAS and PCD point clouds are voxelized into configurable grid resolutions. Each voxel grid becomes a VoxelOccupancy entity with an occupancy vector suitable for similarity search. Compare scene structures across time, locations, and vehicles without point-by-point alignment.</div>
       </div>
       <div class="card">
         <div class="card-label">Efficiency</div>
@@ -237,11 +237,9 @@ curl -X POST http://localhost:8080/v1/ingest/mcap \
       "/imu/data",
       "/gps/fix"
     ],
-    "voxel_resolution": 0.25,
+    "voxel_resolution": "auto",
     "compression": {
-      "enabled": true,
-      "drift_threshold": 0.05,
-      "min_segment_duration": "2s"
+      "enabled": true
     },
     "metadata": {
       "route": "HQ-to-TestTrack-A",

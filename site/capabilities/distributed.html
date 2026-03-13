@@ -79,12 +79,12 @@
       <div class="card">
         <div class="card-label">Minimal Disruption</div>
         <div class="card-title">O(1/n) Redistribution</div>
-        <div class="card-description">When a node joins or leaves, only 1/n of keys need to migrate &mdash; the theoretical minimum. Traditional consistent hashing with virtual nodes achieves similar bounds but with higher memory overhead. Jump hashing uses zero memory.</div>
+        <div class="card-description">When a node joins or leaves, only 1/n of keys need to migrate &mdash; the theoretical minimum. Minimal memory footprint with optimal redistribution bounds.</div>
       </div>
       <div class="card">
         <div class="card-label">Performance</div>
         <div class="card-title">Constant-Time Lookups</div>
-        <div class="card-description">Shard assignment runs in O(ln n) time with zero memory allocation &mdash; no hash ring, no virtual node table. At 1,000 shards, placement takes under 100 nanoseconds. The algorithm fits entirely in CPU registers.</div>
+        <div class="card-description">Shard assignment is near-instantaneous with minimal resource usage &mdash; no hash ring or virtual node tables required.</div>
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@
       <div class="card">
         <div class="card-label">Detection</div>
         <div class="card-title">Sub-Second Failure Detection</div>
-        <div class="card-description">SWIM (Scalable Weakly-consistent Infection-style Membership) detects node failures through randomized probe-and-gossip rounds. When a direct probe fails, indirect probes through other members confirm the failure before declaring the node suspect.</div>
+        <div class="card-description">SWIM (Scalable Weakly-consistent Infection-style Membership) detects node failures through randomized probe-and-gossip rounds. Multi-stage health checks with configurable timeouts detect node failures reliably before declaring the node suspect.</div>
       </div>
       <div class="card">
         <div class="card-label">Propagation</div>
@@ -109,7 +109,7 @@
       <div class="card">
         <div class="card-label">Convergence</div>
         <div class="card-title">Consistent Cluster View</div>
-        <div class="card-description">Every node maintains a local membership list that converges to the same state. Suspect nodes go through a configurable grace period before removal, preventing flapping in networks with transient partitions. Incarnation numbers resolve conflicting state.</div>
+        <div class="card-description">Every node maintains a local membership list that converges to the same state. Suspect nodes go through a configurable grace period before removal, preventing flapping in networks with transient partitions. Automatic conflict resolution ensures consistent cluster views.</div>
       </div>
     </div>
   </div>
@@ -124,17 +124,17 @@
       <div class="card">
         <div class="card-label">GSet</div>
         <div class="card-title">Grow-Only Sets</div>
-        <div class="card-description">Track entity membership, active tenant lists, and registered entity types using grow-only sets. Elements can be added from any node; the merge operation is set union. Simple, fast, and guaranteed to converge.</div>
+        <div class="card-description">Track entity membership, active tenant lists, and registered entity types using grow-only sets. Elements can be added from any node; monotonically growing membership. Simple, fast, and guaranteed to converge.</div>
       </div>
       <div class="card">
         <div class="card-label">LWWRegister</div>
         <div class="card-title">Last-Writer-Wins Registers</div>
-        <div class="card-description">Configuration values, threshold settings, and per-entity metadata use LWW registers with logical timestamps. Concurrent writes resolve deterministically &mdash; the write with the higher timestamp wins, ties broken by node ID.</div>
+        <div class="card-description">Configuration values, threshold settings, and per-entity metadata use LWW registers with logical timestamps. Concurrent writes resolve deterministically &mdash; the write with the higher timestamp wins, with deterministic conflict resolution.</div>
       </div>
       <div class="card">
         <div class="card-label">ORSet</div>
         <div class="card-title">Observed-Remove Sets</div>
-        <div class="card-description">When elements need both add and remove semantics &mdash; like dynamic shard assignments or active query subscriptions &mdash; ORSets track add/remove pairs with unique tags. Concurrent add and remove of the same element resolves to "add wins."</div>
+        <div class="card-description">When elements need both add and remove semantics &mdash; like dynamic shard assignments or active query subscriptions &mdash; ORSets track add/remove pairs with unique tags. Concurrent add and remove of the same element resolves deterministically.</div>
       </div>
     </div>
   </div>
@@ -213,7 +213,6 @@ curl "https://your-instance.vectorscaledb.com/v1/cluster/status" \
   ],
   "replication": {
     "crdt_types": ["GSet", "LWWRegister", "ORSet"],
-    "gossip_interval_ms": 500,
     "convergence_status": "converged"
   },
   "federation": {

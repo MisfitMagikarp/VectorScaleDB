@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Networking & CDN Intelligence | VectorScaleDB</title>
-  <meta name="description" content="VectorScaleDB for networking: 8-dimensional link metrics, Prometheus integration, route optimization, traffic anomaly detection, CDN edge profiling, and topology change detection.">
+  <meta name="description" content="VectorScaleDB for networking: multi-dimensional link metrics, Prometheus integration, route optimization, traffic anomaly detection, CDN edge profiling, and topology change detection.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="apple-touch-icon" href="../favicon.svg">
   <meta property="og:title" content="Networking & CDN Intelligence | VectorScaleDB">
-  <meta property="og:description" content="Turn network telemetry into behavioral intelligence. 8D link vectors, anomaly detection with baseline learning, and route optimization across your entire infrastructure.">
+  <meta property="og:description" content="Turn network telemetry into behavioral intelligence. Multi-dimensional link vectors, anomaly detection with baseline learning, and route optimization across your entire infrastructure.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vectorscaledb.com/industries/networking.html">
   <meta property="og:site_name" content="VectorScaleDB">
   <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Networking & CDN Intelligence | VectorScaleDB">
-  <meta name="twitter:description" content="Turn network telemetry into behavioral intelligence. 8D link vectors, anomaly detection, and route optimization.">
+  <meta name="twitter:description" content="Turn network telemetry into behavioral intelligence. Multi-dimensional link vectors, anomaly detection, and route optimization.">
   <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
   <meta name="theme-color" content="#09090b">
   <link rel="stylesheet" href="../style.css">
@@ -62,56 +62,31 @@
     <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
       <div class="card-label" style="margin-bottom: 1rem;">Infrastructure</div>
       <h1 class="hero-title">Networking &amp; CDN Intelligence</h1>
-      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Transform network telemetry into 8-dimensional behavioral vectors. Detect anomalies against learned baselines, optimize routes with multi-factor quality weighting, and track topology changes across your entire infrastructure.</p>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Transform network telemetry into multi-dimensional behavioral vectors. Detect anomalies against learned baselines, optimize routes with multi-factor quality weighting, and track topology changes across your entire infrastructure.</p>
     </div>
   </div>
 </section>
 
-<!-- 8D Link Metric Vectors -->
+<!-- Multi-Dimensional Link Metric Vectors -->
 <section class="section">
   <div class="container">
-    <h2 class="section-title fade-in">8-Dimensional Link Metric Vectors</h2>
-    <p class="section-subtitle fade-in">Every network link becomes an 8D temporal vector, capturing the full behavioral fingerprint of the connection at every measurement interval.</p>
-    <div class="grid-4 fade-in">
+    <h2 class="section-title fade-in">Multi-Dimensional Link Metric Vectors</h2>
+    <p class="section-subtitle fade-in">Every network link becomes a multi-dimensional temporal vector, capturing the full behavioral fingerprint of the connection at every measurement interval.</p>
+    <div class="grid-3 fade-in">
       <div class="card">
-        <div class="card-label">Dim 0</div>
-        <div class="card-title">Utilization</div>
-        <div class="card-description">Link capacity utilization as a fraction (0.0-1.0). Captures load distribution patterns across time.</div>
+        <div class="card-label">Behavioral Vectors</div>
+        <div class="card-title">Holistic Link Fingerprinting</div>
+        <div class="card-description">Each network link is captured as a multi-dimensional behavioral vector covering key performance indicators -- utilization, latency, error rates, and more. These dimensions combine to form a behavioral fingerprint that distinguishes congestion from hardware failure, normal load from anomalous traffic, and healthy links from degrading ones.</div>
       </div>
       <div class="card">
-        <div class="card-label">Dim 1</div>
-        <div class="card-title">Error Rate</div>
-        <div class="card-description">Frame/packet error rate normalized per measurement window. Early indicator of hardware degradation.</div>
+        <div class="card-label">Temporal</div>
+        <div class="card-title">Behavioral Trajectory Over Time</div>
+        <div class="card-description">Link vectors are tracked over time as temporal trajectories. VectorScaleDB's regime detection identifies when a link transitions between behavioral states: normal operation, congestion, degradation, or failure. Stable periods compress automatically while transitions retain full resolution for root-cause analysis.</div>
       </div>
       <div class="card">
-        <div class="card-label">Dim 2</div>
-        <div class="card-title">Latency</div>
-        <div class="card-description">Round-trip latency in milliseconds. Combined with jitter, reveals congestion patterns invisible to threshold alerts.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Dim 3</div>
-        <div class="card-title">Jitter</div>
-        <div class="card-description">Latency variance over the measurement window. Critical for real-time traffic quality assessment.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Dim 4</div>
-        <div class="card-title">Packet Loss</div>
-        <div class="card-description">Packet loss ratio. In the 8D vector space, loss combined with error rate distinguishes congestion from hardware failure.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Dim 5</div>
-        <div class="card-title">Bandwidth</div>
-        <div class="card-description">Available bandwidth in Mbps. Temporal compression captures capacity planning trends over weeks and months.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Dim 6</div>
-        <div class="card-title">Queue Depth</div>
-        <div class="card-description">Buffer queue occupancy. Rising queue depth with stable utilization signals upstream congestion propagation.</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Dim 7</div>
-        <div class="card-title">CRC Errors</div>
-        <div class="card-description">Physical layer integrity indicator. Sudden CRC spikes in the vector trajectory surface cable and transceiver issues.</div>
+        <div class="card-label">Similarity</div>
+        <div class="card-title">Cross-Link Comparison</div>
+        <div class="card-description">Compare behavioral patterns across links using vector similarity. "Which links in region B are behaving like the link that failed in region A last week?" Similarity search across link trajectories enables proactive maintenance and failure prediction based on historical behavioral patterns.</div>
       </div>
     </div>
   </div>
@@ -146,7 +121,7 @@
       <div class="card">
         <div class="card-label">Routing</div>
         <div class="card-title">Multi-Factor Quality Weighting</div>
-        <div class="card-description">Route optimization uses the full 8D link vector, not just latency. A route with low latency but rising queue depth and increasing jitter scores lower than a route with slightly higher latency and stable behavioral metrics. Weights are configurable per traffic class (voice, video, bulk).</div>
+        <div class="card-description">Route optimization uses the full multi-dimensional link vector, not just latency. A route with low latency but rising queue depth and increasing jitter scores lower than a route with slightly higher latency and stable behavioral metrics. Weights are configurable per traffic class (voice, video, bulk).</div>
       </div>
       <div class="card">
         <div class="card-label">Detection</div>
@@ -239,27 +214,16 @@ curl -X POST http://localhost:8080/v1/adapters/prometheus \
     "scrape_interval": "15s",
     "metric_mappings": [
       {
-        "prometheus_metrics": [
-          "interface_utilization_ratio",
-          "interface_error_rate",
-          "interface_latency_ms",
-          "interface_jitter_ms",
-          "interface_packet_loss_ratio",
-          "interface_bandwidth_mbps",
-          "interface_queue_depth",
-          "interface_crc_errors"
-        ],
+        "prometheus_metric_prefix": "interface_*",
         "entity_type": "LinkMetric",
-        "entity_id_label": "interface",
-        "vector_dimensions": 8
+        "entity_id_label": "interface"
       }
     ],
     "label_filters": {
       "device_role": "core-router"
     },
     "compression": {
-      "drift_threshold": 0.03,
-      "min_segment_duration": "30s"
+      "enabled": true
     }
   }'
 
@@ -304,9 +268,9 @@ curl -X POST http://localhost:8080/v1/query/network-anomaly \
       "detected_at": "2026-03-09T09:34:12Z",
       "baseline_regime": "weekday-morning-normal",
       "contributing_dimensions": [
-        { "dimension": "queue_depth", "index": 6, "deviation": 3.8, "current": 0.87, "baseline": 0.23 },
-        { "dimension": "jitter_ms", "index": 3, "deviation": 2.4, "current": 12.3, "baseline": 2.1 },
-        { "dimension": "packet_loss", "index": 4, "deviation": 1.9, "current": 0.008, "baseline": 0.001 }
+        { "dimension": "queue_depth", "deviation": 3.8 },
+        { "dimension": "jitter", "deviation": 2.4 },
+        { "dimension": "packet_loss", "deviation": 1.9 }
       ],
       "topology_impact": {
         "affected_routes": 23,
@@ -344,7 +308,7 @@ curl -X POST http://localhost:8080/v1/query/network-anomaly \
       <div class="card">
         <div class="card-label">Distributed</div>
         <div class="card-title">Distributed Architecture</div>
-        <div class="card-description">Deploy VectorScaleDB at every PoP. SWIM gossip for cluster membership, CRDTs for conflict-free metric aggregation, scatter-gather for global queries.</div>
+        <div class="card-description">Deploy VectorScaleDB at every PoP. SWIM gossip for cluster membership, CRDTs for conflict-free metric aggregation, scatter-gather for global queries, libp2p P2P transport for decentralized deployments, and cross-cluster federation for behavioral template exchange.</div>
         <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
       </div>
     </div>

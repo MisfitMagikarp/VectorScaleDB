@@ -54,16 +54,10 @@
             <td>Listen port</td>
           </tr>
           <tr>
-            <td><code>VSDB_MONGODB_URI</code></td>
+            <td><code>VSDB_STORAGE_PATH</code></td>
             <td>string</td>
-            <td><code>mongodb://localhost:27017</code></td>
-            <td>MongoDB connection string</td>
-          </tr>
-          <tr>
-            <td><code>VSDB_DATABASE_NAME</code></td>
-            <td>string</td>
-            <td><code>vectorscaledb</code></td>
-            <td>MongoDB database name</td>
+            <td><code>data/vsdb</code></td>
+            <td>Storage path for embedded RocksDB data</td>
           </tr>
           <tr>
             <td><code>VSDB_LOG_LEVEL</code></td>
@@ -74,7 +68,7 @@
           <tr>
             <td><code>VSDB_MAX_VECTOR_DIM</code></td>
             <td>integer</td>
-            <td><code>2048</code></td>
+            <td><code>4096</code></td>
             <td>Maximum vector dimensionality</td>
           </tr>
           <tr>
@@ -299,6 +293,109 @@
         </tbody>
       </table>
 
+      <!-- Feature Flags -->
+      <h2 id="feature-flags">Feature Flags</h2>
+      <p>VectorScaleDB uses compile-time feature flags to enable optional capabilities. All flags are off by default.</p>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Flag</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>enterprise</code></td>
+            <td>Rate limiting, RBAC, SLA monitoring, metering</td>
+          </tr>
+          <tr>
+            <td><code>swagger</code></td>
+            <td>OpenAPI UI at <code>/swagger-ui</code></td>
+          </tr>
+          <tr>
+            <td><code>cluster</code></td>
+            <td>Distributed mode: coordinator, federation, router, rebalancer</td>
+          </tr>
+          <tr>
+            <td><code>grpc</code></td>
+            <td>gRPC API (requires protoc)</td>
+          </tr>
+          <tr>
+            <td><code>graphql</code></td>
+            <td>GraphQL endpoint at <code>/graphql</code></td>
+          </tr>
+          <tr>
+            <td><code>p2p</code></td>
+            <td>libp2p peer-to-peer transport (TCP + Noise + Yamux)</td>
+          </tr>
+          <tr>
+            <td><code>ipfs</code></td>
+            <td>IPFS HTTP API for content-addressed segment archival</td>
+          </tr>
+          <tr>
+            <td><code>federation</code></td>
+            <td>Cross-cluster behavioral template exchange</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Cluster Settings -->
+      <h2 id="cluster-settings">Cluster Settings</h2>
+      <table class="docs-param-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>VSDB_CLUSTER_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable distributed cluster mode</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_NODE_ID</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>Unique node identifier</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_CLUSTER_SEEDS</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>Comma-separated seed node addresses</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_GOSSIP_PORT</code></td>
+            <td>integer</td>
+            <td><code>8081</code></td>
+            <td>Port for SWIM gossip protocol</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_P2P_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable libp2p transport</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_IPFS_API_URL</code></td>
+            <td>string</td>
+            <td>--</td>
+            <td>IPFS HTTP API URL for segment archival</td>
+          </tr>
+          <tr>
+            <td><code>VSDB_FEDERATION_ENABLED</code></td>
+            <td>boolean</td>
+            <td><code>false</code></td>
+            <td>Enable cross-cluster template federation</td>
+          </tr>
+        </tbody>
+      </table>
+
       <!-- Docker Compose Example -->
       <h2 id="docker-compose-example">Docker Compose Example</h2>
       <p>A production-ready Docker Compose configuration with authentication and encryption enabled:</p>
@@ -315,22 +412,17 @@
     <span class="k">ports</span>:
       - <span class="s">"8080:8080"</span>
     <span class="k">environment</span>:
-      <span class="k">VSDB_MONGODB_URI</span>: mongodb://mongo:27017
-      <span class="k">VSDB_DATABASE_NAME</span>: vectorscaledb
+      <span class="k">VSDB_STORAGE_PATH</span>: /data/vsdb
       <span class="k">VSDB_COMPRESSION_ENABLED</span>: <span class="s">"true"</span>
       <span class="k">VSDB_AUTH_ENABLED</span>: <span class="s">"true"</span>
       <span class="k">VSDB_AUTH_SECRET</span>: <span class="s">"${VSDB_AUTH_SECRET}"</span>
       <span class="k">VSDB_ENCRYPTION_ENABLED</span>: <span class="s">"true"</span>
       <span class="k">VSDB_ENCRYPTION_KEY_PROVIDER</span>: env
       <span class="k">VSDB_ENCRYPTION_KEY_ENV</span>: VSDB_MASTER_KEY
-    <span class="k">depends_on</span>:
-      - mongo
-  <span class="k">mongo</span>:
-    <span class="k">image</span>: mongo:7
     <span class="k">volumes</span>:
-      - mongo-data:/data/db
+      - vsdb-data:/data/vsdb
 <span class="k">volumes</span>:
-  <span class="k">mongo-data</span>:</code></pre>
+  <span class="k">vsdb-data</span>:</code></pre>
       </div>
 
       <div class="docs-callout docs-callout--tip">

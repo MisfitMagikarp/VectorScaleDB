@@ -124,7 +124,7 @@
       <div class="card">
         <div class="card-label">Mechanism</div>
         <div class="card-title">Laplacian Noise Injection</div>
-        <div class="card-description">Before a segment is shared via IPFS or federated exchange, calibrated Laplacian noise is added to centroid vectors and metadata. The noise magnitude is tuned to a configurable epsilon parameter &mdash; lower epsilon means stronger privacy, higher noise.</div>
+        <div class="card-description">Before a segment is shared via IPFS or federated exchange, mathematically calibrated noise is added to centroid vectors and metadata. The noise magnitude is tuned to a configurable epsilon parameter &mdash; lower epsilon means stronger privacy, higher noise.</div>
       </div>
       <div class="card">
         <div class="card-label">Guarantees</div>
@@ -134,7 +134,7 @@
       <div class="card">
         <div class="card-label">Utility</div>
         <div class="card-title">Preserved Pattern Fidelity</div>
-        <div class="card-description">At typical epsilon values (1.0-3.0), shared segments retain enough behavioral signal for cross-cluster pattern matching and template exchange. The noise obscures individual contributions while preserving aggregate behavioral structure.</div>
+        <div class="card-description">At typical privacy settings, shared segments retain enough behavioral signal for cross-cluster pattern matching and template exchange. The noise obscures individual contributions while preserving aggregate behavioral structure.</div>
       </div>
     </div>
   </div>
@@ -160,6 +160,31 @@
         <div class="card-label">Sync</div>
         <div class="card-title">Selective Segment Sync</div>
         <div class="card-description">Edge nodes do not sync everything. Configurable sync policies determine which segments upload based on anomaly score, regime type, entity priority, or time window. An edge node on a vehicle might only sync anomalous segments and daily summaries.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Edge-Cloud Data Handshake -->
+<section class="section" id="edge-cloud" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Edge-Cloud Data Handshake</h2>
+    <p class="section-subtitle fade-in">Edge nodes and cloud clusters negotiate what data matters most. Local fast-access for critical entities, cloud orchestration for the full picture.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Local Cache</div>
+        <div class="card-title">Relevance-based local cache</div>
+        <div class="card-description">Edge nodes retain the segments most relevant to their local workload &mdash; recent entities, high-anomaly segments, and frequently queried patterns stay local for sub-millisecond access.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Backhaul</div>
+        <div class="card-title">Cloud orchestration backhaul</div>
+        <div class="card-description">Edge nodes periodically sync finalized segments and behavioral templates to the cloud cluster. The cloud aggregates cross-edge patterns, cascade predictions, and fleet-wide anomaly baselines.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Negotiation</div>
+        <div class="card-title">Bidirectional priority negotiation</div>
+        <div class="card-description">Cloud and edge exchange priority manifests &mdash; the cloud tells the edge which entity types and time windows to retain locally, while the edge reports which patterns are accessed most frequently. Both sides adapt their retention policies based on actual usage.</div>
       </div>
     </div>
   </div>
@@ -224,7 +249,6 @@ curl "https://your-instance.vectorscaledb.com/v1/cluster/status" \
   },
   "privacy": {
     "differential_privacy_enabled": true,
-    "epsilon": 2.0,
     "shared_segments_noised": 47291
   }
 }</pre>

@@ -179,6 +179,46 @@
             <td><span class="badge-none">N/A</span></td>
           </tr>
           <tr>
+            <td>Self-Managing Memory</td>
+            <td class="compare-highlight"><span class="badge-native">Native (auto-detect, watermarks)</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">Manual buffer tuning</span></td>
+            <td><span class="badge-partial">Manual cache config</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>Cloud Platform</td>
+            <td class="compare-highlight"><span class="badge-native">Native (JWT, Plans, Dashboard)</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-partial">Timescale Cloud</span></td>
+            <td><span class="badge-partial">Zilliz Cloud</span></td>
+            <td><span class="badge-native">Managed only</span></td>
+          </tr>
+          <tr>
+            <td>AI Agent Integration</td>
+            <td class="compare-highlight"><span class="badge-native">MCP Server (54 tools)</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>GraphQL API</td>
+            <td class="compare-highlight"><span class="badge-native">15 queries, 3 mutations, subscriptions</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
+            <td>P2P / Decentralized</td>
+            <td class="compare-highlight"><span class="badge-native">libp2p + IPFS</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+            <td><span class="badge-none">N/A</span></td>
+          </tr>
+          <tr>
             <td>Pricing</td>
             <td class="compare-highlight"><a href="mailto:sales@vectorscaledb.com">Contact us</a></td>
             <td>$100K+ enterprise</td>
@@ -201,12 +241,12 @@
       <div class="roadmap-card shipped">
         <div class="roadmap-status shipped">Shipped</div>
         <div class="card-title">Core Engine</div>
-        <div class="card-description">TST index with HNSW, vector-aware compression with WAL/recovery, adaptive thresholds, 15+ query operations, 3 SDKs.</div>
+        <div class="card-description">TST index with HNSW, vector-aware compression with WAL/recovery, adaptive thresholds, 15+ query operations, 3 SDKs. 12 crates, 780+ tests.</div>
       </div>
       <div class="roadmap-card shipped">
         <div class="roadmap-status shipped">Shipped</div>
         <div class="card-title">Enterprise Infrastructure</div>
-        <div class="card-description">80+ endpoints, gRPC, GraphQL, auth, TLS, RBAC, rate limiting, SHA-256 audit chains, multi-tenant isolation, SLA monitoring, webhooks, metering, sharding.</div>
+        <div class="card-description">120+ endpoints, gRPC, GraphQL, auth, TLS, RBAC, rate limiting, SHA-256 audit chains, multi-tenant isolation, SLA monitoring, webhooks, metering, sharding.</div>
       </div>
       <div class="roadmap-card shipped">
         <div class="roadmap-status shipped">Shipped</div>
@@ -228,6 +268,16 @@
         <div class="card-title">Cross-Domain Intelligence</div>
         <div class="card-description">Cascade detection, predictive forecasting, cross-domain alerting, DBSCAN domain composition, regime cascade detection.</div>
       </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">Cloud Platform</div>
+        <div class="card-description">Multi-tenant cloud backend with JWT auth, API keys, plan-based quotas (Free/Pro/Enterprise), reverse proxy, and Next.js 15 management dashboard.</div>
+      </div>
+      <div class="roadmap-card shipped">
+        <div class="roadmap-status shipped">Shipped</div>
+        <div class="card-title">AI Agent Integration</div>
+        <div class="card-description">MCP server with 54 tools for AI agent integration. Stdio transport for Claude Code, Claude Desktop, and other MCP-compatible clients.</div>
+      </div>
       <div class="roadmap-card next">
         <div class="roadmap-status next">Next</div>
         <div class="card-title">GPU-Accelerated Indexing</div>
@@ -235,8 +285,13 @@
       </div>
       <div class="roadmap-card next">
         <div class="roadmap-status next">Next</div>
-        <div class="card-title">VectorScaleDB Cloud</div>
-        <div class="card-description">Managed service with OIDC/SSO, CDC to Kafka/Pulsar, SOC 2 compliance.</div>
+        <div class="card-title">Advanced Compression Pipeline</div>
+        <div class="card-description">XOR delta encoding, direction-magnitude decomposition, and per-block adaptive encoding for additional compression gains.</div>
+      </div>
+      <div class="roadmap-card next">
+        <div class="roadmap-status next">Next</div>
+        <div class="card-title">Constructive Deletion</div>
+        <div class="card-description">Ghost index with differential privacy extraction during crypto-shredding. GDPR-compliant behavioral pattern retention.</div>
       </div>
     </div>
   </div>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Dynamics | VectorScaleDB</title>
+  <meta name="description" content="Model social behavior at any scale: 5 social entity types, Dunbar layer analysis, cascade prediction, group dynamics, and cultural evolution tracking.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="min-height: auto; padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 48rem; margin: 0 auto;">
+      <div class="card-label" style="font-size: 0.85rem; margin-bottom: 1rem;">Social Dynamics</div>
+      <h1 class="hero-title">Model Social Behavior at Any Scale</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 2rem;">Five social entity types, Dunbar layer analysis, cascade prediction, and cultural evolution tracking. From small-group dynamics to civilization-scale social simulation.</p>
+      <div class="hero-buttons" style="justify-content: center;">
+        <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Social%20Dynamics" class="btn-primary">Request Demo</a>
+        <a href="../capabilities.html" class="btn-ghost">All Capabilities</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Social Entity Model -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">Social Entity Model</h2>
+    <p class="section-subtitle fade-in">Five purpose-built entity types capture the full structure of social systems &mdash; from individual agents to the cultural ideas that bind them.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">SocialAgent</div>
+        <div class="card-title">Individual actors</div>
+        <div class="card-description">Each agent carries a behavioral state vector encoding personality traits, social status, group memberships, and current emotional state. State evolves through interactions and is compressed into behavioral regimes.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SocialGroup</div>
+        <div class="card-title">Emergent collectives</div>
+        <div class="card-description">Groups form, merge, and dissolve dynamically. Group state vectors capture cohesion, size, leadership concentration, and behavioral norms. Track how groups evolve from loose associations to tight-knit communities.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SocialInteraction</div>
+        <div class="card-title">Relationship events</div>
+        <div class="card-description">Every meaningful interaction between agents is recorded with type, sentiment, and outcome. Interaction patterns reveal alliance formation, conflict escalation, and social hierarchy emergence.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">CulturalMeme</div>
+        <div class="card-title">Ideas that spread</div>
+        <div class="card-description">Track the propagation, mutation, and extinction of cultural ideas through populations. Meme vectors capture content, virality, adoption rate, and resistance. Watch ideas compete for mindshare in real time.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">SocialPressure</div>
+        <div class="card-title">Environmental forces</div>
+        <div class="card-description">External pressures that shape social behavior: resource scarcity, external threats, information events, policy changes. Pressure vectors create the environmental context that drives agent decisions and group dynamics.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Unified Storage</div>
+        <div class="card-title">Cross-type queries</div>
+        <div class="card-description">All five entity types share the same temporal-vector format. Query across types to discover how agent behavior correlates with group dynamics, how cultural memes respond to social pressure, and how interactions cascade through networks.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dunbar Layer Analysis -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Dunbar Layer Analysis</h2>
+    <p class="section-subtitle fade-in">Analyze social networks through the lens of Dunbar's number &mdash; the cognitive limits on social group size that structure all human social organization.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Layered Relationships</div>
+        <div class="card-title">Natural social circles</div>
+        <div class="card-description">
+          Social bonds naturally organize into concentric layers of decreasing intimacy:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><strong>Support clique</strong> (5) &mdash; closest confidants</li>
+            <li><strong>Sympathy group</strong> (15) &mdash; close friends</li>
+            <li><strong>Affinity group</strong> (50) &mdash; good friends</li>
+            <li><strong>Active network</strong> (150) &mdash; meaningful contacts</li>
+            <li><strong>Extended network</strong> (500+) &mdash; acquaintances</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Query Endpoint</div>
+        <div class="card-title">Automated layer classification</div>
+        <div class="card-description">
+          VectorScaleDB automatically classifies each agent's social bonds into Dunbar layers based on interaction frequency, recency, and emotional intensity. Track how individuals' social circles evolve over time, detect when key relationships shift layers, and identify agents approaching cognitive social limits.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/social/dunbar-layers</code></li>
+            <li>Per-agent layer breakdown with bond strength scores</li>
+            <li>Temporal evolution of layer membership</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cascade Prediction -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cascade Prediction</h2>
+    <p class="section-subtitle fade-in">Predict how events propagate through social networks. When a key agent changes behavior, which groups are affected and how quickly?</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Network Cascades</div>
+        <div class="card-title">Ripple effect modeling</div>
+        <div class="card-description">
+          Predict social cascades before they happen. When a leader defects, a rumor starts, or a resource becomes scarce, VectorScaleDB estimates which agents will be affected, in what order, and with what intensity. Cascade predictions are based on historical interaction patterns and bond strengths.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/social/cascade-prediction</code></li>
+            <li>Multi-hop propagation estimation</li>
+            <li>Confidence scoring per affected agent</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Influence Mapping</div>
+        <div class="card-title">Who shapes whom?</div>
+        <div class="card-description">
+          Map social influence flows across the network. Identify opinion leaders, bridge nodes connecting disparate groups, and isolated clusters resistant to outside influence. Influence maps update in real time as interaction patterns change.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/social/influence-map</code></li>
+            <li>Directional influence scoring</li>
+            <li>Bridge node identification</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Group Dynamics -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Group Dynamics</h2>
+    <p class="section-subtitle fade-in">Track group formation, cohesion, fragmentation, and dissolution as emergent properties of agent interactions.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Fragmentation Risk</div>
+        <div class="card-title">Predict group splits before they happen</div>
+        <div class="card-description">
+          Monitor internal behavioral divergence within groups. When sub-factions emerge or members' behavioral vectors drift apart, fragmentation risk rises. VectorScaleDB quantifies this risk continuously, giving early warning of group instability.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/social/fragmentation-risk</code></li>
+            <li>Sub-cluster detection within groups</li>
+            <li>Risk scoring with temporal trends</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Cooperation Equilibrium</div>
+        <div class="card-title">Stable cooperation detection</div>
+        <div class="card-description">
+          Detect when groups reach stable cooperative equilibria &mdash; states where cooperation is self-sustaining and resistant to defection. Track the conditions under which cooperation emerges, persists, or collapses across different social structures.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li><code style="font-family: var(--font-mono); font-size: 0.85rem;">POST /v1/social/cooperation-equilibrium</code></li>
+            <li>Stability scoring for cooperative regimes</li>
+            <li>Defection vulnerability analysis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cultural Evolution -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cultural Evolution</h2>
+    <p class="section-subtitle fade-in">Track how ideas, norms, and practices spread through populations, mutate, compete, and go extinct.</p>
+    <div class="solution-card fade-in">
+      <div class="card-label">Meme Dynamics</div>
+      <div class="card-title">Ideas as temporal vectors</div>
+      <div class="card-description" style="margin-bottom: 1.5rem;">Cultural memes are represented as temporal vectors that evolve as they propagate through social networks. Track adoption curves, mutation events, and competition between competing ideas. Detect when a meme reaches critical mass or when counter-memes emerge to challenge established norms. The same drift-based compression that handles sensor data captures cultural evolution &mdash; stable cultural periods compress to single segments, while periods of rapid cultural change are preserved at full resolution.</div>
+      <div style="background: var(--bg-code); border-radius: 12px; padding: 1.5rem; overflow-x: auto;">
+        <pre style="margin: 0; font-family: var(--font-mono); font-size: 0.875rem; line-height: 1.6; color: var(--text);"><span style="color: var(--text-muted);"># Track cultural evolution across a population</span>
+curl -X POST https://your-instance.vectorscaledb.com/v1/social/cultural-evolution \
+  -H <span style="color: #22c55e;">"Content-Type: application/json"</span> \
+  -d <span style="color: #22c55e;">'{
+    "population_entity_type": "SocialAgent",
+    "time_range": {
+      "start": "2026-01-01T00:00:00Z",
+      "end": "2026-03-13T00:00:00Z"
+    },
+    "min_adoption_rate": 0.05
+  }'</span>
+
+<span style="color: var(--text-muted);"># Response includes:</span>
+<span style="color: var(--text-muted);">#   - Active memes with adoption percentages</span>
+<span style="color: var(--text-muted);">#   - Meme mutation events and lineage</span>
+<span style="color: var(--text-muted);">#   - Competition scores between rival memes</span>
+<span style="color: var(--text-muted);">#   - Predicted trajectories (growth, plateau, decline)</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Use Cases</h2>
+    <p class="section-subtitle fade-in">Social dynamics capabilities serve researchers, game developers, and organizations modeling complex human systems.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Gaming</div>
+        <div class="card-title">Living game worlds</div>
+        <div class="card-description">Populate game worlds with socially aware NPCs that form alliances, spread rumors, and react to player actions as a social network. Combine with NPC AI brain tiers for full cognitive-social simulation.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Research</div>
+        <div class="card-title">Computational social science</div>
+        <div class="card-description">Run agent-based social simulations at scale. Test theories of cooperation, cultural transmission, and social network evolution with millions of agents and compressed historical trajectories.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Organizations</div>
+        <div class="card-title">Organizational dynamics</div>
+        <div class="card-description">Model information flow, influence networks, and team cohesion within organizations. Detect emerging silos, predict knowledge transfer bottlenecks, and measure the impact of structural changes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Model social behavior with temporal precision</h2>
+    <p class="cta-subtitle fade-in">See social dynamics running on your simulation data in a live demo.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request%20-%20Social%20Dynamics" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

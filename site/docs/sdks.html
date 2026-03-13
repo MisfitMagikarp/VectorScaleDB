@@ -26,7 +26,7 @@
       </ul>
 
       <h1>SDK Reference</h1>
-      <p>VectorScaleDB provides native SDKs for Python, Rust, and Node.js. All three offer full type safety, async support, and feature parity with the REST API.</p>
+      <p>VectorScaleDB provides native SDKs for Python, Rust, and Node.js. All three offer full type safety, async support, and feature parity with the REST API. For AI agent integration, see the <a href="#mcp-server">MCP Server</a> section below.</p>
 
       <!-- Installation -->
       <h2 id="installation">Installation</h2>
@@ -444,6 +444,43 @@ stream.on(<span class="s">'error'</span>, (err) =&gt; {
       <div class="docs-callout docs-callout--info">
         <div class="docs-callout-title">Info</div>
         <p>All error responses include a <code>request_id</code> field. Include this ID when contacting support to help with diagnosis.</p>
+      </div>
+
+      <!-- MCP Server -->
+      <h2 id="mcp-server">MCP Server (AI Agent Integration)</h2>
+      <p>The VectorScaleDB MCP server exposes 54 tools via the Model Context Protocol, enabling AI agents like Claude to interact with your database directly. The server connects to VectorScaleDB via the client SDK and communicates with AI agents over stdio transport.</p>
+
+      <h3 id="mcp-capabilities">Capabilities</h3>
+      <ul>
+        <li><strong>Insight tools</strong> -- Health checks, statistics, compression metrics, cluster status</li>
+        <li><strong>Analysis tools</strong> -- Anomaly scoring, trajectory similarity, regime detection, pattern matching</li>
+        <li><strong>Exploration tools</strong> -- Entity search, history browsing, segment inspection</li>
+        <li><strong>Data tools</strong> -- Vector ingestion, batch operations, entity management</li>
+        <li><strong>Cross-domain tools</strong> -- Cascade detection, domain composition, cross-domain alerting</li>
+        <li><strong>Health tools</strong> -- Readiness, liveness, and startup probes</li>
+      </ul>
+
+      <h3 id="mcp-configuration">Configuration</h3>
+      <p>Add the MCP server to your AI agent's configuration to enable database access:</p>
+
+      <div class="docs-code-block">
+        <div class="docs-code-block-header">
+          <span class="docs-code-block-lang">JSON</span>
+          <button class="docs-code-block-copy" onclick="VsdbComponents.copyCode(this)">Copy</button>
+        </div>
+        <pre><code>{
+  <span class="s">"mcpServers"</span>: {
+    <span class="s">"vectorscaledb"</span>: {
+      <span class="s">"command"</span>: <span class="s">"vectorscale-mcp"</span>,
+      <span class="s">"args"</span>: [<span class="s">"--url"</span>, <span class="s">"http://localhost:8080"</span>, <span class="s">"--token"</span>, <span class="s">"your-api-token"</span>]
+    }
+  }
+}</code></pre>
+      </div>
+
+      <div class="docs-callout docs-callout--tip">
+        <div class="docs-callout-title">Tip</div>
+        <p>The MCP server works with any MCP-compatible AI client, including Claude Code and Claude Desktop. It uses stdio transport, so the AI agent spawns it as a subprocess.</p>
       </div>
 
     </main>

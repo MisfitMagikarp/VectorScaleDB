@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IoT API | VectorScaleDB Docs</title>
+  <meta name="description" content="IoT platform API: MQTT ingestion, telemetry batches, sensor anomaly detection, predictive maintenance, fleet health, and geofencing.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>IoT</li>
+      </ul>
+      <h1>IoT Platform</h1>
+      <p class="docs-intro">Ingest MQTT sensor data and telemetry batches, detect anomalies, predict maintenance windows, monitor fleet health, correlate sensors, and enforce geofences.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'IoT Platform',
+        id: 'iot',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/ingest/iot/mqtt',
+            description: 'Ingest MQTT sensor messages. Accepts JSON or CBOR payloads from MQTT brokers, automatically mapping topic structure to entity hierarchy.',
+            request: '{\n  "topic": "factory/line-3/sensor/temp-42",\n  "payload": {\n    "temperature": 72.5,\n    "humidity": 45.2,\n    "pressure": 1013.25,\n    "vibration": 0.003\n  },\n  "qos": 1,\n  "timestamp": "2026-03-13T10:00:00Z"\n}',
+            response: '{\n  "entity_id": "temp-42",\n  "entity_type": "SensorReading",\n  "vector_dim": 4,\n  "ingested": true\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/iot/mqtt \\\n  -H "Content-Type: application/json" \\\n  -d \'{"topic": "factory/line-3/sensor/temp-42", "payload": {"temperature": 72.5, "humidity": 45.2, "pressure": 1013.25, "vibration": 0.003}, "qos": 1, "timestamp": "2026-03-13T10:00:00Z"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/iot/telemetry',
+            description: 'Ingest a batch of generic telemetry readings. Supports heterogeneous device types in a single request.',
+            request: '{\n  "readings": [\n    {\n      "device_id": "pump-07",\n      "metrics": {"flow_rate": 12.4, "pressure": 85.0, "current": 3.2, "rpm": 1780},\n      "timestamp": "2026-03-13T10:00:00Z"\n    },\n    {\n      "device_id": "valve-12",\n      "metrics": {"position": 0.75, "flow_rate": 8.1, "pressure_drop": 2.3},\n      "timestamp": "2026-03-13T10:00:01Z"\n    }\n  ]\n}',
+            response: '{\n  "ingested": 2,\n  "entities": [\n    {"entity_id": "pump-07", "entity_type": "SensorReading", "vector_dim": 4},\n    {"entity_id": "valve-12", "entity_type": "SensorReading", "vector_dim": 3}\n  ]\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/iot/telemetry \\\n  -H "Content-Type: application/json" \\\n  -d \'{"readings": [{"device_id": "pump-07", "metrics": {"flow_rate": 12.4, "pressure": 85.0, "current": 3.2, "rpm": 1780}, "timestamp": "2026-03-13T10:00:00Z"}]}\''
+          },
+          {
+            method: 'GET',
+            path: '/v1/iot/device/{id}/current',
+            description: 'Get the latest state for a specific device, including its most recent reading vector and metadata.',
+            response: '{\n  "device_id": "pump-07",\n  "entity_type": "DeviceState",\n  "state": "online",\n  "last_reading": {\n    "vector": [12.4, 85.0, 3.2, 1780.0],\n    "timestamp": "2026-03-13T10:00:00Z"\n  },\n  "metadata": {\n    "location": "building-A/floor-2",\n    "model": "PMP-4200",\n    "firmware": "2.1.4"\n  }\n}',
+            curl: 'curl http://localhost:8080/v1/iot/device/pump-07/current'
+          },
+          {
+            method: 'GET',
+            path: '/v1/iot/device/{id}/history',
+            description: 'Get historical reading vectors for a device. Supports <code>?from</code> and <code>?to</code> timestamp filters, and <code>?limit</code> (default 100).',
+            response: '{\n  "device_id": "pump-07",\n  "readings": [\n    {\n      "vector": [12.4, 85.0, 3.2, 1780.0],\n      "timestamp": "2026-03-13T10:00:00Z"\n    },\n    {\n      "vector": [12.1, 84.8, 3.1, 1775.0],\n      "timestamp": "2026-03-13T09:55:00Z"\n    }\n  ],\n  "total": 2,\n  "has_more": true\n}',
+            curl: 'curl "http://localhost:8080/v1/iot/device/pump-07/history?from=2026-03-13T09:00:00Z&limit=50"'
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/sensor-anomaly',
+            description: 'Detect anomalous sensor readings by comparing current vectors against historical baselines. Returns anomaly scores and flagged dimensions.',
+            request: '{\n  "entity_ids": ["temp-42", "temp-43", "temp-44"],\n  "window": "1h",\n  "threshold": 2.5\n}',
+            response: '{\n  "anomalies": [\n    {\n      "entity_id": "temp-43",\n      "anomaly_score": 3.82,\n      "flagged_dimensions": [0, 2],\n      "baseline_centroid": [71.0, 44.0, 1013.0, 0.002],\n      "current_vector": [71.2, 44.5, 1025.8, 0.002],\n      "timestamp": "2026-03-13T10:02:00Z"\n    }\n  ],\n  "devices_checked": 3,\n  "anomalies_found": 1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/sensor-anomaly \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_ids": ["temp-42", "temp-43", "temp-44"], "window": "1h", "threshold": 2.5}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/predictive-maintenance',
+            description: 'Predict device failures by analyzing drift trends and regime changes in sensor vectors over time.',
+            request: '{\n  "entity_id": "pump-07",\n  "horizon": "7d",\n  "confidence_threshold": 0.7\n}',
+            response: '{\n  "entity_id": "pump-07",\n  "predictions": [\n    {\n      "failure_mode": "bearing_wear",\n      "probability": 0.85,\n      "estimated_time": "2026-03-18T06:00:00Z",\n      "contributing_dimensions": [2, 3],\n      "drift_rate": 0.012,\n      "recommendation": "Schedule bearing inspection within 5 days"\n    }\n  ],\n  "health_score": 0.62,\n  "regime": "degrading"\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/predictive-maintenance \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "pump-07", "horizon": "7d", "confidence_threshold": 0.7}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/fleet-health',
+            description: 'Generate a fleet-wide health dashboard summarizing device states, anomaly counts, and aggregate metrics.',
+            request: '{\n  "entity_type": "SensorReading",\n  "group_by": "location",\n  "window": "24h"\n}',
+            response: '{\n  "total_devices": 156,\n  "online": 148,\n  "offline": 5,\n  "degraded": 3,\n  "groups": [\n    {\n      "name": "building-A/floor-1",\n      "devices": 42,\n      "health_score": 0.95,\n      "anomalies": 1\n    },\n    {\n      "name": "building-A/floor-2",\n      "devices": 38,\n      "health_score": 0.78,\n      "anomalies": 3\n    }\n  ],\n  "fleet_health_score": 0.89\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/fleet-health \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "SensorReading", "group_by": "location", "window": "24h"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/sensor-correlation',
+            description: 'Compute cross-sensor correlation using DTW and Pearson analysis to discover relationships between sensor streams.',
+            request: '{\n  "entity_ids": ["temp-42", "humidity-42", "pressure-42"],\n  "window": "6h",\n  "method": "dtw"\n}',
+            response: '{\n  "correlations": [\n    {\n      "pair": ["temp-42", "humidity-42"],\n      "dtw_distance": 0.234,\n      "pearson": -0.87,\n      "lag_seconds": 120\n    },\n    {\n      "pair": ["temp-42", "pressure-42"],\n      "dtw_distance": 1.45,\n      "pearson": 0.12,\n      "lag_seconds": 0\n    },\n    {\n      "pair": ["humidity-42", "pressure-42"],\n      "dtw_distance": 0.89,\n      "pearson": -0.15,\n      "lag_seconds": 60\n    }\n  ],\n  "strongest_correlation": ["temp-42", "humidity-42"]\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/sensor-correlation \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_ids": ["temp-42", "humidity-42", "pressure-42"], "window": "6h", "method": "dtw"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/geofence',
+            description: 'Check whether devices are within, entering, or leaving defined geofence boundaries.',
+            request: '{\n  "fence": {\n    "type": "circle",\n    "center": {"lat": 44.9778, "lon": -93.2650},\n    "radius_m": 500\n  },\n  "entity_type": "DeviceState",\n  "check_type": "current"\n}',
+            response: '{\n  "inside": [\n    {"entity_id": "tracker-01", "distance_m": 120.5, "lat": 44.9785, "lon": -93.2640},\n    {"entity_id": "tracker-04", "distance_m": 340.2, "lat": 44.9760, "lon": -93.2680}\n  ],\n  "outside": [\n    {"entity_id": "tracker-02", "distance_m": 820.1, "lat": 44.9710, "lon": -93.2550}\n  ],\n  "entered": [],\n  "exited": []\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/geofence \\\n  -H "Content-Type: application/json" \\\n  -d \'{"fence": {"type": "circle", "center": {"lat": 44.9778, "lon": -93.2650}, "radius_m": 500}, "entity_type": "DeviceState", "check_type": "current"}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-iot');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

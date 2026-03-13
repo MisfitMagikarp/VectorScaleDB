@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>API Reference | VectorScaleDB Docs</title>
-  <meta name="description" content="Complete REST, gRPC, and GraphQL API reference for VectorScaleDB. 80+ endpoints for temporal-semantic queries, compression, streaming, and enterprise administration.">
+  <meta name="description" content="Complete REST, gRPC, and GraphQL API reference for VectorScaleDB. 120+ endpoints for temporal-semantic queries, IoT, NPC AI, geospatial, social dynamics, and enterprise administration.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <meta name="theme-color" content="#09090b">
   <link rel="stylesheet" href="../style.css">
@@ -26,7 +26,7 @@
       </ul>
 
       <h1>API Reference</h1>
-      <p>Complete REST, gRPC, and GraphQL API for VectorScaleDB. 80+ endpoints for temporal-semantic queries, compression, streaming, and enterprise administration.</p>
+      <p>Complete REST, gRPC, and GraphQL API for VectorScaleDB. 120+ endpoints across 16 categories: temporal-semantic queries, IoT, NPC AI, geospatial, social dynamics, real-time subscriptions, and enterprise administration.</p>
 
       <div class="docs-callout docs-callout--info">
         <div class="docs-callout-title">Base URL</div>
@@ -76,6 +76,31 @@
           <div class="api-overview-card-desc">Scene differencing and LOD streaming for 4D Gaussian Splatting.</div>
           <div class="api-overview-card-count">2 endpoints</div>
         </a>
+        <a href="api-iot.html" class="api-overview-card">
+          <div class="api-overview-card-title">IoT Platform</div>
+          <div class="api-overview-card-desc">MQTT ingestion, sensor anomaly detection, predictive maintenance, fleet health, geofence analysis.</div>
+          <div class="api-overview-card-count">11 endpoints</div>
+        </a>
+        <a href="api-npc.html" class="api-overview-card">
+          <div class="api-overview-card-title">NPC AI</div>
+          <div class="api-overview-card-desc">Brain tiers, personality modeling, faction dynamics, social cascade prediction, emergent behavior.</div>
+          <div class="api-overview-card-count">7 endpoints</div>
+        </a>
+        <a href="api-geospatial.html" class="api-overview-card">
+          <div class="api-overview-card-title">Geospatial</div>
+          <div class="api-overview-card-desc">ADS-B aviation, AIS maritime, satellite TLE, weather, fire, transit. Spatial clustering and proximity alerts.</div>
+          <div class="api-overview-card-count">10 endpoints</div>
+        </a>
+        <a href="api-social.html" class="api-overview-card">
+          <div class="api-overview-card-title">Social Dynamics</div>
+          <div class="api-overview-card-desc">Social agent management, cascade prediction, group fragmentation, cultural evolution, Dunbar layers.</div>
+          <div class="api-overview-card-count">8 endpoints</div>
+        </a>
+        <a href="api-realtime.html" class="api-overview-card">
+          <div class="api-overview-card-title">Real-Time &amp; Subscriptions</div>
+          <div class="api-overview-card-desc">WebSocket subscriptions, reconnection replay, WASM reducers, diagnostics.</div>
+          <div class="api-overview-card-count">9 endpoints</div>
+        </a>
         <a href="api-streaming.html" class="api-overview-card">
           <div class="api-overview-card-title">Streaming</div>
           <div class="api-overview-card-desc">Server-Sent Events, webhook registration, real-time notifications.</div>
@@ -108,7 +133,7 @@
           <tr><th>Protocol</th><th>Endpoint</th><th>Use Case</th></tr>
         </thead>
         <tbody>
-          <tr><td>REST</td><td><code>/v1/*</code></td><td>Standard API access, 80+ endpoints</td></tr>
+          <tr><td>REST</td><td><code>/v1/*</code></td><td>Standard API access, 120+ endpoints</td></tr>
           <tr><td>gRPC</td><td>Port 50051</td><td>High-throughput, low-latency streaming</td></tr>
           <tr><td>GraphQL</td><td><code>/graphql</code></td><td>Flexible queries with field selection</td></tr>
           <tr><td>WebSocket</td><td><code>/graphql/ws</code></td><td>Real-time subscriptions</td></tr>

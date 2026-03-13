@@ -71,10 +71,10 @@
         <div class="card-label">Cosine Drift</div>
         <div class="card-title">Measuring behavioral change in real time</div>
         <div class="card-description">
-          As each new vector arrives, the compression engine computes the cosine distance between the incoming vector and the current segment's centroid. When this drift exceeds the configured threshold, the engine recognizes a regime change and seals the current segment.
+          As each new vector arrives, the compression engine measures behavioral drift from the current regime's baseline. When this drift exceeds the configured threshold, the engine recognizes a regime change and seals the current segment.
           <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
-            <li>Cosine distance between incoming vector and segment centroid</li>
-            <li>Running drift accumulator with exponential decay</li>
+            <li>Continuous behavioral monitoring with configurable sensitivity</li>
+            <li>Automatic drift detection with adaptive thresholds</li>
             <li>Configurable drift threshold per entity type</li>
             <li>Sub-microsecond per-vector evaluation overhead</li>
           </ul>
@@ -111,7 +111,7 @@
       <div class="card">
         <div class="card-label">The Math</div>
         <div class="card-title">Segment vs. raw storage</div>
-        <div class="card-description">A 128-dim vector at float32 is 512 bytes. At 10 Hz over 1 hour of stable behavior, that is 36,000 vectors (18 MB). VectorScaleDB stores this as one segment: centroid (512 bytes) + start/end vectors (1,024 bytes) + metadata (256 bytes) = 1,792 bytes. Ratio: 10,000x.</div>
+        <div class="card-description">A 128-dim vector at float32 is 512 bytes. At 10 Hz over 1 hour of stable behavior, that is 36,000 vectors (18 MB). VectorScaleDB stores this as a single compact segment &mdash; typically under 2 KB regardless of input volume. Ratio: 10,000x.</div>
       </div>
       <div class="card">
         <div class="card-label">Real-World</div>
@@ -132,16 +132,7 @@
         <div class="card-label">Segment Fields</div>
         <div class="card-title">What a segment contains</div>
         <div class="card-description">
-          <ul style="padding-left: 1.25rem;">
-            <li><strong>Centroid vector:</strong> Mean of all vectors in the regime</li>
-            <li><strong>Start vector:</strong> First vector in the regime</li>
-            <li><strong>End vector:</strong> Last vector in the regime</li>
-            <li><strong>Time range:</strong> Start and end timestamps</li>
-            <li><strong>Point count:</strong> Number of raw vectors compressed</li>
-            <li><strong>Max drift:</strong> Maximum cosine distance observed</li>
-            <li><strong>Mean drift:</strong> Average drift across the regime</li>
-            <li><strong>Variance:</strong> Behavioral stability metric</li>
-          </ul>
+          Each segment captures the complete behavioral signature of a regime, including representative vectors, temporal bounds, and statistical summaries. Time range and point count provide context, while drift and stability metrics enable downstream anomaly detection and forecasting.
         </div>
       </div>
       <div class="card">
@@ -231,8 +222,69 @@ stats = client.compression.stats(entity_type=<span style="color: #22c55e;">"INFR
 <span style="color: var(--text-muted);"># Compression ratio:     847x</span>
 <span style="color: var(--text-muted);"># Total vectors ingested: 12,400,000</span>
 <span style="color: var(--text-muted);"># Total segments stored:  14,639</span>
-<span style="color: var(--text-muted);"># Current drift threshold: 0.0312</span>
+<span style="color: var(--text-muted);"># Current drift threshold: auto-tuned</span>
 <span style="color: var(--text-muted);"># Avg segment duration:  4m 22s</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Predictive Coding Pre-Filter -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Predictive Coding Pre-Filter</h2>
+    <p class="section-subtitle fade-in">A two-stage compression pipeline: predictive coding suppresses writes for predictable entities before drift-based regime detection even evaluates them. Stationary entities generate zero writes.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Prediction</div>
+        <div class="card-title">Skip what you can predict</div>
+        <div class="card-description">
+          For each incoming vector, the predictive coder forecasts the next state from recent history. If the actual value matches the prediction within tolerance, the vector is suppressed entirely &mdash; no write to the WAL, no drift evaluation, no storage. Only prediction errors pass through to the compression engine.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Constant prediction for stationary entities</li>
+            <li>Linear extrapolation for steady-motion entities</li>
+            <li>Per-entity state tracking with automatic method selection</li>
+            <li>Configurable prediction error threshold</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Impact</div>
+        <div class="card-title">10-100x additional compression for steady-state entities</div>
+        <div class="card-description">
+          In typical deployments, 80-95% of entities are in a stable state at any given time. Predictive coding eliminates these writes entirely, leaving only genuinely changing entities for the drift-based engine. Combined, the two stages achieve 10,000-100,000x effective compression for populations where most entities are idle.
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Parked vehicles: 5-10x improvement over drift-only</li>
+            <li>Idle infrastructure sensors: 3-5x improvement</li>
+            <li>Satellites in predictable orbit: 2-10x improvement</li>
+            <li>Silence timeout ensures liveness &mdash; forced segment finalization after configurable quiet period</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Self-Managing Capacity -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Self-Managing Capacity</h2>
+    <p class="section-subtitle fade-in">Zero-configuration resource adaptation. Deploy with any resource allocation &mdash; VectorScaleDB detects available memory and automatically sizes its compression pipeline.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Auto-Detection</div>
+        <div class="card-title">Memory-aware budgeting</div>
+        <div class="card-description">The compression engine detects container memory limits at startup and computes optimal segment capacity. No manual tuning required &mdash; allocate resources and VectorScaleDB adapts automatically.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Eviction</div>
+        <div class="card-title">Watermark eviction</div>
+        <div class="card-description">A three-tier watermark system automatically reclaims segment memory when load approaches capacity. Single-observation segments are evicted first, preserving active streaming workloads.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Recovery</div>
+        <div class="card-title">Idle segment recovery</div>
+        <div class="card-description">Segments that stop receiving data are automatically finalized after a configurable timeout. Batch-import patterns that create thousands of unique entities are handled gracefully without manual intervention.</div>
       </div>
     </div>
   </div>
