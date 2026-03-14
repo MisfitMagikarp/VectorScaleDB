@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genomics & DNA | VectorScaleDB</title>
+  <meta name="description" content="VectorScaleDB for genomics: DNA foundation model embeddings, gene expression temporal tracking, variant effect prediction, single-cell trajectory analysis.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../favicon.svg">
+  <meta property="og:title" content="Genomics & DNA | VectorScaleDB">
+  <meta property="og:description" content="Store DNA foundation model embeddings, track gene expression regimes, predict variant effects, and analyze single-cell trajectories with temporal-semantic intelligence.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vectorscaledb.com/industries/genomics.html">
+  <meta property="og:site_name" content="VectorScaleDB">
+  <meta property="og:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Genomics & DNA | VectorScaleDB">
+  <meta name="twitter:description" content="DNA foundation model embeddings, gene expression tracking, variant effect prediction, and single-cell trajectory analysis.">
+  <meta name="twitter:image" content="https://vectorscaledb.com/logo.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-container">
+    <a href="../index.html" class="nav-logo-link"><img src="../logo.svg" alt="VectorScaleDB" class="nav-logo"></a>
+    <ul class="nav-links">
+      <li><a href="../capabilities.html">Capabilities</a></li>
+      <li><a href="../use-cases.html">Use Cases</a></li>
+      <li><a href="../architecture.html">Architecture</a></li>
+      <li><a href="../comparison.html">Compare</a></li>
+      <li><a href="../docs/">Docs</a></li>
+    </ul>
+    <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta"><span class="nav-cta-full">Request Demo</span><span class="nav-cta-short">Demo</span></a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">&times;</button>
+  <ul class="mobile-menu-links">
+    <li><a href="../capabilities.html">Capabilities</a></li>
+    <li><a href="../use-cases.html">Use Cases</a></li>
+    <li><a href="../architecture.html">Architecture</a></li>
+    <li><a href="../comparison.html">Compare</a></li>
+    <li><a href="../docs/">Docs</a></li>
+  </ul>
+  <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Demo%20Request" class="nav-cta" style="margin-top: 2rem;">Request Demo</a>
+</div>
+
+<!-- Hero -->
+<section class="hero" id="hero" style="padding-bottom: 4rem;">
+  <div class="container">
+    <div class="hero-content" style="text-align: center; max-width: 52rem; margin: 0 auto;">
+      <div class="card-label" style="margin-bottom: 1rem;">Life Sciences</div>
+      <h1 class="hero-title">Genomics &amp; DNA</h1>
+      <p class="hero-subtitle" style="max-width: 600px; margin: 1.5rem auto 0;">Temporal-semantic analysis of genomic data. Store DNA foundation model embeddings, track gene expression regimes over time, predict variant effects through embedding similarity, and trace single-cell trajectories through differentiation and drug response.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DNA Foundation Model Embeddings -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title fade-in">DNA Foundation Model Embeddings</h2>
+    <p class="section-subtitle fade-in">Store and query high-dimensional embeddings from DNA foundation models. Track how genomic region representations evolve across conditions, treatments, or developmental stages.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Storage</div>
+        <div class="card-title">High-Dimensional Embedding Index</div>
+        <div class="card-description">Ingest embeddings up to 4,096 dimensions from DNA foundation models like Evo 2, Nucleotide Transformer, and DNABERT-2. VectorScaleDB's HNSW index enables sub-millisecond nearest-neighbor search across millions of genomic region embeddings. Find functionally similar sequences regardless of primary sequence identity.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Temporal</div>
+        <div class="card-title">Condition-Dependent Representation Tracking</div>
+        <div class="card-description">The same genomic region can have different embeddings under different conditions: treatment vs. control, disease vs. healthy, early development vs. mature tissue. VectorScaleDB stores each embedding as a temporal observation, building a trajectory of how a region's representation shifts across experimental conditions. Regime detection identifies when representations stabilize or diverge.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Search</div>
+        <div class="card-title">Cross-Model Embedding Comparison</div>
+        <div class="card-description">Compare embeddings from different foundation models for the same genomic regions. Identify where models agree and disagree on functional similarity. VectorScaleDB's trajectory comparison reveals whether model disagreements are systematic (architectural differences) or condition-specific (one model captures treatment effects better).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gene Expression Temporal Analysis -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Gene Expression Temporal Analysis</h2>
+    <p class="section-subtitle fade-in">Regime detection for RNA-seq time series. Automatically classify expression behavior and compress steady-state periods while preserving transition dynamics.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Regimes</div>
+        <div class="card-title">Expression Regime Classification</div>
+        <div class="card-description">VectorScaleDB's drift-based regime detection classifies gene expression behavior into temporal regimes: <strong style="color: var(--success);">Stable</strong> (steady-state expression), <strong style="color: var(--accent);">Upregulated</strong> (increasing expression), <strong style="color: var(--danger);">Downregulated</strong> (decreasing expression), <strong style="color: var(--warning);">Oscillating</strong> (periodic cycling), and <strong style="color: var(--accent-secondary, #a78bfa);">Bistable</strong> (switching between two states). Transitions are detected automatically with timestamp precision and confidence scores.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">1000x Compression on Steady-State Expression</div>
+        <div class="card-description">Most genes spend most of their time in stable expression regimes. VectorScaleDB compresses hours or days of steady-state expression data into single regime segments while retaining full temporal resolution during transitions, drug responses, and perturbation events. Store genome-wide expression time courses at a fraction of the raw data cost. Both bulk RNA-seq and single-cell expression data are supported natively.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Variant Effect Prediction -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Variant Effect Prediction</h2>
+    <p class="section-subtitle fade-in">Ingest variant data, find similar variants by embedding similarity, and predict functional impact through behavioral pattern matching across variant databases.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Ingestion</div>
+        <div class="card-title">VCF Data Ingestion</div>
+        <div class="card-description">Ingest VCF files with automatic parsing of variant annotations, quality scores, and allele frequencies. Each variant becomes a temporal vector capturing its genomic context, predicted structural impact, and population frequency. Batch ingestion handles whole-genome variant call sets with millions of variants.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Search</div>
+        <div class="card-title">Embedding Similarity Search</div>
+        <div class="card-description">Find variants with similar functional profiles using KNN search on variant embeddings. "Show me all known variants whose genomic context embedding is within distance 0.1 of this novel variant." Results include known pathogenicity classifications, enabling transfer of annotations from characterized to novel variants based on structural and contextual similarity.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Prediction</div>
+        <div class="card-title">Behavioral Pattern Matching</div>
+        <div class="card-description">Beyond static similarity, VectorScaleDB matches variant effects through behavioral trajectories. If a known pathogenic variant produces a characteristic gene expression regime change (stable to downregulated), and a novel variant produces the same regime transition, the behavioral evidence strengthens the pathogenicity prediction. Pattern replay across variant databases surfaces historical parallels.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Single-Cell Trajectory Analysis -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Single-Cell Trajectory Analysis</h2>
+    <p class="section-subtitle fade-in">Track cell state evolution through differentiation, drug response, or disease progression. Compare trajectories across cell populations with temporal warping.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Trajectories</div>
+        <div class="card-title">Cell State Evolution Tracking</div>
+        <div class="card-description">Each cell's gene expression profile becomes a temporal vector that evolves through differentiation stages, drug exposure windows, or disease progression milestones. VectorScaleDB tracks these trajectories natively, detecting regime transitions that mark cell fate decisions, drug response onset, or phenotypic switches. Query "when did this cell population commit to the neural lineage?" directly from compressed expression trajectories.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Comparison</div>
+        <div class="card-title">Cross-Population DTW Comparison</div>
+        <div class="card-description">Compare differentiation trajectories across cell populations using FastDTW, accounting for temporal offsets in development. A population that differentiates over 7 days in one protocol can be compared to a population that takes 12 days in another. DTW aligns the trajectories, scoring similarity independent of absolute timing. Identify which protocols produce the most consistent differentiation paths and rank populations by trajectory quality.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cross-Domain Integration -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Cross-Domain Integration</h2>
+    <p class="section-subtitle fade-in">Bridge genomics with bio-computing. Correlate gene expression regimes with neural organoid activity and detect cascade effects between genomic and phenotypic domains.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Cascade</div>
+        <div class="card-title">Genomic-Neural Cascade Detection</div>
+        <div class="card-description">VectorScaleDB's cross-domain cascade detection identifies when gene expression regime changes precede or follow neural activity shifts. "Does upregulation of ion channel genes correlate with increased synchrony in the organoid 24 hours later?" Cascade analysis quantifies the correlation, estimates time lags, and assigns confidence scores across the genomic and neural domains simultaneously.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Multi-Omics</div>
+        <div class="card-title">Unified Multi-Omics Index</div>
+        <div class="card-description">Gene expression, DNA embeddings, neural recordings, and organoid behavioral data share the same temporal-semantic index. No separate databases, no ETL pipelines between modalities. A single query can span genomic and phenotypic data: "find organoids where BDNF expression regime shifts correlate with learning onset." The unified index makes multi-omics analysis a query rather than an integration project.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Alerting</div>
+        <div class="card-title">Cross-Domain Alerting</div>
+        <div class="card-description">Configure alerts that span domains. "Notify when a gene expression regime change in the neurotransmitter pathway is followed by an anomalous neural activity pattern within 48 hours." Alerts fire through webhooks with full context: the expression change, the neural anomaly, the time lag, and the cascade confidence score. Dampening windows prevent alert storms during large-scale perturbation experiments.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API & Tooling -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">API &amp; Tooling</h2>
+    <div class="card fade-in">
+      <div class="card-label">Entity Types</div>
+      <div class="card-title">Native Genomics Entity Types</div>
+      <div class="card-description" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GeneExpression</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">GenomicVariant</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">DnaEmbedding</span>
+        <span style="background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); padding: 0.25rem 0.75rem; border-radius: 6px; font-family: var(--font-mono); font-size: 0.85rem;">CellState</span>
+      </div>
+    </div>
+    <div class="grid-3 fade-in" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="card-label">REST</div>
+        <div class="card-title">6 Genomics Endpoints</div>
+        <div class="card-description">Dedicated REST endpoints for VCF ingestion, expression time-series ingestion, embedding batch upload, variant similarity search, expression regime detection, and single-cell trajectory comparison. All under the standard <code>/v1/</code> namespace.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">GraphQL</div>
+        <div class="card-title">3 GraphQL Resolvers</div>
+        <div class="card-description">GraphQL queries for expression regime history, variant effect prediction, and cell trajectory comparison. Subscriptions for real-time expression regime change notifications during live experiments.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MCP</div>
+        <div class="card-title">4 MCP Tools</div>
+        <div class="card-description">MCP server tools for AI agent integration: ingest genomic data, query expression regimes, search variant embeddings, and run cross-domain cascade analysis. Automate genomics workflows directly from Claude or other MCP-compatible AI agents.</div>
+      </div>
+    </div>
+    <div class="grid-3 fade-in" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="card-label">Format</div>
+        <div class="card-title">VCF Adapter</div>
+        <div class="card-description">Native VCF 4.x parsing with support for multi-sample files, structural variants, and INFO/FORMAT field extraction. Automatic variant vectorization from annotations and quality metrics.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Format</div>
+        <div class="card-title">Expression Adapter</div>
+        <div class="card-description">Ingest gene expression matrices from CSV, TSV, or H5AD (AnnData) formats. Supports both bulk RNA-seq count matrices and single-cell expression profiles with automatic normalization and vectorization.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Format</div>
+        <div class="card-title">Embedding Adapter</div>
+        <div class="card-description">Batch ingest pre-computed embeddings from DNA foundation models. Accepts NumPy arrays, JSON vectors, or Arrow columnar format. Metadata tags link embeddings to genomic coordinates and model provenance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Example -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Example Workflow</h2>
+    <p class="section-subtitle fade-in">Ingest gene expression time series, detect expression regimes, and find similar variant effects.</p>
+    <div class="fade-in">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div class="code-tabs">
+          <button class="code-tab active" onclick="document.querySelectorAll('.gen-panel').forEach(p=>p.classList.remove('active'));document.getElementById('gen-ingest').classList.add('active');document.querySelectorAll('.gen-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">1. Ingest Expression Data</button>
+          <button class="code-tab gen-tab" onclick="document.querySelectorAll('.gen-panel').forEach(p=>p.classList.remove('active'));document.getElementById('gen-regime').classList.add('active');document.querySelectorAll('.gen-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">2. Detect Regimes</button>
+          <button class="code-tab gen-tab" onclick="document.querySelectorAll('.gen-panel').forEach(p=>p.classList.remove('active'));document.getElementById('gen-variant').classList.add('active');document.querySelectorAll('.gen-tab').forEach(t=>t.classList.remove('active'));this.classList.add('active');">3. Variant Search</button>
+        </div>
+        <div id="gen-ingest" class="code-panel gen-panel active"><pre>
+# Ingest gene expression time series from an RNA-seq experiment
+curl -X POST http://localhost:8080/v1/ingest/expression \
+  -H "Content-Type: application/json" \
+  -d '{
+    "experiment_id": "EXP-2026-0147",
+    "entity_type": "GeneExpression",
+    "genes": ["BDNF", "NTRK2", "SYN1", "GAD1", "SLC17A7"],
+    "timepoints": [
+      {
+        "timestamp": "2026-03-01T00:00:00Z",
+        "label": "baseline",
+        "values": {
+          "BDNF": [12.4, 11.8, 13.1],
+          "NTRK2": [8.2, 7.9, 8.5],
+          "SYN1": [45.1, 44.3, 46.2],
+          "GAD1": [22.7, 23.1, 22.4],
+          "SLC17A7": [31.5, 30.9, 32.1]
+        }
+      },
+      {
+        "timestamp": "2026-03-03T00:00:00Z",
+        "label": "treatment_48h",
+        "values": {
+          "BDNF": [28.9, 27.4, 30.2],
+          "NTRK2": [14.1, 13.8, 14.7],
+          "SYN1": [44.8, 45.1, 44.2],
+          "GAD1": [21.9, 22.3, 21.5],
+          "SLC17A7": [33.2, 32.8, 33.9]
+        }
+      }
+    ],
+    "compression": { "enabled": true }
+  }'
+
+# Response:
+# {
+#   "experiment_id": "EXP-2026-0147",
+#   "genes_ingested": 5,
+#   "timepoints_ingested": 2,
+#   "segments_created": 7,
+#   "compression_ratio": 1.4,
+#   "ingestion_time_ms": 12.3
+# }</pre></div>
+        <div id="gen-regime" class="code-panel gen-panel"><pre>
+# Detect expression regimes for BDNF across the experiment
+curl -X POST http://localhost:8080/v1/query/expression-regime \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entity_id": "BDNF",
+    "entity_type": "GeneExpression",
+    "experiment_id": "EXP-2026-0147",
+    "time_range": {
+      "start": "2026-03-01T00:00:00Z",
+      "end": "2026-03-15T00:00:00Z"
+    },
+    "include_regime_sequence": true
+  }'
+
+# Response:
+# {
+#   "entity_id": "BDNF",
+#   "current_regime": "Upregulated",
+#   "confidence": 0.93,
+#   "regime_sequence": [
+#     {
+#       "regime": "Stable",
+#       "start": "2026-03-01T00:00:00Z",
+#       "end": "2026-03-02T08:00:00Z",
+#       "mean_expression": 12.4,
+#       "stability": 0.96
+#     },
+#     {
+#       "regime": "Upregulated",
+#       "start": "2026-03-02T08:00:00Z",
+#       "end": "2026-03-05T00:00:00Z",
+#       "fold_change": 2.33,
+#       "stability": 0.89
+#     },
+#     {
+#       "regime": "Stable",
+#       "start": "2026-03-05T00:00:00Z",
+#       "end": "2026-03-15T00:00:00Z",
+#       "mean_expression": 29.2,
+#       "stability": 0.94
+#     }
+#   ],
+#   "latency_ms": 8.4
+# }</pre></div>
+        <div id="gen-variant" class="code-panel gen-panel"><pre>
+# Find variants with similar functional profiles to a novel variant
+curl -X POST http://localhost:8080/v1/query/variant-similarity \
+  -H "Content-Type: application/json" \
+  -d '{
+    "variant": {
+      "chromosome": "chr11",
+      "position": 27679916,
+      "ref": "G",
+      "alt": "A",
+      "gene": "BDNF",
+      "embedding": [0.12, -0.34, 0.87, ...]
+    },
+    "search": {
+      "top_k": 10,
+      "max_distance": 0.15,
+      "include_annotations": true
+    }
+  }'
+
+# Response:
+# {
+#   "query_variant": "chr11:27679916:G>A",
+#   "matches": [
+#     {
+#       "variant_id": "rs6265",
+#       "position": "chr11:27658369:C>T",
+#       "gene": "BDNF",
+#       "distance": 0.042,
+#       "annotation": {
+#         "clinical_significance": "pathogenic",
+#         "condition": "memory impairment",
+#         "expression_effect": "Downregulated",
+#         "fold_change": 0.61
+#       }
+#     },
+#     {
+#       "variant_id": "rs1048218",
+#       "position": "chr11:27676440:A>G",
+#       "gene": "BDNF",
+#       "distance": 0.089,
+#       "annotation": {
+#         "clinical_significance": "likely_benign",
+#         "expression_effect": "Stable",
+#         "fold_change": 0.97
+#       }
+#     }
+#   ],
+#   "latency_ms": 4.7
+# }</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Related Capabilities -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Related Capabilities</h2>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Analytics</div>
+        <div class="card-title">Trajectory Analysis</div>
+        <div class="card-description">FastDTW for cross-population trajectory comparison, DBSCAN clustering for cell state grouping, and change-point detection for expression regime transitions.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Compression</div>
+        <div class="card-title">Vector-Aware Compression</div>
+        <div class="card-description">1000x compression on steady-state expression data. Transition dynamics and perturbation responses retain full temporal resolution.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+      <div class="card">
+        <div class="card-label">Intelligence</div>
+        <div class="card-title">Cross-Domain Intelligence</div>
+        <div class="card-description">Correlate gene expression with neural organoid activity, drug response, and environmental conditions. Cascade detection identifies multi-factor genomic-phenotypic influences.</div>
+        <a href="../capabilities.html" style="display: inline-block; margin-top: 1rem; font-size: 0.9rem;">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="cta-title fade-in">Ready to add temporal-semantic intelligence to your genomics pipeline?</h2>
+    <p class="cta-subtitle fade-in">See VectorScaleDB track expression regimes, search variant embeddings, and bridge genomics with neural computing.</p>
+    <div class="fade-in">
+      <a href="mailto:demo@vectorscaledb.com?subject=VectorScaleDB%20Genomics%20Demo%20Request" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Request Genomics Demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="../logo.svg" alt="VectorScaleDB" class="nav-logo" style="margin-bottom: 1rem;">
+        <p class="card-description">The temporal-semantic hybrid database. Built with Rust.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Product</div>
+        <ul class="footer-links">
+          <li><a href="../capabilities.html">Capabilities</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../comparison.html">Compare</a></li>
+          <li><a href="../comparison.html#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <ul class="footer-links">
+          <li><a href="../docs/">Documentation</a></li>
+          <li><a href="../docs/api.html">API Reference</a></li>
+          <li><a href="../docs/sdks.html">SDKs</a></li>
+          <li><a href="mailto:sales@vectorscaledb.com">Enterprise Inquiries</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="https://vectorscaledb.com">vectorscaledb.com</a></li>
+          <li><a href="mailto:demo@vectorscaledb.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025-2026 VectorScaleDB. All rights reserved.</span>
+      <span class="patent-badge">Patent Pending</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

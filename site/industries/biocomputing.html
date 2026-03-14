@@ -245,7 +245,7 @@
       <div class="card">
         <div class="card-label">Integration</div>
         <div class="card-title">SpikeInterface / MEA Streams</div>
-        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via REST, GraphQL subscriptions, or gRPC. MCP server with 53 tools enables AI agents to automate organoid analysis, connectome queries, and multi-species emulation workflows.</div>
+        <div class="card-description">SpikeInterface-compatible recording objects for integration with Python-based spike sorting pipelines. Real-time MEA stream ingestion for closed-loop applications via REST, GraphQL subscriptions, or gRPC. MCP server with 57 tools enables AI agents to automate organoid analysis, connectome queries, and multi-species emulation workflows.</div>
       </div>
     </div>
     <div class="card fade-in" style="margin-top: 1.5rem;">
@@ -414,6 +414,29 @@ curl -X POST http://localhost:8080/v1/query/trajectory-similarity \
 #   "latency_ms": 189.4
 # }</pre></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Genomics Bridge -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Genomics Integration</h2>
+    <p class="section-subtitle fade-in">Bridge neural and organoid data with genomic data through cross-domain cascade detection. Correlate gene expression changes with neural activity patterns across experiments.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Cross-Domain</div>
+        <div class="card-title">Gene Expression &amp; Neural Activity Correlation</div>
+        <div class="card-description">VectorScaleDB's cross-domain cascade detection connects genomic and neural domains. When gene expression regimes shift (upregulation, downregulation, oscillation), cascade analysis identifies correlated changes in neural activity patterns. Researchers can answer questions like "which gene expression changes precede learning onset in this organoid?" directly from compressed behavioral and expression data.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Unified</div>
+        <div class="card-title">Multi-Omics Temporal Tracking</div>
+        <div class="card-description">Store DNA foundation model embeddings, RNA-seq time series, and neural recordings in the same temporal-semantic index. Track how genomic region representations evolve across conditions, treatments, or developmental stages alongside neural activity. Single-cell trajectory analysis and organoid behavioral comparison share the same query engine, enabling true multi-omics temporal intelligence.</div>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; text-align: center;">
+      <a href="genomics.html" style="font-size: 0.95rem; color: var(--accent);">Explore the full Genomics &amp; DNA industry page &rarr;</a>
     </div>
   </div>
 </section>

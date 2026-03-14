@@ -178,6 +178,30 @@
   </div>
 </section>
 
+<!-- Advanced Index Features -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Advanced Index Features</h2>
+    <p class="section-subtitle fade-in">Research-driven enhancements that accelerate search and reduce memory footprint without sacrificing recall.</p>
+    <div class="grid-2 fade-in">
+      <div class="card">
+        <div class="card-label">Pre-Filter</div>
+        <div class="card-title">Binary Hamming distance pruning</div>
+        <div class="card-description">
+          Before full cosine similarity evaluation, a compact binary signature for each vector enables rapid Hamming distance candidate pruning. This eliminates the majority of non-matching candidates at SIMD speed, reducing the number of full-precision distance computations by an order of magnitude while maintaining recall above 99%.
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Pyramid</div>
+        <div class="card-title">Matryoshka-aware pyramid levels</div>
+        <div class="card-description">
+          The vector pyramid supports Matryoshka Representation Learning (MRL) embedding truncation at each level. Coarse pyramid levels use shorter embedding prefixes for fast initial filtering, while fine levels use the full embedding for precise ranking. This enables coarse-to-fine search that is both faster and more memory-efficient than searching at full dimensionality.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Unified Query Planning -->
 <section class="section" style="padding-top: 0;">
   <div class="container">

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genomics API | VectorScaleDB Docs</title>
+  <meta name="description" content="VectorScaleDB genomics API: VCF variant ingestion, gene expression analysis, DNA foundation model embeddings, and cell state trajectory tracking.">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <meta name="theme-color" content="#09090b">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../docs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="docs-nav"></div>
+  <div class="docs-layout">
+    <div id="docs-sidebar"></div>
+    <main class="docs-content" id="docs-content">
+      <ul class="docs-breadcrumb">
+        <li><a href="../">Home</a></li>
+        <li><a href="api.html">API Reference</a></li>
+        <li>Genomics</li>
+      </ul>
+      <h1>Genomics</h1>
+      <p class="docs-intro">VCF variant ingestion, gene expression regime detection, DNA foundation model embeddings, variant impact analysis, and cell state trajectory tracking.</p>
+      <div class="docs-callout docs-callout--info">Base URL: <code>https://your-instance.vectorscaledb.com</code></div>
+      <div id="api-endpoints"></div>
+    </main>
+  </div>
+  <div id="docs-footer"></div>
+  <script src="../components.js"></script>
+  <script src="../docs.js"></script>
+  <script>
+    const API_DATA = [
+      {
+        title: 'Genomics',
+        id: 'genomics',
+        open: true,
+        endpoints: [
+          {
+            method: 'POST',
+            path: '/v1/ingest/vcf',
+            description: 'Ingest VCF variant data. Parses variant calls from VCF format and stores each variant as a temporal-semantic vector with chromosome, position, quality, and effect prediction dimensions.',
+            request: '{\n  "entity_id": "sample-NA12878",\n  "variants": [\n    {\n      "chrom": "chr7",\n      "pos": 117559590,\n      "ref": "A",\n      "alt": "G",\n      "qual": 99.0,\n      "filter": "PASS",\n      "info": { "gene": "CFTR", "consequence": "missense_variant" }\n    }\n  ],\n  "reference_genome": "GRCh38"\n}',
+            response: '{\n  "ingested": 1,\n  "entity_type": "VARIANT_CALL",\n  "compressed": false,\n  "latency_ms": 2.1\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/vcf \\\n  -H "Content-Type: application/json" \\\n  -d @variants.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/expression',
+            description: 'Ingest gene expression data from bulk RNA-seq or single-cell experiments. Each sample becomes a temporal vector tracking expression levels across a gene set over time.',
+            request: '{\n  "entity_id": "cell-AAACCTGA",\n  "genes": ["TP53", "BRCA1", "EGFR", "MYC", "KRAS"],\n  "values": [12.4, 3.1, 8.7, 22.1, 0.4],\n  "normalization": "tpm",\n  "source": "single_cell",\n  "timestamp": "2026-03-08T10:00:00Z"\n}',
+            response: '{\n  "ingested": 1,\n  "entity_type": "GENE_EXPRESSION",\n  "dimensions": 5,\n  "compressed": false,\n  "latency_ms": 1.8\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/expression \\\n  -H "Content-Type: application/json" \\\n  -d @expression.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/ingest/genomic-embedding',
+            description: 'Ingest pre-computed DNA foundation model embeddings from models such as Evo 2 or DNABERT-2. Store high-dimensional genomic region representations for similarity search and downstream analysis.',
+            request: '{\n  "entity_id": "region-chr17-41196312",\n  "embedding": [0.12, -0.34, 0.56, 0.78, ...],\n  "model": "evo2",\n  "region": {\n    "chrom": "chr17",\n    "start": 41196312,\n    "end": 41277500,\n    "name": "BRCA1"\n  },\n  "timestamp": "2026-03-08T10:00:00Z"\n}',
+            response: '{\n  "ingested": 1,\n  "entity_type": "GENOMIC_REGION",\n  "dimensions": 512,\n  "compressed": false,\n  "latency_ms": 1.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/ingest/genomic-embedding \\\n  -H "Content-Type: application/json" \\\n  -d @embedding.json'
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/expression-regime',
+            description: 'Detect expression regime changes over time for a gene or cell. Identifies transitions between expression states such as upregulated, downregulated, oscillating, bistable, and stable.',
+            request: '{\n  "entity_id": "cell-AAACCTGA",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "sensitivity": 0.7\n}',
+            response: '{\n  "entity_id": "cell-AAACCTGA",\n  "regimes": [\n    {\n      "start": "2026-03-01T00:00:00Z",\n      "end": "2026-03-03T14:00:00Z",\n      "state": "stable",\n      "confidence": 0.94\n    },\n    {\n      "start": "2026-03-03T14:00:00Z",\n      "end": "2026-03-05T08:00:00Z",\n      "state": "upregulated",\n      "confidence": 0.88\n    },\n    {\n      "start": "2026-03-05T08:00:00Z",\n      "end": "2026-03-08T23:59:59Z",\n      "state": "oscillating",\n      "confidence": 0.76\n    }\n  ],\n  "total_transitions": 2,\n  "latency_ms": 24.6\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/expression-regime \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "cell-AAACCTGA", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/variant-impact',
+            description: 'Find similar variants by embedding using KNN search on genomic region embeddings. Useful for identifying variants with similar predicted functional effects or locating known pathogenic variants near a novel variant.',
+            request: '{\n  "query_variant": {\n    "chrom": "chr7",\n    "pos": 117559590,\n    "ref": "A",\n    "alt": "G"\n  },\n  "k": 10,\n  "max_distance": 0.5,\n  "reference_genome": "GRCh38"\n}',
+            response: '{\n  "matches": [\n    {\n      "entity_id": "variant-rs113993960",\n      "similarity": 0.94,\n      "chrom": "chr7",\n      "pos": 117559593,\n      "gene": "CFTR",\n      "consequence": "frameshift_variant",\n      "clinical_significance": "pathogenic"\n    }\n  ],\n  "total": 10,\n  "latency_ms": 3.8\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/variant-impact \\\n  -H "Content-Type: application/json" \\\n  -d \'{"query_variant": {"chrom": "chr7", "pos": 117559590, "ref": "A", "alt": "G"}, "k": 10}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/cell-trajectory',
+            description: 'Analyze cell state evolution over time. Tracks how a cell or cell population transitions through states using trajectory similarity, identifying differentiation paths, state transitions, and outlier cells.',
+            request: '{\n  "entity_id": "cell-AAACCTGA",\n  "time_range": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-08T23:59:59Z"\n  },\n  "find_similar": true,\n  "k": 5\n}',
+            response: '{\n  "entity_id": "cell-AAACCTGA",\n  "trajectory_length": 42,\n  "state_transitions": [\n    {\n      "timestamp": "2026-03-04T06:00:00Z",\n      "from_state": "progenitor",\n      "to_state": "differentiating",\n      "confidence": 0.91\n    }\n  ],\n  "similar_trajectories": [\n    { "entity_id": "cell-TTTGTCAA", "similarity": 0.87 },\n    { "entity_id": "cell-GCTGCTAG", "similarity": 0.82 }\n  ],\n  "latency_ms": 31.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/cell-trajectory \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "cell-AAACCTGA", "time_range": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-08T23:59:59Z"}, "find_similar": true, "k": 5}\''
+          }
+        ]
+      }
+    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      VsdbDocs.init('api-genomics');
+      const container = document.getElementById('api-endpoints');
+      API_DATA.forEach(group => {
+        VsdbDocs.renderEndpointGroup(container, group);
+      });
+    });
+  </script>
+</body>
+</html>

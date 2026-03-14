@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entity Types | VectorScaleDB Docs</title>
-  <meta name="description" content="Complete reference for all 51 VectorScaleDB entity types across 12 domains — IoT, NPC AI, neural emulation, social dynamics, geospatial, finance, networking, and more.">
+  <meta name="description" content="Complete reference for all 55 VectorScaleDB entity types across 13 domains — IoT, NPC AI, neural emulation, social dynamics, geospatial, genomics, finance, networking, and more.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <meta name="theme-color" content="#09090b">
   <link rel="stylesheet" href="../style.css">
@@ -421,6 +421,35 @@
           <tr>
             <td><code>TRANSIT_VEHICLE</code></td>
             <td>Public transit position: lat, lon, speed, heading, route (8-dim)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Genomics & DNA -->
+      <h2 id="genomics">Genomics &amp; DNA</h2>
+      <table class="docs-table">
+        <thead>
+          <tr>
+            <th>Type Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>GENOMIC_REGION</code></td>
+            <td>Genomic region embedding from DNA foundation models (gene, promoter, enhancer, variant locus)</td>
+          </tr>
+          <tr>
+            <td><code>GENE_EXPRESSION</code></td>
+            <td>Gene expression level over time (bulk RNA-seq, single-cell)</td>
+          </tr>
+          <tr>
+            <td><code>VARIANT_CALL</code></td>
+            <td>Variant call with effect prediction (SNP, indel, structural variant)</td>
+          </tr>
+          <tr>
+            <td><code>CELL_STATE</code></td>
+            <td>Cell state embedding (single-cell transcriptomics, epigenetic state)</td>
           </tr>
         </tbody>
       </table>

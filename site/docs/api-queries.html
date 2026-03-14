@@ -70,6 +70,30 @@
             request: '{\n  "entity_id": "vehicle-0042",\n  "horizon": "1h",\n  "confidence_intervals": [0.5, 0.9, 0.99]\n}',
             response: '{\n  "entity_id": "vehicle-0042",\n  "forecast": [\n    {\n      "timestamp": "2026-03-08T16:00:00Z",\n      "predicted_embedding": [...],\n      "confidence": { "p50": 0.12, "p90": 0.31, "p99": 0.58 }\n    }\n  ],\n  "model": "behavioral_extrapolation",\n  "latency_ms": 8.2\n}',
             curl: 'curl -X POST http://localhost:8080/v1/query/forecast \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_id": "vehicle-0042", "horizon": "1h", "confidence_intervals": [0.5, 0.9, 0.99]}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/segment-distance',
+            desc: 'Compare two segments using cosine or Wasserstein-2 distance. Useful for measuring distributional similarity between compressed behavioral summaries across any entity type.',
+            request: '{\n  "segment_a": "seg-00a1b2c3",\n  "segment_b": "seg-00d4e5f6",\n  "metric": "wasserstein"\n}',
+            response: '{\n  "distance": 0.142,\n  "metric": "wasserstein",\n  "segment_a_entities": 12,\n  "segment_b_entities": 8,\n  "latency_ms": 1.4\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/segment-distance \\\n  -H "Content-Type: application/json" \\\n  -d \'{"segment_a": "seg-00a1b2c3", "segment_b": "seg-00d4e5f6", "metric": "wasserstein"}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/subspace-drift',
+            desc: 'Measure null-space subspace drift between two time windows. Detects structural changes in entity behavior that may not be visible in raw vector distance.',
+            request: '{\n  "entity_type": "LINK_METRIC",\n  "window_a": {\n    "start": "2026-03-01T00:00:00Z",\n    "end": "2026-03-04T00:00:00Z"\n  },\n  "window_b": {\n    "start": "2026-03-04T00:00:00Z",\n    "end": "2026-03-07T00:00:00Z"\n  }\n}',
+            response: '{\n  "drift_score": 0.38,\n  "principal_angle_degrees": 22.1,\n  "affected_dimensions": [3, 7, 11],\n  "interpretation": "moderate_structural_shift",\n  "latency_ms": 14.6\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/subspace-drift \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "LINK_METRIC", "window_a": {"start": "2026-03-01T00:00:00Z", "end": "2026-03-04T00:00:00Z"}, "window_b": {"start": "2026-03-04T00:00:00Z", "end": "2026-03-07T00:00:00Z"}}\''
+          },
+          {
+            method: 'POST',
+            path: '/v1/query/topological-anomaly',
+            desc: 'Detect topological changes in entity behavior via persistent homology. Identifies structural anomalies such as merging clusters, emerging loops, or fragmenting groups that distance-based methods miss.',
+            request: '{\n  "entity_type": "NETWORK_FLOW",\n  "time_range": {\n    "start": "2026-03-07T00:00:00Z",\n    "end": "2026-03-08T00:00:00Z"\n  },\n  "max_dimension": 2\n}',
+            response: '{\n  "anomalies": [\n    {\n      "timestamp": "2026-03-07T14:22:00Z",\n      "type": "new_loop",\n      "persistence": 0.72,\n      "dimension": 1,\n      "severity": "high"\n    }\n  ],\n  "betti_numbers": [4, 1, 0],\n  "total_anomalies": 3,\n  "latency_ms": 48.2\n}',
+            curl: 'curl -X POST http://localhost:8080/v1/query/topological-anomaly \\\n  -H "Content-Type: application/json" \\\n  -d \'{"entity_type": "NETWORK_FLOW", "time_range": {"start": "2026-03-07T00:00:00Z", "end": "2026-03-08T00:00:00Z"}, "max_dimension": 2}\''
           }
         ]
       }

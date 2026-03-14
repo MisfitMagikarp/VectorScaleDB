@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cross-Domain Intelligence | VectorScaleDB</title>
-  <meta name="description" content="VectorScaleDB cross-domain intelligence: cascade detection, regime prediction, cross-domain alerting, DBSCAN composition analysis, and pattern replay across 51 entity types.">
+  <meta name="description" content="VectorScaleDB cross-domain intelligence: cascade detection, regime prediction, cross-domain alerting, HDBSCAN composition analysis, and pattern replay across 55 entity types.">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="apple-touch-icon" href="../favicon.svg">
   <meta property="og:title" content="Cross-Domain Intelligence | VectorScaleDB">
@@ -69,7 +69,7 @@
 <section class="section" id="unified-format">
   <div class="container">
     <h2 class="section-title fade-in">Domain-Agnostic Segment Format</h2>
-    <p class="section-subtitle fade-in">51 entity types share a single compressed representation. Compare a vehicle's trajectory to a network link's behavior &mdash; the math is the same.</p>
+    <p class="section-subtitle fade-in">55 entity types share a single compressed representation. Compare a vehicle's trajectory to a network link's behavior &mdash; the math is the same.</p>
     <div class="grid-3 fade-in">
       <div class="card">
         <div class="card-label">Unified Representation</div>
@@ -77,9 +77,9 @@
         <div class="card-description">Every entity &mdash; whether it is a vehicle, a financial instrument, a network link, or a neural organoid &mdash; compresses into the same segment structure: a centroid vector, temporal bounds, drift magnitude, and metadata. This uniformity is what makes cross-domain queries possible.</div>
       </div>
       <div class="card">
-        <div class="card-label">51 Entity Types</div>
-        <div class="card-title">12 Domains, One Index</div>
-        <div class="card-description">Autonomous vehicles, finance, networking, spatial computing, IoT, gaming, bio-computing, film/VFX, social dynamics, geospatial, neural emulation, and NPC AI. Each entity type has a purpose-built ingestion adapter, but downstream &mdash; in the index, compression engine, and query planner &mdash; they are all segments.</div>
+        <div class="card-label">55 Entity Types</div>
+        <div class="card-title">13 Domains, One Index</div>
+        <div class="card-description">Autonomous vehicles, finance, networking, spatial computing, IoT, gaming, bio-computing, film/VFX, social dynamics, geospatial, neural emulation, NPC AI, and genomics. Each entity type has a purpose-built ingestion adapter, but downstream &mdash; in the index, compression engine, and query planner &mdash; they are all segments.</div>
       </div>
       <div class="card">
         <div class="card-label">Behavioral Math</div>
@@ -133,8 +133,8 @@
       </div>
       <div class="card">
         <div class="card-label">Composition</div>
-        <div class="card-title">DBSCAN Domain Analysis</div>
-        <div class="card-description">For any behavioral cluster discovered via DBSCAN, the domain composition report shows which entity types and domains contribute to the cluster. A cluster of 200 segments might be 40% financial, 35% energy, 25% logistics &mdash; revealing cross-domain coupling.</div>
+        <div class="card-title">HDBSCAN Domain Analysis</div>
+        <div class="card-description">For any behavioral cluster discovered via HDBSCAN variable-density clustering, the domain composition report shows which entity types and domains contribute to the cluster. A cluster of 200 segments might be 40% financial, 35% energy, 25% logistics &mdash; revealing cross-domain coupling. Wasserstein distribution-aware segment comparison measures how regime distributions diverge across domains, while topological anomaly detection via persistent homology surfaces structural changes invisible to distance-based methods.</div>
       </div>
     </div>
   </div>

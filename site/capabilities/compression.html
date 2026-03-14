@@ -290,6 +290,31 @@ stats = client.compression.stats(entity_type=<span style="color: #22c55e;">"INFR
   </div>
 </section>
 
+<!-- Advanced Compression Features -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <h2 class="section-title fade-in">Advanced Compression Features</h2>
+    <p class="section-subtitle fade-in">Research-driven enhancements that push compression ratios further while maintaining query accuracy.</p>
+    <div class="grid-3 fade-in">
+      <div class="card">
+        <div class="card-label">Quantization</div>
+        <div class="card-title">RaBitQ multi-bit quantization</div>
+        <div class="card-description">Configurable 2, 4, or 8 bits per dimension with randomized lattice quantization. Reduces segment storage by 4-16x on top of drift-based compression while preserving distance ranking accuracy for downstream KNN and anomaly queries.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Stationarity</div>
+        <div class="card-title">Auto-hibernation for idle entities</div>
+        <div class="card-description">Entities in a stationary regime are automatically promoted to an O(1) fast path that bypasses the full compression pipeline. No drift evaluation, no WAL writes &mdash; just a lightweight heartbeat. When behavior resumes, the entity seamlessly re-enters the standard pipeline.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Adaptivity</div>
+        <div class="card-title">Intrinsic dimensionality-aware thresholds</div>
+        <div class="card-description">Drift thresholds automatically adapt based on the intrinsic dimensionality of each entity's behavioral manifold. High-dimensional entities with complex behavior get wider thresholds; low-dimensional entities with predictable trajectories get tighter thresholds &mdash; all without manual tuning.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Related API Endpoints -->
 <section class="section" style="padding-top: 0;">
   <div class="container">
